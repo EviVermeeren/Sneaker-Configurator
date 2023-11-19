@@ -35,8 +35,8 @@ header {
 }
 
 .link {
-  font-family: "Inter-Light", Helvetica;
-  font-weight: 300;
+  font-family: "basic-sans", sans-serif;
+  font-weight: 400;
   color: #000000;
   font-size: 24px;
   letter-spacing: 0.96px;

@@ -1,4 +1,6 @@
 <template>
+  <h1>Hello admin!</h1>
+  <button id="passwordchange">Change password</button>
   <h1>All orders</h1>
   <div class="container">
     <div v-for="shoe in shoes" :key="shoe.id" class="shoe-item">
@@ -116,6 +118,24 @@ button {
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+#passwordchange {
+  color: #d6ff38;
+  background-color: #000;
+  width: 10%;
+  max-width: 300px;
+  height: 50px;
+  font-family: "cooper-black-std", serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 100px;
 }
 
 img {

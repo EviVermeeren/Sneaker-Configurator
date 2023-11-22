@@ -14,7 +14,7 @@
 
       <label for="newpassword">New password</label>
       <input
-        type="newpassword"
+        type="password"
         id="newpassword"
         name="newpassword"
         v-model="newpassword"
@@ -27,9 +27,42 @@
 
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router"; // Import useRouter
+import { useRouter } from "vue-router";
 
-const router = useRouter(); // Get the router instance
+const router = useRouter();
+const oldpassword = ref("");
+const newpassword = ref("");
+
+const change = async () => {
+  try {
+    const response = await fetch(
+      "https://your-api-endpoint.com/api/updatePassword", // Replace with your actual API endpoint
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          currentPassword: oldpassword.value,
+          newPassword: newpassword.value,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      console.log("Password updated successfully");
+      // Redirect to another page or perform other actions
+    } else {
+      console.error("Error updating password:", data.message);
+      // Handle error, display a message to the user, etc.
+    }
+  } catch (error) {
+    console.error("Error updating password:", error);
+    // Handle error, display a message to the user, etc.
+  }
+};
 </script>
 
 <style scoped>

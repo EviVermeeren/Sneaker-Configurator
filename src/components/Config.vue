@@ -14,7 +14,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="updateColorLaces('#FF0000')">
             <div
               :class="{
@@ -23,7 +23,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="updateColorLaces('#FFC0CB')">
             <div
               :class="{
@@ -32,7 +32,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="updateColorLaces('#C9C9C9')">
             <div
               :class="{
@@ -42,7 +42,7 @@
             ></div>
           </div>
         </div>
-  
+
         <div id="solecolor">
           <p class="subtitle">Sole color</p>
           <div :class="{ options: true }" @click="updateColorSole('#FFFF00')">
@@ -53,7 +53,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="updateColorSole('#FF0000')">
             <div
               :class="{
@@ -62,7 +62,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="updateColorSole('#FFC0CB')">
             <div
               :class="{
@@ -71,7 +71,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="updateColorSole('#C9C9C9')">
             <div
               :class="{
@@ -81,7 +81,7 @@
             ></div>
           </div>
         </div>
-  
+
         <div id="bottomcolor">
           <p class="subtitle">Panel one color</p>
           <div :class="{ options: true }" @click="updateColorinside('#FFFF00')">
@@ -92,7 +92,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="updateColorinside('#FF0000')">
             <div
               :class="{
@@ -101,7 +101,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="updateColorinside('#FFC0CB')">
             <div
               :class="{
@@ -110,7 +110,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="updateColorinside('#C9C9C9')">
             <div
               :class="{
@@ -120,7 +120,7 @@
             ></div>
           </div>
         </div>
-  
+
         <div id="topcolor">
           <p class="subtitle">Panel two color</p>
           <div :class="{ options: true }" @click="updateColorTop('#FFFF00')">
@@ -131,7 +131,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="updateColorTop('#FF0000')">
             <div
               :class="{
@@ -140,7 +140,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="updateColorTop('#FFC0CB')">
             <div
               :class="{
@@ -149,7 +149,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="updateColorTop('#C9C9C9')">
             <div
               :class="{
@@ -159,7 +159,7 @@
             ></div>
           </div>
         </div>
-  
+
         <div id="topmaterial">
           <p class="subtitle">Panel one material</p>
           <div
@@ -173,7 +173,7 @@
               }"
             ></div>
           </div>
-  
+
           <div
             :class="{ options: true }"
             @click="updateMaterialTop('/textures/holes.jpg')"
@@ -185,7 +185,7 @@
               }"
             ></div>
           </div>
-  
+
           <div
             :class="{ options: true }"
             @click="updateMaterialTop('/textures/latex.jpg')"
@@ -197,7 +197,7 @@
               }"
             ></div>
           </div>
-  
+
           <div
             :class="{ options: true }"
             @click="updateMaterialTop('/textures/fabric.jpg')"
@@ -210,7 +210,7 @@
             ></div>
           </div>
         </div>
-  
+
         <div id="bottommaterial">
           <p class="subtitle">Panel two material</p>
           <div
@@ -224,7 +224,7 @@
               }"
             ></div>
           </div>
-  
+
           <div
             :class="{ options: true }"
             @click="updateMaterialBottom('/textures/holes.jpg')"
@@ -236,7 +236,7 @@
               }"
             ></div>
           </div>
-  
+
           <div
             :class="{ options: true }"
             @click="updateMaterialBottom('/textures/latex.jpg')"
@@ -248,7 +248,7 @@
               }"
             ></div>
           </div>
-  
+
           <div
             :class="{ options: true }"
             @click="updateMaterialBottom('/textures/fabric.jpg')"
@@ -261,7 +261,7 @@
             ></div>
           </div>
         </div>
-  
+
         <div id="jewels">
           <p class="subtitle">Jewels</p>
           <div :class="{ options: true }" @click="addJewelGiraffe">
@@ -272,7 +272,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="addJewelElephant">
             <div
               :class="{
@@ -281,7 +281,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="addJewelHedgehog">
             <div
               :class="{
@@ -290,7 +290,7 @@
               }"
             ></div>
           </div>
-  
+
           <div :class="{ options: true }" @click="addJewelWhale">
             <div
               :class="{
@@ -301,7 +301,7 @@
           </div>
         </div>
       </div>
-  
+
       <div class="user-details">
         <div class="user-details-div">
           <label for="shoeSize">Shoe Size:</label>
@@ -321,10 +321,9 @@
         </div>
       </div>
       <div v-if="formError" class="error-message">{{ formError }}</div>
-  
+
       <button @click="handleDoneButtonClick">Done</button>
     </div>
-
   </div>
 </template>
 
@@ -729,7 +728,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #threeContainers {
   width: 100%;
   height: 50vh;

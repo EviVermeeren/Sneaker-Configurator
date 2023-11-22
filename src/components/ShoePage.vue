@@ -8,7 +8,7 @@
       <h2>Custom shoes</h2>
       <p>€200,00</p>
       <div class="buttons">
-        <button><router-link to="/customize">customize</router-link></button>
+        <button><router-link to="/customize">CUSTOMIZE</router-link></button>
         <button>BUY</button>
       </div>
     </div>
@@ -22,6 +22,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: #d6ff38;
+}
 h1 {
   font-family: "cooper-black-std", serif;
   font-weight: 400;

@@ -50,6 +50,9 @@ const login = async () => {
     // Save the token to local storage
     localStorage.setItem("token", responseData.data.token);
     localStorage.setItem("username", responseData.data.user.userName);
+
+    // Redirect to the orders page
+    router.push("/orders");
   } catch (error) {
     console.error("Login error:", error.message);
     // Handle login error, display a message to the user, etc.
@@ -58,6 +61,10 @@ const login = async () => {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: #d6ff38;
+}
 .login-container {
   background-color: #242424;
   width: 100vw;

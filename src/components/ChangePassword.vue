@@ -55,7 +55,7 @@ const updatePassword = async () => {
       console.log("Password changed successfully");
       // You can handle success here, e.g., show a success message to the user
       // Optionally, you can redirect to another page
-      router.push("/success");
+      router.push("/orders");
     } else {
       console.error("Error changing password", response.statusText);
       // You can handle errors here, e.g., show an error message to the user

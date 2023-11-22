@@ -1,6 +1,8 @@
 <template>
   <h1>Hello admin!</h1>
-  <button id="passwordchange">Change password</button>
+  <button id="passwordchange">
+    <router-link to="/changepassword">Change password</router-link>
+  </button>
   <h1>All orders</h1>
   <div class="container">
     <div v-for="shoe in shoes" :key="shoe.id" class="shoe-item">
@@ -52,6 +54,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: #d6ff38;
+}
 h1 {
   font-family: "cooper-black-std", serif;
   font-weight: 400;

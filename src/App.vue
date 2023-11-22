@@ -7,7 +7,7 @@ import Login from "./components/Login.vue";
 <template>
   <Header />
   <ShoePage />
-  <login/>
+  <!-- <login/> -->
 </template>
 
 <style scoped></style>

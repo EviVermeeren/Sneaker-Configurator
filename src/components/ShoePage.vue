@@ -1,15 +1,17 @@
 <template>
-  <div class="flex">
-    <div>
-      <img src="../assets/shoe.webp" alt="SHOE" />
-    </div>
-    <div>
-      <h1>AIR REV. NITRO S</h1>
-      <h2>Custom shoes</h2>
-      <p>€200,00</p>
-      <div class="buttons">
-        <button><router-link to="/customize">CUSTOMIZE</router-link></button>
-        <button>BUY</button>
+  <div class="bgc">
+    <div class="flex">
+      <div>
+        <img src="../assets/shoe.webp" alt="SHOE" />
+      </div>
+      <div>
+        <h1>AIR REV. NITRO S</h1>
+        <h2>Custom shoes</h2>
+        <p>€200,00</p>
+        <div class="buttons">
+          <button><router-link to="/customize">CUSTOMIZE</router-link></button>
+          <button>BUY</button>
+        </div>
       </div>
     </div>
   </div>
@@ -22,6 +24,10 @@ export default {
 </script>
 
 <style scoped>
+.bgc {
+  background-color: #fff;
+  height: 100vh;
+}
 a {
   text-decoration: none;
   color: #d6ff38;
@@ -63,6 +69,7 @@ p {
   width: 100vw;
   padding: 43px;
   gap: 100px;
+  padding-top: 100px;
 }
 
 img {

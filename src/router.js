@@ -5,6 +5,7 @@ import ShoePage from "./components/ShoePage.vue";
 import Config from "./components/Config.vue";
 import Orders from "./components/Orders.vue";
 import ChangePassword from "./components/ChangePassword.vue";
+import ShoeDetails from "./components/ShoeDetails.vue";
 
 const routes = [
   { path: "/", component: ShoePage },
@@ -12,7 +13,11 @@ const routes = [
   { path: "/login", component: Login },
   { path: "/orders", component: Orders },
   { path: "/changepassword", component: ChangePassword },
-  // Add more routes as needed
+  {
+    path: "/shoe/:id",
+    name: "shoe-details",
+    component: ShoeDetails,
+  },
 ];
 
 const router = createRouter({

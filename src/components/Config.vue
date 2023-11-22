@@ -2,283 +2,329 @@
   <div>
     <div class="canvas-container" ref="canvasContainer"></div>
 
-    <div id="configurator">
-      <div id="lacecolor">
-        <p class="subtitle">Laces color</p>
-        <div :class="{ options: true }" @click="updateColorLaces('#FFFF00')">
-          <div
-            :class="{
-              circles: true,
-              yellow: true,
-            }"
-          ></div>
+    <div class="optionsContainer">
+      <div id="configurator">
+        <div id="lacecolor">
+          <p class="subtitle">Laces color</p>
+          <div :class="{ options: true }" @click="updateColorLaces('#FFFF00')">
+            <div
+              :class="{
+                circles: true,
+                yellow: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="updateColorLaces('#FF0000')">
+            <div
+              :class="{
+                circles: true,
+                red: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="updateColorLaces('#FFC0CB')">
+            <div
+              :class="{
+                circles: true,
+                black: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="updateColorLaces('#C9C9C9')">
+            <div
+              :class="{
+                circles: true,
+                grey: true,
+              }"
+            ></div>
+          </div>
         </div>
-
-        <div :class="{ options: true }" @click="updateColorLaces('#FF0000')">
-          <div
-            :class="{
-              circles: true,
-              red: true,
-            }"
-          ></div>
+  
+        <div id="solecolor">
+          <p class="subtitle">Sole color</p>
+          <div :class="{ options: true }" @click="updateColorSole('#FFFF00')">
+            <div
+              :class="{
+                circles: true,
+                yellow: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="updateColorSole('#FF0000')">
+            <div
+              :class="{
+                circles: true,
+                red: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="updateColorSole('#FFC0CB')">
+            <div
+              :class="{
+                circles: true,
+                black: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="updateColorSole('#C9C9C9')">
+            <div
+              :class="{
+                circles: true,
+                grey: true,
+              }"
+            ></div>
+          </div>
         </div>
-
-        <div :class="{ options: true }" @click="updateColorLaces('#FFC0CB')">
-          <div
-            :class="{
-              circles: true,
-              black: true,
-            }"
-          ></div>
+  
+        <div id="bottomcolor">
+          <p class="subtitle">Panel one color</p>
+          <div :class="{ options: true }" @click="updateColorinside('#FFFF00')">
+            <div
+              :class="{
+                circles: true,
+                yellow: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="updateColorinside('#FF0000')">
+            <div
+              :class="{
+                circles: true,
+                red: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="updateColorinside('#FFC0CB')">
+            <div
+              :class="{
+                circles: true,
+                black: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="updateColorinside('#C9C9C9')">
+            <div
+              :class="{
+                circles: true,
+                grey: true,
+              }"
+            ></div>
+          </div>
         </div>
-
-        <div :class="{ options: true }" @click="updateColorLaces('#C9C9C9')">
+  
+        <div id="topcolor">
+          <p class="subtitle">Panel two color</p>
+          <div :class="{ options: true }" @click="updateColorTop('#FFFF00')">
+            <div
+              :class="{
+                circles: true,
+                yellow: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="updateColorTop('#FF0000')">
+            <div
+              :class="{
+                circles: true,
+                red: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="updateColorTop('#FFC0CB')">
+            <div
+              :class="{
+                circles: true,
+                black: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="updateColorTop('#C9C9C9')">
+            <div
+              :class="{
+                circles: true,
+                grey: true,
+              }"
+            ></div>
+          </div>
+        </div>
+  
+        <div id="topmaterial">
+          <p class="subtitle">Panel one material</p>
           <div
-            :class="{
-              circles: true,
-              grey: true,
-            }"
-          ></div>
+            :class="{ options: true }"
+            @click="updateMaterialTop('/textures/leather.jpg')"
+          >
+            <div
+              :class="{
+                circles: true,
+                leather: true,
+              }"
+            ></div>
+          </div>
+  
+          <div
+            :class="{ options: true }"
+            @click="updateMaterialTop('/textures/holes.jpg')"
+          >
+            <div
+              :class="{
+                circles: true,
+                holes: true,
+              }"
+            ></div>
+          </div>
+  
+          <div
+            :class="{ options: true }"
+            @click="updateMaterialTop('/textures/latex.jpg')"
+          >
+            <div
+              :class="{
+                circles: true,
+                latex: true,
+              }"
+            ></div>
+          </div>
+  
+          <div
+            :class="{ options: true }"
+            @click="updateMaterialTop('/textures/fabric.jpg')"
+          >
+            <div
+              :class="{
+                circles: true,
+                fabric: true,
+              }"
+            ></div>
+          </div>
+        </div>
+  
+        <div id="bottommaterial">
+          <p class="subtitle">Panel two material</p>
+          <div
+            :class="{ options: true }"
+            @click="updateMaterialBottom('/textures/leather.jpg')"
+          >
+            <div
+              :class="{
+                circles: true,
+                leather: true,
+              }"
+            ></div>
+          </div>
+  
+          <div
+            :class="{ options: true }"
+            @click="updateMaterialBottom('/textures/holes.jpg')"
+          >
+            <div
+              :class="{
+                circles: true,
+                holes: true,
+              }"
+            ></div>
+          </div>
+  
+          <div
+            :class="{ options: true }"
+            @click="updateMaterialBottom('/textures/latex.jpg')"
+          >
+            <div
+              :class="{
+                circles: true,
+                latex: true,
+              }"
+            ></div>
+          </div>
+  
+          <div
+            :class="{ options: true }"
+            @click="updateMaterialBottom('/textures/fabric.jpg')"
+          >
+            <div
+              :class="{
+                circles: true,
+                fabric: true,
+              }"
+            ></div>
+          </div>
+        </div>
+  
+        <div id="jewels">
+          <p class="subtitle">Jewels</p>
+          <div :class="{ options: true }" @click="addJewelGiraffe">
+            <div
+              :class="{
+                circles: true,
+                jewelGiraffe: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="addJewelElephant">
+            <div
+              :class="{
+                circles: true,
+                jewelElephant: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="addJewelHedgehog">
+            <div
+              :class="{
+                circles: true,
+                jewelHedgehog: true,
+              }"
+            ></div>
+          </div>
+  
+          <div :class="{ options: true }" @click="addJewelWhale">
+            <div
+              :class="{
+                circles: true,
+                jewelWhale: true,
+              }"
+            ></div>
+          </div>
         </div>
       </div>
-
-      <div id="solecolor">
-        <p class="subtitle">Sole color</p>
-        <div :class="{ options: true }" @click="updateColorSole('#FFFF00')">
-          <div
-            :class="{
-              circles: true,
-              yellow: true,
-            }"
-          ></div>
+  
+      <div class="user-details">
+        <div class="user-details-div">
+          <label for="shoeSize">Shoe Size:</label>
+          <input type="number" v-model="shoeSize" />
         </div>
-
-        <div :class="{ options: true }" @click="updateColorSole('#FF0000')">
-          <div
-            :class="{
-              circles: true,
-              red: true,
-            }"
-          ></div>
+        <div class="user-details-div">
+          <label for="userName">User Name:</label>
+          <input type="text" v-model="userName" />
         </div>
-
-        <div :class="{ options: true }" @click="updateColorSole('#FFC0CB')">
-          <div
-            :class="{
-              circles: true,
-              black: true,
-            }"
-          ></div>
+        <div class="user-details-div">
+          <label for="userAddress">User Address:</label>
+          <input type="text" v-model="userAddress" />
         </div>
-
-        <div :class="{ options: true }" @click="updateColorSole('#C9C9C9')">
-          <div
-            :class="{
-              circles: true,
-              grey: true,
-            }"
-          ></div>
+        <div class="user-details-div">
+          <label for="userEmail">User Email:</label>
+          <input type="email" v-model="userEmail" />
         </div>
       </div>
-
-      <div id="bottomcolor">
-        <p class="subtitle">Panel one color</p>
-        <div :class="{ options: true }" @click="updateColorinside('#FFFF00')">
-          <div
-            :class="{
-              circles: true,
-              yellow: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorinside('#FF0000')">
-          <div
-            :class="{
-              circles: true,
-              red: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorinside('#FFC0CB')">
-          <div
-            :class="{
-              circles: true,
-              black: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorinside('#C9C9C9')">
-          <div
-            :class="{
-              circles: true,
-              grey: true,
-            }"
-          ></div>
-        </div>
-      </div>
-
-      <div id="topcolor">
-        <p class="subtitle">Panel two color</p>
-        <div :class="{ options: true }" @click="updateColorTop('#FFFF00')">
-          <div
-            :class="{
-              circles: true,
-              yellow: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorTop('#FF0000')">
-          <div
-            :class="{
-              circles: true,
-              red: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorTop('#FFC0CB')">
-          <div
-            :class="{
-              circles: true,
-              black: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorTop('#C9C9C9')">
-          <div
-            :class="{
-              circles: true,
-              grey: true,
-            }"
-          ></div>
-        </div>
-      </div>
-
-      <div id="topmaterial">
-        <p class="subtitle">Panel one material</p>
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialTop('/textures/leather.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              leather: true,
-            }"
-          ></div>
-        </div>
-
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialTop('/textures/holes.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              holes: true,
-            }"
-          ></div>
-        </div>
-
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialTop('/textures/latex.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              latex: true,
-            }"
-          ></div>
-        </div>
-
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialTop('/textures/fabric.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              fabric: true,
-            }"
-          ></div>
-        </div>
-      </div>
-
-      <div id="bottommaterial">
-        <p class="subtitle">Panel two material</p>
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialBottom('/textures/leather.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              leather: true,
-            }"
-          ></div>
-        </div>
-
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialBottom('/textures/holes.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              holes: true,
-            }"
-          ></div>
-        </div>
-
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialBottom('/textures/latex.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              latex: true,
-            }"
-          ></div>
-        </div>
-
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialBottom('/textures/fabric.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              fabric: true,
-            }"
-          ></div>
-        </div>
-      </div>
+      <div v-if="formError" class="error-message">{{ formError }}</div>
+  
+      <button @click="handleDoneButtonClick">Done</button>
     </div>
 
-    <div class="user-details">
-      <label for="shoeSize">Shoe Size:</label>
-      <input type="number" v-model="shoeSize" />
-
-      <label for="userName">User Name:</label>
-      <input type="text" v-model="userName" />
-
-      <label for="userAddress">User Address:</label>
-      <input type="text" v-model="userAddress" />
-
-      <label for="userEmail">User Email:</label>
-      <input type="email" v-model="userEmail" />
-    </div>
-
-    <div v-if="formError" class="error-message">{{ formError }}</div>
-
-    <button @click="handleDoneButtonClick">Done</button>
   </div>
 </template>
 
@@ -302,6 +348,7 @@ export default {
         shoeMaterialPanelDown: null,
       },
       shoeSize: null,
+      jewel: null,
       userName: null,
       userAddress: null,
       userEmail: null,
@@ -361,6 +408,158 @@ export default {
 
       scene.add(shoe);
     });
+
+    let jewelGiraffe;
+
+    gltfLoader.load("/models/pendantGiraffe.glb", (gltf) => {
+      jewelGiraffe = gltf.scene;
+      jewelGiraffe.scale.set(0.04, 0.04, 0.04);
+
+      jewelGiraffe.rotation.x = -1.85;
+      jewelGiraffe.rotation.y = 0.3;
+
+      jewelGiraffe.position.z = 1.25;
+      jewelGiraffe.position.y = 0.8;
+      jewelGiraffe.position.x = -1.3;
+      jewelGiraffe.visible = false;
+
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xffd700,
+        metalness: 1,
+        roughness: 0.3,
+      });
+
+      jewelGiraffe.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          child.material = material;
+        }
+      });
+
+      scene.add(jewelGiraffe);
+    });
+
+    this.addJewelGiraffe = () => {
+      jewelGiraffe.visible = !jewelGiraffe.visible;
+      jewelElephant.visible = false;
+      jewelHedgehog.visible = false;
+      jewelWhale.visible = false;
+      this.jewel = "Giraffe";
+      console.log(this.jewel);
+    };
+
+    let jewelElephant;
+
+    gltfLoader.load("/models/pendantElephant.glb", (gltf) => {
+      jewelElephant = gltf.scene;
+      jewelElephant.scale.set(0.05, 0.05, 0.05);
+
+      jewelElephant.rotation.x = -1.95;
+      jewelElephant.rotation.y = 0.6;
+
+      jewelElephant.position.z = 1.25;
+      jewelElephant.position.y = 1;
+      jewelElephant.position.x = -1;
+      jewelElephant.visible = false;
+
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xffd700,
+        metalness: 1,
+        roughness: 0.3,
+      });
+
+      jewelElephant.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          child.material = material;
+        }
+      });
+
+      scene.add(jewelElephant);
+    });
+
+    this.addJewelElephant = () => {
+      jewelElephant.visible = !jewelElephant.visible;
+      jewelGiraffe.visible = false;
+      jewelHedgehog.visible = false;
+      jewelWhale.visible = false;
+      this.jewel = "Elephant";
+      console.log(this.jewel);
+    };
+
+    let jewelHedgehog;
+
+    gltfLoader.load("/models/pendantHedgehog.glb", (gltf) => {
+      jewelHedgehog = gltf.scene;
+      jewelHedgehog.scale.set(0.05, 0.05, 0.05);
+
+      jewelHedgehog.rotation.x = -1.95;
+      jewelHedgehog.rotation.y = 0.6;
+
+      jewelHedgehog.position.z = 1.15;
+      jewelHedgehog.position.y = 1.2;
+      jewelHedgehog.position.x = -1;
+      jewelHedgehog.visible = false;
+
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xffd700,
+        metalness: 1,
+        roughness: 0.3,
+      });
+
+      jewelHedgehog.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          child.material = material;
+        }
+      });
+
+      scene.add(jewelHedgehog);
+    });
+
+    this.addJewelHedgehog = () => {
+      jewelHedgehog.visible = !jewelHedgehog.visible;
+      jewelGiraffe.visible = false;
+      jewelElephant.visible = false;
+      jewelWhale.visible = false;
+      this.jewel = "Hedgehog";
+      console.log(this.jewel);
+    };
+
+    let jewelWhale;
+
+    gltfLoader.load("/models/pendantWhale.glb", (gltf) => {
+      jewelWhale = gltf.scene;
+      jewelWhale.scale.set(0.05, 0.05, 0.05);
+
+      jewelWhale.rotation.x = -2;
+      jewelWhale.rotation.y = 0.6;
+
+      jewelWhale.position.z = 0.95;
+      jewelWhale.position.y = 1.4;
+      jewelWhale.position.x = -1;
+      jewelWhale.visible = false;
+
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xffd700,
+        metalness: 1,
+        roughness: 0.3,
+      });
+
+      jewelWhale.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          child.material = material;
+        }
+      });
+
+      scene.add(jewelWhale);
+    });
+
+    this.addJewelWhale = () => {
+      jewelWhale.visible = !jewelWhale.visible;
+      jewelGiraffe.visible = false;
+      jewelElephant.visible = false;
+      jewelHedgehog.visible = false;
+      this.jewel = "Whale";
+      console.log(this.jewel);
+    };
 
     const updateColorLacesFromDiv = (hexColor) => {
       console.log("💕");
@@ -502,6 +701,7 @@ export default {
           shoeColorPanelUp: this.selectedColors.shoeColorPanelUp,
           shoeMaterialPanelDown: this.selectedMaterials.shoeMaterialPanelDown,
           shoeMaterialPanelUp: this.selectedMaterials.shoeMaterialPanelUp,
+          jewel: this.jewel,
           status: "Order placed",
           userName: this.userName,
           userAddress: this.userAddress,
@@ -533,6 +733,10 @@ export default {
 #threeContainers {
   width: 100%;
   height: 50vh;
+}
+
+.optionsContainer {
+  background-color: #242424;
 }
 
 menu {
@@ -590,56 +794,38 @@ menu {
   border: 2px solid #fff;
 }
 
-h1 {
-  color: #000;
-  font-size: 1.5rem;
-  margin: 0;
-  font-family: "cooper-black-std", serif;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.6px;
-}
-
-h2 {
-  color: #000;
-  font-family: "inter", sans-serif;
-  font-size: 1§px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-}
-
-h3 {
-  color: #000;
-  font-family: "inter", sans-serif;
-  font-size: 1§px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-}
-
 p {
-  font-family: "inter", sans-serif;
+  font-family: "basic-sans", sans-serif;
+  font-weight: 400;
   font-size: 18px;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
-  color: #000;
+  color: black;
+}
+
+label {
+  font-family: "basic-sans", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: white;
 }
 
 button {
   color: #d6ff38;
   background-color: #000;
-  margin: 43px;
-  width: 300px;
+  width: 60%;
+  max-width: 300px;
   height: 68px;
-  font-family: "inter", sans-serif;
+  font-family: "cooper-black-std", serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 300;
   line-height: normal;
+  display: block;
+  margin: auto;
+  margin-top: 80px;
+  margin-bottom: 80px;
 }
 
 .selected-circle {
@@ -686,9 +872,16 @@ button {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 50px;
+  gap: 120px;
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
   padding-bottom: 50px;
+  margin-bottom: 50px;
+  overflow-x: auto;
+  flex-wrap: nowrap; /* Prevent items from wrapping */
 }
 
 .subtitle {
@@ -698,5 +891,51 @@ button {
 .error-message {
   color: red;
   margin-top: 10px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-left: 80px;
+  margin-right: 80px;
+  margin-bottom: 20px;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.user-details-div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+input {
+  border: 2px solid #d6ff38;
+  background-color: #242424;
+  color: white;
+}
+
+.jewelGiraffe {
+  background-image: url("/media/giraffe.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.jewelElephant {
+  background-image: url("/media/elephant.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.jewelHedgehog {
+  background-image: url("/media/hedgehog.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.jewelWhale {
+  background-image: url("/media/whale.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 </style>

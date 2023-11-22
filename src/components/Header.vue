@@ -1,9 +1,11 @@
 <template>
   <header>
-    <div class="shoe-desc">
-      <img src="../assets/SWEAR_Logo.webp" alt="SWEAR-LOGO" />
-    </div>
-    <a class="link" href="">Admin</a>
+    <router-link to="/">
+      <div class="shoe-desc">
+        <img src="../assets/SWEAR_Logo.webp" alt="SWEAR-LOGO" />
+      </div>
+    </router-link>
+      <a class="link" href="">Admin</a>
   </header>
 </template>
 

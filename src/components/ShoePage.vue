@@ -8,7 +8,7 @@
       <h2>Custom shoes</h2>
       <p>€200,00</p>
       <div class="buttons">
-        <button>CUSTOMIZE</button>
+        <button><router-link to="/customize">customize</router-link></button>
         <button>BUY</button>
       </div>
     </div>

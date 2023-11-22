@@ -5,7 +5,9 @@
         <img src="../assets/SWEAR_Logo.webp" alt="SWEAR-LOGO" />
       </div>
     </router-link>
+    <router-link to="/login">
       <a class="link" href="">Admin</a>
+    </router-link>
   </header>
 </template>
 

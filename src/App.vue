@@ -6,7 +6,8 @@ import Login from "./components/Login.vue";
 
 <template>
   <Header />
-  <ShoePage />
+  <router-view />
+  <!-- <ShoePage /> -->
   <!-- <login/> -->
 </template>
 

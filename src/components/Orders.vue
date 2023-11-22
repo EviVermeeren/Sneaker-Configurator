@@ -129,7 +129,7 @@ button {
 #passwordchange {
   color: #d6ff38;
   background-color: #000;
-  width: 10%;
+  width: 100%;
   max-width: 300px;
   height: 50px;
   font-family: "cooper-black-std", serif;

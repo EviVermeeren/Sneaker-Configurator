@@ -6,7 +6,7 @@
     <div class="login-form">
       <label for="oldpassword">Old password</label>
       <input
-        type="text"
+        type="password"
         id="oldpassword"
         name="oldpassword"
         v-model="oldpassword"
@@ -20,7 +20,7 @@
         v-model="newpassword"
       />
 
-      <button type="submit" @click="change">Change</button>
+      <button type="submit" @click="updatePassword">Change</button>
     </div>
   </div>
 </template>
@@ -29,38 +29,40 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
-const router = useRouter();
 const oldpassword = ref("");
 const newpassword = ref("");
+const router = useRouter();
 
-const change = async () => {
+const updatePassword = async () => {
+  const userId = "65513b6ffcea7b7baba6b737";
+  const apiUrl = `https://dev5-api-sneakers.onrender.com/api/v1/users/${userId}`;
+
+  const requestData = {
+    currentPassword: oldpassword.value,
+    newPassword: newpassword.value,
+  };
+
   try {
-    const response = await fetch(
-      "https://your-api-endpoint.com/api/updatePassword", // Replace with your actual API endpoint
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          currentPassword: oldpassword.value,
-          newPassword: newpassword.value,
-        }),
-      }
-    );
+    const response = await fetch(apiUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    });
 
-    const data = await response.json();
-
-    if (data.status === "success") {
-      console.log("Password updated successfully");
-      // Redirect to another page or perform other actions
+    if (response.ok) {
+      console.log("Password changed successfully");
+      // You can handle success here, e.g., show a success message to the user
+      // Optionally, you can redirect to another page
+      router.push("/success");
     } else {
-      console.error("Error updating password:", data.message);
-      // Handle error, display a message to the user, etc.
+      console.error("Error changing password", response.statusText);
+      // You can handle errors here, e.g., show an error message to the user
     }
   } catch (error) {
-    console.error("Error updating password:", error);
-    // Handle error, display a message to the user, etc.
+    console.error("Error changing password", error);
+    // Handle other types of errors, e.g., network errors
   }
 };
 </script>

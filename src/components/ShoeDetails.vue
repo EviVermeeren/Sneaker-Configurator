@@ -1,34 +1,29 @@
 <template>
-  <h1>Hello admin!</h1>
-  <button id="passwordchange">
-    <router-link to="/changepassword">Change password</router-link>
-  </button>
-  <h1>All orders</h1>
-  <div class="container">
-    <div v-for="shoe in shoes" :key="shoe.id" class="shoe-item">
-      <div class="shoe-info">
-        <img src="../assets/shoe.webp" alt="ordered shoe" />
-        <p id="type">{{ shoe.shoeType }}</p>
-        <p>Status: {{ shoe.status }}</p>
-        <p>Size: {{ shoe.shoeSize }}</p>
-        <p>User: {{ shoe.userName }}</p>
+  <div>
+    <h1>Order</h1>
+    <div class="container">
+      <div class="shoe-item">
+        <div class="shoe-info">
+          <img src="../assets/shoe.webp" alt="ordered shoe" />
+          <p id="type">{{ shoe.shoeType }}</p>
+          <p>Status: {{ shoe.status }}</p>
+          <p>Size: {{ shoe.shoeSize }}</p>
+          <p>User: {{ shoe.userName }}</p>
+        </div>
       </div>
-      <button>
-        <router-link :to="'/shoe/' + shoe._id" @click="viewShoe(shoe._id)"
-          >View</router-link
-        >
-      </button>
     </div>
   </div>
 </template>
 
 <script>
-import { useRouter } from "vue-router"; // Import useRouter
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
   data() {
     return {
-      shoes: [],
+      shoeId: this.$route.params.id,
+      shoe: {},
     };
   },
   mounted() {
@@ -38,22 +33,18 @@ export default {
     async fetchShoes() {
       try {
         const response = await fetch(
-          "https://dev5-api-sneakers.onrender.com/api/v1/shoes"
+          `https://dev5-api-sneakers.onrender.com/api/v1/shoes?id=${this.shoeId}`
         );
         const data = await response.json();
 
         if (data.status === "success") {
-          this.shoes = data.data.shoes;
+          this.shoe = data.data.shoe || {}; // Use empty object if undefined
         } else {
           console.error("Error fetching shoes:", data.message);
         }
       } catch (error) {
         console.error("Error fetching shoes:", error);
       }
-    },
-    viewShoe(shoeId) {
-      // Navigate to the detail page using router-link
-      this.$router.push(`/shoe/${shoeId}`);
     },
   },
 };

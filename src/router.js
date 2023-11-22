@@ -15,7 +15,6 @@ const routes = [
   { path: "/changepassword", component: ChangePassword },
   {
     path: "/shoe/:id",
-    name: "shoe-details",
     component: ShoeDetails,
   },
 ];

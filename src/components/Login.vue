@@ -17,6 +17,9 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router"; // Import useRouter
+
+const router = useRouter(); // Get the router instance
 
 const username = ref("");
 const password = ref("");

@@ -1,16 +1,26 @@
 <template>
   <div class="login-container">
-    <h1>Admin login</h1>
+    <h1>Change password</h1>
 
     <!-- login form -->
     <div class="login-form">
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" v-model="username" />
+      <label for="oldpassword">Old password</label>
+      <input
+        type="text"
+        id="oldpassword"
+        name="oldpassword"
+        v-model="oldpassword"
+      />
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" v-model="password" />
+      <label for="newpassword">New password</label>
+      <input
+        type="newpassword"
+        id="newpassword"
+        name="newpassword"
+        v-model="newpassword"
+      />
 
-      <button type="submit" @click="login">Login</button>
+      <button type="submit" @click="change">Change</button>
     </div>
   </div>
 </template>
@@ -20,47 +30,6 @@ import { ref } from "vue";
 import { useRouter } from "vue-router"; // Import useRouter
 
 const router = useRouter(); // Get the router instance
-
-const username = ref("");
-const password = ref("");
-
-const login = async () => {
-  console.log("login", username.value, password.value);
-
-  try {
-    const response = await fetch(
-      "https://dev5-api-sneakers.onrender.com/api/v1/users/login",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userName: username.value,
-          userPassword: password.value,
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error("Login failed");
-    }
-
-    // Handle successful login
-    const responseData = await response.json();
-    console.log("Login successful", responseData);
-
-    // Save the token to local storage
-    localStorage.setItem("token", responseData.data.token);
-    localStorage.setItem("username", responseData.data.user.userName);
-
-    // Redirect to the orders page
-    router.push("/orders");
-  } catch (error) {
-    console.error("Login error:", error.message);
-    // Handle login error, display a message to the user, etc.
-  }
-};
 </script>
 
 <style scoped>

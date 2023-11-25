@@ -6,6 +6,7 @@ import Config from "./components/Config.vue";
 import Orders from "./components/Orders.vue";
 import ChangePassword from "./components/ChangePassword.vue";
 import ShoeDetails from "./components/ShoeDetails.vue";
+import ThankYou from "./components/ThankYouPage.vue";
 
 const routes = [
   { path: "/", component: ShoePage },
@@ -16,6 +17,10 @@ const routes = [
   {
     path: "/shoe/:id",
     component: ShoeDetails,
+  },
+  {
+    path: "/thankyou",
+    component: ThankYou,
   },
 ];
 

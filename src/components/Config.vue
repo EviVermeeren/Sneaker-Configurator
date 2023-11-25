@@ -332,6 +332,8 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader.js";
+import { useRouter } from "vue-router";
+import router from "../router";
 
 export default {
   data() {
@@ -682,6 +684,7 @@ export default {
         this.formError = null; // Clear any previous errors
 
         this.fetchData();
+        router.push("/thankyou");
       } else {
         this.formError =
           "Please fill in all the required fields and selections.";

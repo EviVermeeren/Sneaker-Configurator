@@ -7,14 +7,19 @@
       <div>
         <h1 id="type">{{ shoe.shoeType }}</h1>
         <h2>{{ shoe.userName }}</h2>
-        <p>Shipping adress: {{ shoe.userAddress }}</p>
+        <p>Shipping address: {{ shoe.userAddress }}</p>
         <p>Size: {{ shoe.shoeSize }}</p>
         <p>Status: {{ shoe.status }}</p>
-        <p>Initials: {{ shoe.initials }}</p>
         <div class="buttons">
-          <button>Update status to “in production”</button>
-          <button>Update status to “in transit”</button>
-          <button>Update status to “complete”</button>
+          <button @click="updateStatus('in production')">
+            Update status to “in production”
+          </button>
+          <button @click="updateStatus('in transit')">
+            Update status to “in transit”
+          </button>
+          <button @click="updateStatus('complete')">
+            Update status to “complete”
+          </button>
           <button>Delete order</button>
         </div>
       </div>
@@ -338,6 +343,31 @@ export default {
         }
       } catch (error) {
         console.error("Error fetching shoes:", error);
+      }
+    },
+    async updateStatus(newStatus) {
+      try {
+        const response = await fetch(
+          `https://dev5-api-sneakers.onrender.com/api/v1/shoes/${this.shoeId}/status`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ status: newStatus }),
+          }
+        );
+
+        const data = await response.json();
+
+        if (data.status === "success") {
+          this.shoe.status = newStatus; // Update the status in the local data
+          console.log("Status updated successfully");
+        } else {
+          console.error("Error updating status:", data.message);
+        }
+      } catch (error) {
+        console.error("Error updating status:", error);
       }
     },
   },

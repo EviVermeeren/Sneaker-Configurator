@@ -10,6 +10,7 @@
         <p>Shipping adress: {{ shoe.userAddress }}</p>
         <p>Size: {{ shoe.shoeSize }}</p>
         <p>Status: {{ shoe.status }}</p>
+        <p>Initials: {{ shoe.initials }}</p>
         <div class="buttons">
           <button>Update status to “in production”</button>
           <button>Update status to “in transit”</button>
@@ -30,6 +31,9 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader.js";
 
+import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
+import { FontLoader } from "three/addons/loaders/FontLoader.js";
+
 export default {
   data() {
     return {
@@ -48,6 +52,7 @@ export default {
         userAddress: null,
         userEmail: null,
         userName: null,
+        initials: null,
       },
     };
   },
@@ -254,6 +259,41 @@ export default {
         console.log("Whale");
         scene.add(jewelWhale);
       }
+    });
+
+    const fontLoader = new FontLoader();
+    const textMaterial = new THREE.MeshStandardMaterial({
+      color: 0x000000,
+      metalness: 0.4,
+      roughness: 1,
+      wireframe: true,
+      wireframeLinewidth: 0.5,
+    });
+    fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
+      const textGeometry = new TextGeometry(this.shoe.initials, {
+        font: font,
+        size: 0.25,
+        height: 0.01,
+        curveSegments: 12,
+        bevelEnabled: true,
+        bevelThickness: 0.03,
+        bevelSize: 0.02,
+        bevelOffset: 0,
+        bevelSegments: 5,
+      });
+
+      this.shoeText = new THREE.Mesh(textGeometry, textMaterial);
+
+      this.shoeText.rotation.order = "YXZ";
+
+      this.shoeText.rotation.x = -0.5;
+      this.shoeText.rotation.y = -1.75;
+
+      this.shoeText.position.x = -1.88;
+      this.shoeText.position.y = 2.2;
+      this.shoeText.position.z = -0.45;
+
+      scene.add(this.shoeText);
     });
 
     gltfLoader.load("/models/new-shoe.glb", (gltf) => {

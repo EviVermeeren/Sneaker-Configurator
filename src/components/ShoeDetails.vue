@@ -20,7 +20,7 @@
           <button @click="updateStatus('complete')">
             Update status to “complete”
           </button>
-          <button>Delete order</button>
+          <button @click="deleteOrder">Delete order</button>
         </div>
       </div>
     </div>
@@ -368,6 +368,29 @@ export default {
         }
       } catch (error) {
         console.error("Error updating status:", error);
+      }
+    },
+    async deleteOrder() {
+      try {
+        const response = await fetch(
+          `https://dev5-api-sneakers.onrender.com/api/v1/shoes/${this.shoeId}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        const data = await response.json();
+
+        if (data.status === "success") {
+          // Assuming you want to navigate back to a previous page after deletion
+          this.$router.push("/orders"); // Replace with the desired route
+
+          console.log("Shoe deleted successfully");
+        } else {
+          console.error("Error deleting shoe:", data.message);
+        }
+      } catch (error) {
+        console.error("Error deleting shoe:", error);
       }
     },
   },

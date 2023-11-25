@@ -7,7 +7,6 @@
   <div class="container">
     <div v-for="shoe in shoes" :key="shoe.id" class="shoe-item">
       <div class="shoe-info">
-        <img src="../assets/shoe.webp" alt="ordered shoe" />
         <p id="type">{{ shoe.shoeType }}</p>
         <p>Status: {{ shoe.status }}</p>
         <p>Size: {{ shoe.shoeSize }}</p>

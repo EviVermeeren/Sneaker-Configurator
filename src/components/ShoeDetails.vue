@@ -105,16 +105,160 @@ export default {
       soleColorTop.material.color.set(shoeColorSole);
       soleColorBottom.material.color.set(shoeColorSole);
 
-      const shoeColorPanelUp = this.shoe.shoeColorPanelUp;
-      const panelUpColor = shoe.getObjectByName("inside");
-      panelUpColor.material.color.set(shoeColorPanelUp);
+      const textureLoader = new THREE.TextureLoader();
+      const textureUrl = this.shoe.shoeMaterialPanelUp;
+      const texture = textureLoader.load(textureUrl);
+
+      const MaterialTop = shoe.getObjectByName("outside_1");
+      const MaterialBottom = shoe.getObjectByName("outside_2");
+
+      MaterialTop.material = new THREE.MeshBasicMaterial({
+        map: texture,
+      });
 
       const shoeColorPanelDown = this.shoe.shoeColorPanelDown;
       const panelDownColor1 = shoe.getObjectByName("outside_1");
       const panelDownColor2 = shoe.getObjectByName("outside_2");
       panelDownColor1.material.color.set(shoeColorPanelDown);
       panelDownColor2.material.color.set(shoeColorPanelDown);
+
+      const textureLoader2 = new THREE.TextureLoader();
+      const textureUrl2 = this.shoe.shoeMaterialPanelDown;
+      const texture2 = textureLoader.load(textureUrl);
+
+      const MaterialTop2 = shoe.getObjectByName("inside");
+
+      MaterialTop2.material = new THREE.MeshBasicMaterial({
+        map: texture,
+      });
+
+      const shoeColorPanelUp = this.shoe.shoeColorPanelUp;
+      const panelUpColor = shoe.getObjectByName("inside");
+      panelUpColor.material.color.set(shoeColorPanelUp);
     };
+
+    let jewelGiraffe;
+
+    gltfLoader.load("/models/pendantGiraffe.glb", (gltf) => {
+      jewelGiraffe = gltf.scene;
+      jewelGiraffe.scale.set(0.04, 0.04, 0.04);
+
+      jewelGiraffe.rotation.x = -1.85;
+      jewelGiraffe.rotation.y = 0.3;
+
+      jewelGiraffe.position.z = 1.25;
+      jewelGiraffe.position.y = 0.8;
+      jewelGiraffe.position.x = -1.3;
+
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xffd700,
+        metalness: 1,
+        roughness: 0.3,
+      });
+
+      jewelGiraffe.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          child.material = material;
+        }
+      });
+
+      if (this.shoe.jewel === "Giraffe") {
+        scene.add(jewelGiraffe);
+      }
+    });
+
+    let jewelElephant;
+
+    gltfLoader.load("/models/pendantElephant.glb", (gltf) => {
+      jewelElephant = gltf.scene;
+      jewelElephant.scale.set(0.05, 0.05, 0.05);
+
+      jewelElephant.rotation.x = -1.95;
+      jewelElephant.rotation.y = 0.6;
+
+      jewelElephant.position.z = 1.25;
+      jewelElephant.position.y = 1;
+      jewelElephant.position.x = -1;
+
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xffd700,
+        metalness: 1,
+        roughness: 0.3,
+      });
+
+      jewelElephant.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          child.material = material;
+        }
+      });
+
+      if (this.shoe.jewel === "Elephant") {
+        console.log("elephant");
+        scene.add(jewelElephant);
+      }
+    });
+
+    let jewelHedgehog;
+
+    gltfLoader.load("/models/pendantHedgehog.glb", (gltf) => {
+      jewelHedgehog = gltf.scene;
+      jewelHedgehog.scale.set(0.05, 0.05, 0.05);
+
+      jewelHedgehog.rotation.x = -1.95;
+      jewelHedgehog.rotation.y = 0.6;
+
+      jewelHedgehog.position.z = 1.15;
+      jewelHedgehog.position.y = 1.2;
+      jewelHedgehog.position.x = -1;
+
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xffd700,
+        metalness: 1,
+        roughness: 0.3,
+      });
+
+      jewelHedgehog.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          child.material = material;
+        }
+      });
+
+      if (this.shoe.jewel === "Hedgehog") {
+        console.log("Hedgehog");
+        scene.add(jewelHedgehog);
+      }
+    });
+
+    let jewelWhale;
+
+    gltfLoader.load("/models/pendantWhale.glb", (gltf) => {
+      jewelWhale = gltf.scene;
+      jewelWhale.scale.set(0.05, 0.05, 0.05);
+
+      jewelWhale.rotation.x = -2;
+      jewelWhale.rotation.y = 0.6;
+
+      jewelWhale.position.z = 0.95;
+      jewelWhale.position.y = 1.4;
+      jewelWhale.position.x = -1;
+
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xffd700,
+        metalness: 1,
+        roughness: 0.3,
+      });
+
+      jewelWhale.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          child.material = material;
+        }
+      });
+
+      if (this.shoe.jewel === "Whale") {
+        console.log("Whale");
+        scene.add(jewelWhale);
+      }
+    });
 
     gltfLoader.load("/models/new-shoe.glb", (gltf) => {
       shoe = gltf.scene;

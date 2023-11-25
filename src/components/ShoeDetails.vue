@@ -10,7 +10,6 @@
         <p>Shipping adress: {{ shoe.userAddress }}</p>
         <p>Size: {{ shoe.shoeSize }}</p>
         <p>Status: {{ shoe.status }}</p>
-        <p>Price: {{ shoe.shoeColorSole }}</p>
         <div class="buttons">
           <button>Update status to “in production”</button>
           <button>Update status to “in transit”</button>

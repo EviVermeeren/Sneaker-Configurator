@@ -100,10 +100,20 @@ export default {
       shoeLaces.material.color.set(shoeColorLaces);
 
       const shoeColorSole = this.shoe.shoeColorSole;
-      const soleMaterialTop = shoe.getObjectByName("sole_1");
-      const soleMaterialBottom = shoe.getObjectByName("sole_2");
-      soleMaterialTop.material.color.set(shoeColorLaces);
-      soleMaterialBottom.material.color.set(shoeColorLaces);
+      const soleColorTop = shoe.getObjectByName("sole_1");
+      const soleColorBottom = shoe.getObjectByName("sole_2");
+      soleColorTop.material.color.set(shoeColorSole);
+      soleColorBottom.material.color.set(shoeColorSole);
+
+      const shoeColorPanelUp = this.shoe.shoeColorPanelUp;
+      const panelUpColor = shoe.getObjectByName("inside");
+      panelUpColor.material.color.set(shoeColorPanelUp);
+
+      const shoeColorPanelDown = this.shoe.shoeColorPanelDown;
+      const panelDownColor1 = shoe.getObjectByName("outside_1");
+      const panelDownColor2 = shoe.getObjectByName("outside_2");
+      panelDownColor1.material.color.set(shoeColorPanelDown);
+      panelDownColor2.material.color.set(shoeColorPanelDown);
     };
 
     gltfLoader.load("/models/new-shoe.glb", (gltf) => {

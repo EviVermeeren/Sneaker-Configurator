@@ -2,7 +2,7 @@
   <div class="bgc">
     <div class="flex">
       <div>
-        <img src="../assets/shoe.webp" alt="SHOE" />
+        <div class="canvas-container" ref="canvasContainer"></div>
       </div>
       <div>
         <h1>AIR REV. NITRO S</h1>
@@ -18,8 +18,73 @@
 </template>
 
 <script>
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+
 export default {
   name: "Header",
+  mounted() {
+    const windowWidth = window.innerWidth;
+    const squareSize = windowWidth * 0.4;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(100, 1, 0.1, 1000); // Aspect ratio is set to 1 for a square
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(squareSize, squareSize);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    this.$refs.canvasContainer.appendChild(renderer.domElement);
+
+    camera.position.z = 7;
+
+    const loadingManager = new THREE.LoadingManager();
+
+    const gltfLoader = new GLTFLoader(loadingManager);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.maxPolarAngle = Math.PI / 2;
+    controls.enablePan = false;
+
+    scene.background = new THREE.Color(0xffffff);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
+    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.7);
+    const directionalLight3 = new THREE.DirectionalLight(0xffffff, 1.7);
+    const directionalLight4 = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(0, 0, 1);
+    directionalLight2.position.set(0, 0, -1);
+    directionalLight3.position.set(0, 1, 0);
+    directionalLight4.position.set(-1, 0, 0);
+    scene.add(directionalLight);
+    scene.add(directionalLight2);
+    scene.add(directionalLight3);
+    scene.add(directionalLight4);
+
+    let shoe;
+
+    gltfLoader.load("/models/new-shoe.glb", (gltf) => {
+      shoe = gltf.scene;
+      shoe.scale.set(2.5, 2.5, 2.5);
+
+      shoe.rotation.order = "YXZ";
+
+      shoe.rotation.x = 0.5;
+      shoe.rotation.y = 1.5;
+
+      shoe.position.z = 0;
+      shoe.position.y = -0.5;
+      shoe.position.x = -0.5;
+
+      scene.add(shoe);
+    });
+
+    const animate = () => {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    };
+
+    animate();
+  },
 };
 </script>
 
@@ -67,9 +132,6 @@ p {
   align-items: center;
   justify-content: center;
   width: 100vw;
-  padding: 43px;
-  gap: 100px;
-  padding-top: 100px;
 }
 
 img {

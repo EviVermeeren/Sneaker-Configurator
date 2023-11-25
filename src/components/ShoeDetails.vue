@@ -96,22 +96,14 @@ export default {
 
     const updateShoeColors = () => {
       const shoeColorLaces = this.shoe.shoeColorLaces;
+      const shoeLaces = shoe.getObjectByName("laces");
+      shoeLaces.material.color.set(shoeColorLaces);
 
-      if (shoeColorLaces) {
-        const shoeLaces = shoe.getObjectByName("laces");
-
-        if (shoeLaces) {
-          shoeLaces.material.color.set(shoeColorLaces);
-          console.log("Shoe color set:", shoeColorLaces);
-        } else {
-          console.error("Shoe laces not found in the 3D model.");
-        }
-      } else {
-        console.warn(
-          "Shoe color information is missing or null. Check the API response:",
-          this.shoe
-        );
-      }
+      const shoeColorSole = this.shoe.shoeColorSole;
+      const soleMaterialTop = shoe.getObjectByName("sole_1");
+      const soleMaterialBottom = shoe.getObjectByName("sole_2");
+      soleMaterialTop.material.color.set(shoeColorLaces);
+      soleMaterialBottom.material.color.set(shoeColorLaces);
     };
 
     gltfLoader.load("/models/new-shoe.glb", (gltf) => {

@@ -1,14 +1,20 @@
 <template>
-  <div>
-    <h1>Order</h1>
-    <div class="container">
-      <div class="shoe-item">
-        <div class="shoe-info">
-          <img src="../assets/shoe.webp" alt="ordered shoe" />
-          <p id="type">{{ shoe.shoeType }}</p>
-          <p>Status: {{ shoe.status }}</p>
-          <p>Size: {{ shoe.shoeSize }}</p>
-          <p>User: {{ shoe.userName }}</p>
+  <div class="bgc">
+    <div class="flex">
+      <div>
+        <img src="../assets/shoe.webp" alt="SHOE" />
+      </div>
+      <div>
+        <h1 id="type">{{ shoe.shoeType }}</h1>
+        <h2>{{ shoe.userName }}</h2>
+        <p>Shipping adress: {{ shoe.userAddress }}</p>
+        <p>Size: {{ shoe.shoeSize }}</p>
+        <p>Status: {{ shoe.status }}</p>
+        <div class="buttons">
+          <button>Update status to “in production”</button>
+          <button>Update status to “in transit”</button>
+          <button>Update status to “complete”</button>
+          <button>Delete order</button>
         </div>
       </div>
     </div>
@@ -51,6 +57,10 @@ export default {
 </script>
 
 <style scoped>
+.bgc {
+  background-color: #fff;
+  height: 100vh;
+}
 a {
   text-decoration: none;
   color: #d6ff38;
@@ -58,90 +68,63 @@ a {
 h1 {
   font-family: "cooper-black-std", serif;
   font-weight: 400;
-  color: white;
+  color: #000000;
   font-size: 36px;
   letter-spacing: 1.08px;
   line-height: normal;
-  margin-top: 50px;
-  margin-left: 100px;
+  margin: 0;
 }
 
-#type {
+h2 {
   font-family: "cooper-black-std", serif;
   font-weight: 400;
-  color: white;
-  font-size: 18px;
+  color: #000000;
+  font-size: 20px;
+  letter-spacing: 0.72px;
   line-height: normal;
   white-space: nowrap;
-  margin-top: 10px;
+  margin: 0;
 }
 
 p {
   font-family: "basic-sans", sans-serif;
   font-weight: 400;
-  color: white;
+  color: #000000;
   font-size: 16px;
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
 }
-.container {
+.flex {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
-  gap: 20px;
-  background-color: #242424;
-  padding-top: 50px;
-  margin-left: 80px;
-}
-
-.shoe-item {
-  border: 1px solid #d6ff38;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.shoe-info {
-  flex-grow: 1;
-}
-
-button {
-  color: #d6ff38;
-  background-color: #000;
-  width: 90%;
-  height: 50px;
-  font-family: "cooper-black-std", serif;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  display: block;
-  margin: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-#passwordchange {
-  color: #d6ff38;
-  background-color: #000;
-  width: 100%;
-  max-width: 300px;
-  height: 50px;
-  font-family: "cooper-black-std", serif;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  display: block;
-  margin: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-left: 100px;
+  justify-content: center;
+  width: 100vw;
+  padding: 43px;
+  gap: 100px;
+  padding-top: 100px;
 }
 
 img {
-  width: 200px;
+  width: 25vw;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+button {
+  width: 299px;
+  height: 36px;
+  top: 0;
+  left: 0;
+  background-color: #000000;
+  font-family: "basic-sans", sans-serif;
+  font-weight: 700;
+  color: #d6ff38;
+  font-size: 14px;
+  letter-spacing: 1.61px;
+  line-height: normal;
 }
 </style>

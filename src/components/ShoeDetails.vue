@@ -1,12 +1,9 @@
 <template>
-  <div class="canvas-container" ref="canvasContainer"></div>
-
   <div class="bgc">
     <div class="flex">
       <div>
-        <img src="../assets/shoe.webp" alt="SHOE" />
+        <div class="canvas-container" ref="canvasContainer"></div>
       </div>
-
       <div>
         <h1 id="type">{{ shoe.shoeType }}</h1>
         <h2>{{ shoe.userName }}</h2>
@@ -57,13 +54,13 @@ export default {
   },
   async mounted() {
     await this.fetchShoes(); // Wait for the fetch to complete
-    const windowWidth = window.innerWidth * 2;
-    const ratio = windowWidth / window.innerHeight;
+    const windowWidth = window.innerWidth;
+    const squareSize = windowWidth * 0.4;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, ratio, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000); // Aspect ratio is set to 1 for a square
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight * 0.5);
+    renderer.setSize(squareSize, squareSize);
     renderer.setPixelRatio(window.devicePixelRatio);
     this.$refs.canvasContainer.appendChild(renderer.domElement);
 
@@ -352,9 +349,7 @@ p {
   align-items: center;
   justify-content: center;
   width: 100vw;
-  padding: 43px;
   gap: 100px;
-  padding-top: 100px;
 }
 
 img {

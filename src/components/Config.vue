@@ -2,328 +2,337 @@
   <div>
     <div class="canvas-container" ref="canvasContainer"></div>
 
-    <div class="optionsContainer">
-      <div id="configurator">
-        <div id="lacecolor">
-          <p class="subtitle">Laces color</p>
-          <div :class="{ options: true }" @click="updateColorLaces('#FFFF00')">
-            <div
-              :class="{
-                circles: true,
-                yellow: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="updateColorLaces('#FF0000')">
-            <div
-              :class="{
-                circles: true,
-                red: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="updateColorLaces('#FFC0CB')">
-            <div
-              :class="{
-                circles: true,
-                black: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="updateColorLaces('#C9C9C9')">
-            <div
-              :class="{
-                circles: true,
-                grey: true,
-              }"
-            ></div>
-          </div>
-        </div>
-
-        <div id="solecolor">
-          <p class="subtitle">Sole color</p>
-          <div :class="{ options: true }" @click="updateColorSole('#FFFF00')">
-            <div
-              :class="{
-                circles: true,
-                yellow: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="updateColorSole('#FF0000')">
-            <div
-              :class="{
-                circles: true,
-                red: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="updateColorSole('#FFC0CB')">
-            <div
-              :class="{
-                circles: true,
-                black: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="updateColorSole('#C9C9C9')">
-            <div
-              :class="{
-                circles: true,
-                grey: true,
-              }"
-            ></div>
-          </div>
-        </div>
-
-        <div id="bottomcolor">
-          <p class="subtitle">Panel one color</p>
-          <div :class="{ options: true }" @click="updateColorinside('#FFFF00')">
-            <div
-              :class="{
-                circles: true,
-                yellow: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="updateColorinside('#FF0000')">
-            <div
-              :class="{
-                circles: true,
-                red: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="updateColorinside('#FFC0CB')">
-            <div
-              :class="{
-                circles: true,
-                black: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="updateColorinside('#C9C9C9')">
-            <div
-              :class="{
-                circles: true,
-                grey: true,
-              }"
-            ></div>
-          </div>
-        </div>
-
-        <div id="topcolor">
-          <p class="subtitle">Panel two color</p>
-          <div :class="{ options: true }" @click="updateColorTop('#FFFF00')">
-            <div
-              :class="{
-                circles: true,
-                yellow: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="updateColorTop('#FF0000')">
-            <div
-              :class="{
-                circles: true,
-                red: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="updateColorTop('#FFC0CB')">
-            <div
-              :class="{
-                circles: true,
-                black: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="updateColorTop('#C9C9C9')">
-            <div
-              :class="{
-                circles: true,
-                grey: true,
-              }"
-            ></div>
-          </div>
-        </div>
-
-        <div id="topmaterial">
-          <p class="subtitle">Panel one material</p>
-          <div
-            :class="{ options: true }"
-            @click="updateMaterialTop('/textures/leather.jpg')"
-          >
-            <div
-              :class="{
-                circles: true,
-                leather: true,
-              }"
-            ></div>
-          </div>
-
-          <div
-            :class="{ options: true }"
-            @click="updateMaterialTop('/textures/holes.jpg')"
-          >
-            <div
-              :class="{
-                circles: true,
-                holes: true,
-              }"
-            ></div>
-          </div>
-
-          <div
-            :class="{ options: true }"
-            @click="updateMaterialTop('/textures/latex.jpg')"
-          >
-            <div
-              :class="{
-                circles: true,
-                latex: true,
-              }"
-            ></div>
-          </div>
-
-          <div
-            :class="{ options: true }"
-            @click="updateMaterialTop('/textures/fabric.jpg')"
-          >
-            <div
-              :class="{
-                circles: true,
-                fabric: true,
-              }"
-            ></div>
-          </div>
-        </div>
-
-        <div id="bottommaterial">
-          <p class="subtitle">Panel two material</p>
-          <div
-            :class="{ options: true }"
-            @click="updateMaterialBottom('/textures/leather.jpg')"
-          >
-            <div
-              :class="{
-                circles: true,
-                leather: true,
-              }"
-            ></div>
-          </div>
-
-          <div
-            :class="{ options: true }"
-            @click="updateMaterialBottom('/textures/holes.jpg')"
-          >
-            <div
-              :class="{
-                circles: true,
-                holes: true,
-              }"
-            ></div>
-          </div>
-
-          <div
-            :class="{ options: true }"
-            @click="updateMaterialBottom('/textures/latex.jpg')"
-          >
-            <div
-              :class="{
-                circles: true,
-                latex: true,
-              }"
-            ></div>
-          </div>
-
-          <div
-            :class="{ options: true }"
-            @click="updateMaterialBottom('/textures/fabric.jpg')"
-          >
-            <div
-              :class="{
-                circles: true,
-                fabric: true,
-              }"
-            ></div>
-          </div>
-        </div>
-
-        <div id="jewels">
-          <p class="subtitle">Jewels</p>
-          <div :class="{ options: true }" @click="addJewelGiraffe">
-            <div
-              :class="{
-                circles: true,
-                jewelGiraffe: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="addJewelElephant">
-            <div
-              :class="{
-                circles: true,
-                jewelElephant: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="addJewelHedgehog">
-            <div
-              :class="{
-                circles: true,
-                jewelHedgehog: true,
-              }"
-            ></div>
-          </div>
-
-          <div :class="{ options: true }" @click="addJewelWhale">
-            <div
-              :class="{
-                circles: true,
-                jewelWhale: true,
-              }"
-            ></div>
-          </div>
-        </div>
+    <div>
+      <div class="initials-container">
+        <label>
+          <input type="checkbox" @change="toggleInitials()" />
+          Show Initials
+        </label>
+        <input v-model="initials" @input="handleInitialsInput" maxlength="2" />
       </div>
-
-      <div class="user-details">
-        <div class="user-details-div">
-          <label for="shoeSize">Shoe Size:</label>
-          <input type="number" v-model="shoeSize" />
-        </div>
-        <div class="user-details-div">
-          <label for="userName">User Name:</label>
-          <input type="text" v-model="userName" />
-        </div>
-        <div class="user-details-div">
-          <label for="userAddress">User Address:</label>
-          <input type="text" v-model="userAddress" />
-        </div>
-        <div class="user-details-div">
-          <label for="userEmail">User Email:</label>
-          <input type="email" v-model="userEmail" />
-        </div>
-      </div>
-      <div v-if="formError" class="error-message">{{ formError }}</div>
-
-      <button @click="handleDoneButtonClick">Done</button>
     </div>
+
+    <div id="configurator">
+      <div id="lacecolor">
+        <p class="subtitle">Laces color</p>
+        <div :class="{ options: true }" @click="updateColorLaces('#FFFF00')">
+          <div
+            :class="{
+              circles: true,
+              yellow: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="updateColorLaces('#FF0000')">
+          <div
+            :class="{
+              circles: true,
+              red: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="updateColorLaces('#FFC0CB')">
+          <div
+            :class="{
+              circles: true,
+              black: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="updateColorLaces('#C9C9C9')">
+          <div
+            :class="{
+              circles: true,
+              grey: true,
+            }"
+          ></div>
+        </div>
+      </div>
+
+      <div id="solecolor">
+        <p class="subtitle">Sole color</p>
+        <div :class="{ options: true }" @click="updateColorSole('#FFFF00')">
+          <div
+            :class="{
+              circles: true,
+              yellow: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="updateColorSole('#FF0000')">
+          <div
+            :class="{
+              circles: true,
+              red: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="updateColorSole('#FFC0CB')">
+          <div
+            :class="{
+              circles: true,
+              black: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="updateColorSole('#C9C9C9')">
+          <div
+            :class="{
+              circles: true,
+              grey: true,
+            }"
+          ></div>
+        </div>
+      </div>
+
+      <div id="bottomcolor">
+        <p class="subtitle">Panel one color</p>
+        <div :class="{ options: true }" @click="updateColorinside('#FFFF00')">
+          <div
+            :class="{
+              circles: true,
+              yellow: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="updateColorinside('#FF0000')">
+          <div
+            :class="{
+              circles: true,
+              red: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="updateColorinside('#FFC0CB')">
+          <div
+            :class="{
+              circles: true,
+              black: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="updateColorinside('#C9C9C9')">
+          <div
+            :class="{
+              circles: true,
+              grey: true,
+            }"
+          ></div>
+        </div>
+      </div>
+
+      <div id="topcolor">
+        <p class="subtitle">Panel two color</p>
+        <div :class="{ options: true }" @click="updateColorTop('#FFFF00')">
+          <div
+            :class="{
+              circles: true,
+              yellow: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="updateColorTop('#FF0000')">
+          <div
+            :class="{
+              circles: true,
+              red: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="updateColorTop('#FFC0CB')">
+          <div
+            :class="{
+              circles: true,
+              black: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="updateColorTop('#C9C9C9')">
+          <div
+            :class="{
+              circles: true,
+              grey: true,
+            }"
+          ></div>
+        </div>
+      </div>
+
+      <div id="topmaterial">
+        <p class="subtitle">Panel one material</p>
+        <div
+          :class="{ options: true }"
+          @click="updateMaterialTop('/textures/leather.jpg')"
+        >
+          <div
+            :class="{
+              circles: true,
+              leather: true,
+            }"
+          ></div>
+        </div>
+
+        <div
+          :class="{ options: true }"
+          @click="updateMaterialTop('/textures/holes.jpg')"
+        >
+          <div
+            :class="{
+              circles: true,
+              holes: true,
+            }"
+          ></div>
+        </div>
+
+        <div
+          :class="{ options: true }"
+          @click="updateMaterialTop('/textures/latex.jpg')"
+        >
+          <div
+            :class="{
+              circles: true,
+              latex: true,
+            }"
+          ></div>
+        </div>
+
+        <div
+          :class="{ options: true }"
+          @click="updateMaterialTop('/textures/fabric.jpg')"
+        >
+          <div
+            :class="{
+              circles: true,
+              fabric: true,
+            }"
+          ></div>
+        </div>
+      </div>
+
+      <div id="bottommaterial">
+        <p class="subtitle">Panel two material</p>
+        <div
+          :class="{ options: true }"
+          @click="updateMaterialBottom('/textures/leather.jpg')"
+        >
+          <div
+            :class="{
+              circles: true,
+              leather: true,
+            }"
+          ></div>
+        </div>
+
+        <div
+          :class="{ options: true }"
+          @click="updateMaterialBottom('/textures/holes.jpg')"
+        >
+          <div
+            :class="{
+              circles: true,
+              holes: true,
+            }"
+          ></div>
+        </div>
+
+        <div
+          :class="{ options: true }"
+          @click="updateMaterialBottom('/textures/latex.jpg')"
+        >
+          <div
+            :class="{
+              circles: true,
+              latex: true,
+            }"
+          ></div>
+        </div>
+
+        <div
+          :class="{ options: true }"
+          @click="updateMaterialBottom('/textures/fabric.jpg')"
+        >
+          <div
+            :class="{
+              circles: true,
+              fabric: true,
+            }"
+          ></div>
+        </div>
+      </div>
+
+      <div id="jewels">
+        <p class="subtitle">Jewels</p>
+        <div :class="{ options: true }" @click="addJewelGiraffe">
+          <div
+            :class="{
+              circles: true,
+              jewelGiraffe: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="addJewelElephant">
+          <div
+            :class="{
+              circles: true,
+              jewelElephant: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="addJewelHedgehog">
+          <div
+            :class="{
+              circles: true,
+              jewelHedgehog: true,
+            }"
+          ></div>
+        </div>
+
+        <div :class="{ options: true }" @click="addJewelWhale">
+          <div
+            :class="{
+              circles: true,
+              jewelWhale: true,
+            }"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="user-details">
+      <div class="user-details-div">
+        <label for="shoeSize">Shoe Size:</label>
+        <input type="number" v-model="shoeSize" />
+      </div>
+      <div class="user-details-div">
+        <label for="userName">User Name:</label>
+        <input type="text" v-model="userName" />
+      </div>
+      <div class="user-details-div">
+        <label for="userAddress">User Address:</label>
+        <input type="text" v-model="userAddress" />
+      </div>
+      <div class="user-details-div">
+        <label for="userEmail">User Email:</label>
+        <input type="email" v-model="userEmail" />
+      </div>
+    </div>
+
+    <div v-if="formError" class="error-message">{{ formError }}</div>
+
+    <button @click="handleDoneButtonClick">Done</button>
   </div>
 </template>
 
@@ -335,9 +344,15 @@ import { TextureLoader } from "three/src/loaders/TextureLoader.js";
 import { useRouter } from "vue-router";
 import router from "../router";
 
+import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
+import { FontLoader } from "three/addons/loaders/FontLoader.js";
+
 export default {
+  setup() {},
   data() {
     return {
+      initials: "",
+      initialsState: false,
       selectedColors: {
         shoeColorLaces: null,
         shoeColorSole: null,
@@ -357,6 +372,8 @@ export default {
     };
   },
   mounted() {
+    const canvasContainer = this.$refs.canvasContainer;
+
     const windowWidth = window.innerWidth * 2;
     const ratio = windowWidth / window.innerHeight;
 
@@ -367,11 +384,29 @@ export default {
     renderer.setPixelRatio(window.devicePixelRatio);
     this.$refs.canvasContainer.appendChild(renderer.domElement);
 
+    resize();
+    window.addEventListener("resize", resize);
+    function resize() {
+      renderer.setSize(window.innerWidth, window.innerHeight * 0.5);
+      camera.aspect =
+        canvasContainer.clientWidth / canvasContainer.clientHeight;
+      camera.updateProjectionMatrix();
+    }
+
     camera.position.z = 7;
 
     const loadingManager = new THREE.LoadingManager();
 
     const gltfLoader = new GLTFLoader(loadingManager);
+
+    const fontLoader = new FontLoader();
+    const textMaterial = new THREE.MeshStandardMaterial({
+      color: 0x000000,
+      metalness: 0.4,
+      roughness: 1,
+      wireframe: true,
+      wireframeLinewidth: 0.5,
+    });
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.maxPolarAngle = Math.PI / 2;
@@ -393,6 +428,8 @@ export default {
     scene.add(directionalLight4);
 
     let shoe;
+
+    let shoeText;
 
     gltfLoader.load("/models/new-shoe.glb", (gltf) => {
       shoe = gltf.scene;
@@ -665,6 +702,54 @@ export default {
     };
 
     animate();
+
+    const handleInitialsInput = () => {
+      this.initials = this.initials.toUpperCase();
+    };
+
+    this.handleInitialsInput = handleInitialsInput;
+
+    const toggleInitials = () => {
+      this.initialsState = !this.initialsState;
+      console.log(this.initialsState);
+      console.log(this.initials);
+
+      if (this.initialsState === true) {
+        console.log("initialsState is true");
+
+        fontLoader.load("fonts/helvetiker_regular.typeface.json", (font) => {
+          const textGeometry = new TextGeometry(this.initials, {
+            font: font,
+            size: 0.25,
+            height: 0.01,
+            curveSegments: 12,
+            bevelEnabled: true,
+            bevelThickness: 0.03,
+            bevelSize: 0.02,
+            bevelOffset: 0,
+            bevelSegments: 5,
+          });
+
+          this.shoeText = new THREE.Mesh(textGeometry, textMaterial);
+
+          this.shoeText.rotation.order = "YXZ";
+
+          this.shoeText.rotation.x = -0.5;
+          this.shoeText.rotation.y = -1.75;
+
+          this.shoeText.position.x = -1.88;
+          this.shoeText.position.y = 2.2;
+          this.shoeText.position.z = -0.45;
+
+          scene.add(this.shoeText);
+        });
+      } else if (this.initialsState === false) {
+        console.log("initialsState is false");
+        scene.remove(this.shoeText);
+      }
+    };
+
+    this.toggleInitials = toggleInitials;
   },
 
   methods: {
@@ -704,6 +789,7 @@ export default {
           shoeMaterialPanelDown: this.selectedMaterials.shoeMaterialPanelDown,
           shoeMaterialPanelUp: this.selectedMaterials.shoeMaterialPanelUp,
           jewel: this.jewel,
+          initials: this.initials,
           status: "Order placed",
           userName: this.userName,
           userAddress: this.userAddress,

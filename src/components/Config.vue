@@ -13,298 +13,56 @@
     </div>
 
     <div id="configurator">
-      <div id="lacecolor">
-        <p class="subtitle">Laces color</p>
-        <div :class="{ options: true }" @click="updateColorLaces('#FFFF00')">
-          <div
-            :class="{
-              circles: true,
-              yellow: true,
-            }"
-          ></div>
+      <div
+        v-for="colorType in ['laces', 'sole', 'inside', 'outside']"
+        :key="colorType"
+        :id="`${colorType}color`"
+      >
+        <p class="subtitle">{{ colorType }} color</p>
+        <div
+          v-for="color in colorOptions"
+          :key="color"
+          :class="{ options: true }"
+          @click="updateColor(colorType, color)"
+        >
+          <div class="circle" :style="{ backgroundColor: color }"></div>
         </div>
+      </div>
 
-        <div :class="{ options: true }" @click="updateColorLaces('#FF0000')">
+      <div
+        v-for="materialType in ['top', 'bottom']"
+        :key="materialType"
+        :id="`${materialType}material`"
+      >
+        <p class="subtitle">{{ materialType }} material</p>
+        <div
+          v-for="material in materialOptions"
+          :key="material"
+          :class="{ options: true }"
+          @click="updateMaterial(materialType, material)"
+        >
           <div
-            :class="{
-              circles: true,
-              red: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorLaces('#FFC0CB')">
-          <div
-            :class="{
-              circles: true,
-              black: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorLaces('#C9C9C9')">
-          <div
-            :class="{
-              circles: true,
-              grey: true,
-            }"
+            class="circle"
+            :style="{ backgroundImage: `url(${material})` }"
           ></div>
         </div>
       </div>
 
-      <div id="solecolor">
-        <p class="subtitle">Sole color</p>
-        <div :class="{ options: true }" @click="updateColorSole('#FFFF00')">
-          <div
-            :class="{
-              circles: true,
-              yellow: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorSole('#FF0000')">
-          <div
-            :class="{
-              circles: true,
-              red: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorSole('#FFC0CB')">
-          <div
-            :class="{
-              circles: true,
-              black: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorSole('#C9C9C9')">
-          <div
-            :class="{
-              circles: true,
-              grey: true,
-            }"
-          ></div>
-        </div>
-      </div>
-
-      <div id="bottomcolor">
-        <p class="subtitle">Panel one color</p>
-        <div :class="{ options: true }" @click="updateColorinside('#FFFF00')">
-          <div
-            :class="{
-              circles: true,
-              yellow: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorinside('#FF0000')">
-          <div
-            :class="{
-              circles: true,
-              red: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorinside('#FFC0CB')">
-          <div
-            :class="{
-              circles: true,
-              black: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorinside('#C9C9C9')">
-          <div
-            :class="{
-              circles: true,
-              grey: true,
-            }"
-          ></div>
-        </div>
-      </div>
-
-      <div id="topcolor">
-        <p class="subtitle">Panel two color</p>
-        <div :class="{ options: true }" @click="updateColorTop('#FFFF00')">
-          <div
-            :class="{
-              circles: true,
-              yellow: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorTop('#FF0000')">
-          <div
-            :class="{
-              circles: true,
-              red: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorTop('#FFC0CB')">
-          <div
-            :class="{
-              circles: true,
-              black: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="updateColorTop('#C9C9C9')">
-          <div
-            :class="{
-              circles: true,
-              grey: true,
-            }"
-          ></div>
-        </div>
-      </div>
-
-      <div id="topmaterial">
-        <p class="subtitle">Panel one material</p>
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialTop('/textures/leather.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              leather: true,
-            }"
-          ></div>
-        </div>
-
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialTop('/textures/holes.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              holes: true,
-            }"
-          ></div>
-        </div>
-
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialTop('/textures/latex.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              latex: true,
-            }"
-          ></div>
-        </div>
-
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialTop('/textures/fabric.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              fabric: true,
-            }"
-          ></div>
-        </div>
-      </div>
-
-      <div id="bottommaterial">
-        <p class="subtitle">Panel two material</p>
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialBottom('/textures/leather.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              leather: true,
-            }"
-          ></div>
-        </div>
-
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialBottom('/textures/holes.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              holes: true,
-            }"
-          ></div>
-        </div>
-
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialBottom('/textures/latex.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              latex: true,
-            }"
-          ></div>
-        </div>
-
-        <div
-          :class="{ options: true }"
-          @click="updateMaterialBottom('/textures/fabric.jpg')"
-        >
-          <div
-            :class="{
-              circles: true,
-              fabric: true,
-            }"
-          ></div>
-        </div>
-      </div>
-
-      <div id="jewels">
+      <div>
         <p class="subtitle">Jewels</p>
-        <div :class="{ options: true }" @click="addJewelGiraffe">
+        <div
+          v-for="jewelType in jewelOptions"
+          :key="jewelType"
+          :id="`${jewelType}jewel`"
+          :class="{ options: true }"
+          @click="updateJewel(jewelType)"
+        >
           <div
-            :class="{
-              circles: true,
-              jewelGiraffe: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="addJewelElephant">
-          <div
-            :class="{
-              circles: true,
-              jewelElephant: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="addJewelHedgehog">
-          <div
-            :class="{
-              circles: true,
-              jewelHedgehog: true,
-            }"
-          ></div>
-        </div>
-
-        <div :class="{ options: true }" @click="addJewelWhale">
-          <div
-            :class="{
-              circles: true,
-              jewelWhale: true,
+            class="circle"
+            :style="{
+              backgroundImage: `url('/media/${jewelType.toLowerCase()}.jpg')`,
+              backgroundSize: 'contain',
+              backgroundRepeat: 'no-repeat',
             }"
           ></div>
         </div>
@@ -341,12 +99,10 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader.js";
-import { useRouter } from "vue-router";
-import router from "../router";
-
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
-
+import { useRouter } from "vue-router";
+import router from "../router";
 export default {
   setup() {},
   data() {
@@ -369,6 +125,14 @@ export default {
       userAddress: null,
       userEmail: null,
       formError: null,
+      colorOptions: ["#FFFF00", "#FF0000", "#FFC0CB", "#C9C9C9"],
+      materialOptions: [
+        "/textures/leather.jpg",
+        "/textures/holes.jpg",
+        "/textures/latex.jpg",
+        "/textures/fabric.jpg",
+      ],
+      jewelOptions: ["Giraffe", "Elephant", "Hedgehog", "Whale"],
     };
   },
   mounted() {
@@ -380,9 +144,9 @@ export default {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, ratio, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight * 0.5);
+    // renderer.setSize(window.innerWidth, window.innerHeight * 0.5);
     renderer.setPixelRatio(window.devicePixelRatio);
-    this.$refs.canvasContainer.appendChild(renderer.domElement);
+    canvasContainer.appendChild(renderer.domElement);
 
     resize();
     window.addEventListener("resize", resize);
@@ -446,255 +210,128 @@ export default {
 
       scene.add(shoe);
     });
-
-    let jewelGiraffe;
-
-    gltfLoader.load("/models/pendantGiraffe.glb", (gltf) => {
-      jewelGiraffe = gltf.scene;
-      jewelGiraffe.scale.set(0.04, 0.04, 0.04);
-
-      jewelGiraffe.rotation.x = -1.85;
-      jewelGiraffe.rotation.y = 0.3;
-
-      jewelGiraffe.position.z = 1.25;
-      jewelGiraffe.position.y = 0.8;
-      jewelGiraffe.position.x = -1.3;
-      jewelGiraffe.visible = false;
-
-      const material = new THREE.MeshStandardMaterial({
-        color: 0xffd700,
-        metalness: 1,
-        roughness: 0.3,
-      });
-
-      jewelGiraffe.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.material = material;
-        }
-      });
-
-      scene.add(jewelGiraffe);
-    });
-
-    this.addJewelGiraffe = () => {
-      jewelGiraffe.visible = !jewelGiraffe.visible;
-      jewelElephant.visible = false;
-      jewelHedgehog.visible = false;
-      jewelWhale.visible = false;
-      this.jewel = "Giraffe";
-      console.log(this.jewel);
+    const jewelModels = {
+      Giraffe: { model: null, position: new THREE.Vector3(-1.6, 0.8, 1.35) },
+      Elephant: { model: null, position: new THREE.Vector3(-1, 1, 1.25) },
+      Hedgehog: { model: null, position: new THREE.Vector3(-1, 1.2, 1.15) },
+      Whale: { model: null, position: new THREE.Vector3(-1, 1.4, 0.95) },
     };
 
-    let jewelElephant;
+    // Load jewel models
+    Object.keys(jewelModels).forEach((jewelType) => {
+      const modelPath = `/models/pendant${jewelType}.glb`;
+      gltfLoader.load(modelPath, (gltf) => {
+        const jewelModel = gltf.scene;
+        jewelModel.scale.set(0.05, 0.05, 0.05);
+        jewelModel.rotation.x = -2;
+        jewelModel.rotation.y = 0.6;
+        jewelModel.position.copy(jewelModels[jewelType].position);
 
-    gltfLoader.load("/models/pendantElephant.glb", (gltf) => {
-      jewelElephant = gltf.scene;
-      jewelElephant.scale.set(0.05, 0.05, 0.05);
+        const material = new THREE.MeshStandardMaterial({
+          color: 0xffd700,
+          metalness: 1,
+          roughness: 0.3,
+        });
 
-      jewelElephant.rotation.x = -1.95;
-      jewelElephant.rotation.y = 0.6;
+        jewelModel.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            child.material = material;
+          }
+        });
 
-      jewelElephant.position.z = 1.25;
-      jewelElephant.position.y = 1;
-      jewelElephant.position.x = -1;
-      jewelElephant.visible = false;
-
-      const material = new THREE.MeshStandardMaterial({
-        color: 0xffd700,
-        metalness: 1,
-        roughness: 0.3,
+        jewelModel.visible = false;
+        jewelModels[jewelType].model = jewelModel;
+        scene.add(jewelModel);
       });
-
-      jewelElephant.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.material = material;
-        }
-      });
-
-      scene.add(jewelElephant);
     });
 
-    this.addJewelElephant = () => {
-      jewelElephant.visible = !jewelElephant.visible;
-      jewelGiraffe.visible = false;
-      jewelHedgehog.visible = false;
-      jewelWhale.visible = false;
-      this.jewel = "Elephant";
-      console.log(this.jewel);
+    // Function to update jewel visibility
+    const updateJewel = (jewelType) => {
+      Object.keys(jewelModels).forEach((type) => {
+        const model = jewelModels[type].model;
+        model.visible = type === jewelType;
+        if (type === jewelType) this.jewel = jewelType;
+      });
     };
 
-    let jewelHedgehog;
+    this.updateJewel = updateJewel;
 
-    gltfLoader.load("/models/pendantHedgehog.glb", (gltf) => {
-      jewelHedgehog = gltf.scene;
-      jewelHedgehog.scale.set(0.05, 0.05, 0.05);
-
-      jewelHedgehog.rotation.x = -1.95;
-      jewelHedgehog.rotation.y = 0.6;
-
-      jewelHedgehog.position.z = 1.15;
-      jewelHedgehog.position.y = 1.2;
-      jewelHedgehog.position.x = -1;
-      jewelHedgehog.visible = false;
-
-      const material = new THREE.MeshStandardMaterial({
-        color: 0xffd700,
-        metalness: 1,
-        roughness: 0.3,
-      });
-
-      jewelHedgehog.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.material = material;
-        }
-      });
-
-      scene.add(jewelHedgehog);
-    });
-
-    this.addJewelHedgehog = () => {
-      jewelHedgehog.visible = !jewelHedgehog.visible;
-      jewelGiraffe.visible = false;
-      jewelElephant.visible = false;
-      jewelWhale.visible = false;
-      this.jewel = "Hedgehog";
-      console.log(this.jewel);
-    };
-
-    let jewelWhale;
-
-    gltfLoader.load("/models/pendantWhale.glb", (gltf) => {
-      jewelWhale = gltf.scene;
-      jewelWhale.scale.set(0.05, 0.05, 0.05);
-
-      jewelWhale.rotation.x = -2;
-      jewelWhale.rotation.y = 0.6;
-
-      jewelWhale.position.z = 0.95;
-      jewelWhale.position.y = 1.4;
-      jewelWhale.position.x = -1;
-      jewelWhale.visible = false;
-
-      const material = new THREE.MeshStandardMaterial({
-        color: 0xffd700,
-        metalness: 1,
-        roughness: 0.3,
-      });
-
-      jewelWhale.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.material = material;
-        }
-      });
-
-      scene.add(jewelWhale);
-    });
-
-    this.addJewelWhale = () => {
-      jewelWhale.visible = !jewelWhale.visible;
-      jewelGiraffe.visible = false;
-      jewelElephant.visible = false;
-      jewelHedgehog.visible = false;
-      this.jewel = "Whale";
-      console.log(this.jewel);
-    };
-
-    const updateColorLacesFromDiv = (hexColor) => {
-      console.log("💕");
+    const updateColor = (colorType, hexColor) => {
       if (shoe) {
-        console.log("💕", hexColor);
-        const lacesMaterial = shoe.getObjectByName("laces").material;
-        lacesMaterial.color.setStyle(hexColor);
-        lacesMaterial.needsUpdate = true;
-        this.selectedColors.shoeColorLaces = hexColor;
+        let material;
+        switch (colorType) {
+          case "laces":
+            material = shoe.getObjectByName("laces").material;
+            this.selectedColors.shoeColorLaces = hexColor;
+            break;
+          case "sole":
+            const soleMaterialTop = shoe.getObjectByName("sole_1").material;
+            const soleMaterialBottom = shoe.getObjectByName("sole_2").material;
+            soleMaterialTop.color.setStyle(hexColor);
+            soleMaterialTop.needsUpdate = true;
+            soleMaterialBottom.color.setStyle(hexColor);
+            soleMaterialBottom.needsUpdate = true;
+            this.selectedColors.shoeColorSole = hexColor;
+            break;
+          case "inside":
+            material = shoe.getObjectByName("inside").material;
+            this.selectedColors.shoeColorPanelDown = hexColor;
+            break;
+          case "outside":
+            const topMaterialTop = shoe.getObjectByName("outside_1").material;
+            const topMaterialBottom =
+              shoe.getObjectByName("outside_2").material;
+            topMaterialTop.color.setStyle(hexColor);
+            topMaterialTop.needsUpdate = true;
+            topMaterialBottom.color.setStyle(hexColor);
+            topMaterialBottom.needsUpdate = true;
+            this.selectedColors.shoeColorPanelUp = hexColor;
+            break;
+          default:
+            break;
+        }
+
+        if (material) {
+          material.color.setStyle(hexColor);
+          material.needsUpdate = true;
+        }
+
+        console.log("Updated color:", colorType, hexColor);
+        console.log("Selected colors:", this.selectedColors);
       }
     };
 
-    this.updateColorLaces = updateColorLacesFromDiv;
+    this.updateColor = updateColor;
 
-    const updateColorSoleFromDiv = (hexColor) => {
-      console.log("💕");
-      if (shoe) {
-        console.log("💕", hexColor);
-        const soleMaterialTop = shoe.getObjectByName("sole_1").material;
-        const soleMaterialBottom = shoe.getObjectByName("sole_2").material;
-        soleMaterialTop.color.setStyle(hexColor);
-        soleMaterialTop.needsUpdate = true;
-        soleMaterialBottom.color.setStyle(hexColor);
-        soleMaterialBottom.needsUpdate = true;
-        this.selectedColors.shoeColorSole = hexColor;
-      }
-    };
-
-    this.updateColorSole = updateColorSoleFromDiv;
-
-    const updateColorinsideFromDiv = (hexColor) => {
-      console.log("💕");
-      if (shoe) {
-        console.log("💕", hexColor);
-        const insideMaterial = shoe.getObjectByName("inside").material;
-        insideMaterial.color.setStyle(hexColor);
-        insideMaterial.needsUpdate = true;
-        this.selectedColors.shoeColorPanelDown = hexColor;
-      }
-    };
-
-    this.updateColorinside = updateColorinsideFromDiv;
-
-    const updateColorTopFromDiv = (hexColor) => {
-      console.log("💕");
-      if (shoe) {
-        console.log("💕", hexColor);
-        const topMaterialTop = shoe.getObjectByName("outside_1").material;
-        const topMaterialBottom = shoe.getObjectByName("outside_2").material;
-        topMaterialTop.color.setStyle(hexColor);
-        topMaterialTop.needsUpdate = true;
-        topMaterialBottom.color.setStyle(hexColor);
-        topMaterialBottom.needsUpdate = true;
-        this.selectedColors.shoeColorPanelUp = hexColor;
-      }
-    };
-
-    this.updateColorTop = updateColorTopFromDiv;
-
-    const updateMaterialTopFromDiv = (textureUrl) => {
+    const updateMaterial = (materialType, textureUrl) => {
       if (shoe) {
         const textureLoader = new THREE.TextureLoader();
         const texture = textureLoader.load(textureUrl);
 
         console.log("💕", texture);
 
-        const MaterialTop = shoe.getObjectByName("outside_1").material;
-        const MaterialBottom = shoe.getObjectByName("outside_2").material;
+        let material;
+        switch (materialType) {
+          case "top":
+            material = shoe.getObjectByName("outside_1").material;
+            this.selectedMaterials.shoeMaterialPanelUp = textureUrl;
+            break;
+          case "bottom":
+            material = shoe.getObjectByName("inside").material;
+            this.selectedMaterials.shoeMaterialPanelDown = textureUrl;
+            break;
+          default:
+            break;
+        }
 
-        MaterialTop.map = texture;
-        MaterialTop.needsUpdate = true;
-
-        MaterialBottom.map = texture;
-        MaterialBottom.needsUpdate = true;
-
-        this.selectedMaterials.shoeMaterialPanelUp = textureUrl;
+        if (material) {
+          material.map = texture;
+          material.needsUpdate = true;
+        }
       }
     };
 
-    this.updateMaterialTop = updateMaterialTopFromDiv;
-
-    const updateMaterialBottomFromDiv = (textureUrl) => {
-      if (shoe) {
-        const textureLoader = new THREE.TextureLoader();
-        const texture = textureLoader.load(textureUrl);
-
-        console.log("💕", texture);
-
-        const MaterialTop = shoe.getObjectByName("inside").material;
-
-        MaterialTop.map = texture;
-        MaterialTop.needsUpdate = true;
-        this.selectedMaterials.shoeMaterialPanelDown = textureUrl;
-      }
-    };
-
-    this.updateMaterialBottom = updateMaterialBottomFromDiv;
+    this.updateMaterial = updateMaterial;
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -744,7 +381,6 @@ export default {
           scene.add(this.shoeText);
         });
       } else if (this.initialsState === false) {
-        console.log("initialsState is false");
         scene.remove(this.shoeText);
       }
     };
@@ -753,6 +389,14 @@ export default {
   },
 
   methods: {
+    updateColor(type, hexColor) {
+      if (shoe) {
+        const material = shoe.getObjectByName(type).material;
+        material.color.setStyle(hexColor);
+        material.needsUpdate = true;
+        this.selectedColors[type] = hexColor;
+      }
+    },
     handleDoneButtonClick() {
       if (
         this.shoeSize &&
@@ -764,7 +408,8 @@ export default {
         this.selectedColors.shoeColorPanelDown &&
         this.selectedColors.shoeColorPanelUp &&
         this.selectedMaterials.shoeMaterialPanelDown &&
-        this.selectedMaterials.shoeMaterialPanelUp
+        this.selectedMaterials.shoeMaterialPanelUp &&
+        this.initials
       ) {
         this.formError = null; // Clear any previous errors
 
@@ -777,7 +422,6 @@ export default {
     },
 
     fetchData() {
-      console.log("fetching data");
       const data = {
         shoe: {
           shoeType: "AIR REV. NITRO S",
@@ -796,6 +440,11 @@ export default {
           userEmail: this.userEmail,
         },
       };
+
+      // Additional properties for color and material selections
+      data.shoe.colorOptions = this.colorOptions;
+      data.shoe.selectedColors = this.selectedColors;
+      data.shoe.selectedMaterials = this.selectedMaterials;
 
       fetch("https://dev5-api-sneakers.onrender.com/api/v1/shoes", {
         method: "POST",
@@ -818,68 +467,11 @@ export default {
 </script>
 
 <style scoped>
-#threeContainers {
-  width: 100%;
-  height: 50vh;
-}
-
-.optionsContainer {
-  background-color: #242424;
-}
-
-menu {
-  margin: 0;
-  padding: 0;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-top-color: #000;
-  border-width: 2px 0 0 0;
-  border-style: solid;
-}
-
-#arrows {
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.arrows-item {
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-.shoe-desc {
+.initials-container {
   display: flex;
   flex-direction: column;
   align-items: start;
   padding: 43px;
-  background-color: #d6ff38;
-}
-
-.selections {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: flex-start;
-  max-width: 500px;
-}
-
-.options {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.circles {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 10px 0;
-  border: 2px solid #fff;
 }
 
 p {
@@ -914,46 +506,6 @@ button {
   margin: auto;
   margin-top: 80px;
   margin-bottom: 80px;
-}
-
-.selected-circle {
-  border: 2px solid red; /* Apply red border for the selected circle */
-}
-
-.black {
-  background-color: #ffc0cb;
-}
-
-.red {
-  background-color: #ac0202;
-}
-
-.yellow {
-  background-color: #d6ff38;
-}
-
-.grey {
-  background-color: #c9c9c9;
-}
-
-.leather {
-  background-image: url("/textures/leather.jpg");
-  background-size: cover;
-}
-
-.holes {
-  background-image: url("/textures/holes.jpg");
-  background-size: cover;
-}
-
-.latex {
-  background-image: url("/textures/latex.jpg");
-  background-size: cover;
-}
-
-.fabric {
-  background-image: url("/textures/fabric.jpg");
-  background-size: cover;
 }
 
 #configurator {
@@ -997,33 +549,23 @@ button {
   flex-direction: row;
   gap: 10px;
 }
+
 input {
   border: 2px solid #d6ff38;
   background-color: #242424;
   color: white;
 }
-
-.jewelGiraffe {
-  background-image: url("/media/giraffe.jpg");
-  background-size: contain;
-  background-repeat: no-repeat;
+.options .circle {
+  cursor: pointer;
+  transition: transform 0.2s;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 10px 0;
+  border: 2px solid #fff;
 }
 
-.jewelElephant {
-  background-image: url("/media/elephant.jpg");
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.jewelHedgehog {
-  background-image: url("/media/hedgehog.jpg");
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-
-.jewelWhale {
-  background-image: url("/media/whale.jpg");
-  background-size: contain;
-  background-repeat: no-repeat;
+.options .circle:hover {
+  transform: scale(1.2);
 }
 </style>

@@ -4,6 +4,10 @@
     <router-link to="/changepassword">Change password</router-link>
   </button>
   <h1>All orders</h1>
+  <div id="numberoforders">
+    <p>Number of orders:</p>
+    <p>0</p>
+  </div>
   <div class="container">
     <div v-for="shoe in shoes" :key="shoe.id" class="shoe-item">
       <div class="shoe-info">
@@ -151,5 +155,12 @@ button {
 
 img {
   width: 200px;
+}
+
+#numberoforders {
+  display: flex;
+  flex-direction: row;
+  margin-left: 100px;
+  margin-bottom: 50px;
 }
 </style>

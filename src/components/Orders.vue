@@ -6,7 +6,7 @@
   <h1>All orders</h1>
   <div id="numberoforders">
     <p>Number of orders:</p>
-    <p>0</p>
+    <p> {{shoes.length}}</p>
   </div>
   <div class="container">
     <div v-for="shoe in shoes" :key="shoe.id" class="shoe-item">
@@ -27,15 +27,21 @@
 
 <script>
 import { useRouter } from "vue-router"; // Import useRouter
+import {ref, onMounted} from "vue";
+
+let socket = null;
 
 export default {
   data() {
     return {
       shoes: [],
+      shoeCount: null,
     };
   },
   mounted() {
     this.fetchShoes();
+    this.socketConnect();
+
   },
   methods: {
     async fetchShoes() {
@@ -57,6 +63,21 @@ export default {
     viewShoe(shoeId) {
       // Navigate to the detail page using router-link
       this.$router.push(`/shoe/${shoeId}`);
+    },
+    socketConnect() {
+      socket = new WebSocket('ws://localhost:3000/primus');
+
+      socket.onopen = () => {
+        console.log('connected with WebSocket');
+      };
+
+      socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        console.log(data);
+        
+      };
+
+
     },
   },
 };

@@ -7,6 +7,7 @@ import Orders from "./components/Orders.vue";
 import ChangePassword from "./components/ChangePassword.vue";
 import ShoeDetails from "./components/ShoeDetails.vue";
 import ThankYou from "./components/ThankYouPage.vue";
+import Config2 from "./components/Config2.vue";
 
 const routes = [
   { path: "/", component: ShoePage },
@@ -22,6 +23,10 @@ const routes = [
     path: "/thankyou",
     component: ThankYou,
   },
+  {
+    path: "/config2",
+    component: Config2,
+  }
 ];
 
 const router = createRouter({

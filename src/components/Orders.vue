@@ -41,7 +41,6 @@ export default {
   mounted() {
     this.fetchShoes();
     this.socketConnect();
-
   },
   methods: {
     async fetchShoes() {
@@ -53,6 +52,7 @@ export default {
 
         if (data.status === "success") {
           this.shoes = data.data.shoes;
+          console.log('fetched shoes:', this.shoes);
         } else {
           console.error("Error fetching shoes:", data.message);
         }
@@ -73,8 +73,9 @@ export default {
 
       socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
-        if(data){
-          console.log(data);
+        if (data.data) {
+          this.shoes.push(data.data.shoe);
+          console.log('shoes:', data.data);
         }
         
       };

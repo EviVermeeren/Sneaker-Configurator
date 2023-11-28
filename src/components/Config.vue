@@ -113,13 +113,6 @@ import { ref, onMounted } from "vue";
 
 let socket = null;
 
-onMounted(() => {
-  socket = new WebSocket('ws://localhost:3000/primus');
-  socket.onopen = function (event) {
-    console.log('socket open');
-  };
-});
-
 export default {
   setup() {},
   data() {

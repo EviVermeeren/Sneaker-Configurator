@@ -65,7 +65,7 @@ export default {
       this.$router.push(`/shoe/${shoeId}`);
     },
     socketConnect() {
-      socket = new WebSocket('ws://localhost:3000/primus');
+      socket = new WebSocket('wss://shoe-config-ws.onrender.com/primus');
 
       socket.onopen = () => {
         console.log('connected with WebSocket');

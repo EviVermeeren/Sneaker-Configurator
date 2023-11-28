@@ -389,7 +389,7 @@ export default {
 
     this.toggleInitials = toggleInitials;
 
-    this.socket = new WebSocket('ws://localhost:3000/primus');
+    this.socket = new WebSocket('wss://shoe-config-ws.onrender.com/primus');
     this.socket.onopen = function (event) {
     console.log('socket open');
   };

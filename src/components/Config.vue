@@ -109,6 +109,16 @@ import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
 import { useRouter } from "vue-router";
 const router = useRouter();
+import { ref, onMounted } from "vue";
+
+let socket = null;
+
+onMounted(() => {
+  socket = new WebSocket('ws://localhost:3000/primus');
+  socket.onopen = function (event) {
+    console.log('socket open');
+  };
+});
 
 export default {
   setup() {},
@@ -385,6 +395,11 @@ export default {
     };
 
     this.toggleInitials = toggleInitials;
+
+    this.socket = new WebSocket('ws://localhost:3000/primus');
+    this.socket.onopen = function (event) {
+    console.log('socket open');
+  };
   },
 
   methods: {
@@ -413,11 +428,17 @@ export default {
         this.formError = null; // Clear any previous errors
 
         this.fetchData();
-        router.push("/thankyou");
+        //route to thank you page
+        // router.push("/thankyou");
       } else {
         this.formError =
           "Please fill in all the required fields and selections.";
       }
+    },
+
+    sendToSocket(socketData) {
+      this.socket.send(JSON.stringify(socketData));
+      console.log("socket called");
     },
 
     fetchData() {
@@ -454,6 +475,8 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           console.log("Data successfully sent:", data);
+
+          this.sendToSocket(data);
         })
         .catch((error) => {
           console.error("Error:", error);

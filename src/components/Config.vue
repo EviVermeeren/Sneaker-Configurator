@@ -3,6 +3,12 @@
     <div class="canvas-container" ref="canvasContainer"></div>
 
     <div>
+      <h1>AIR REV. NITRO S</h1>
+      <p class="price">€ 200</p>
+      <router-link to="/config2"
+        ><button class="router">Go to other model</button></router-link
+      >
+
       <div class="initials-container">
         <label>
           <input type="checkbox" @change="toggleInitials()" />
@@ -102,7 +108,8 @@ import { TextureLoader } from "three/src/loaders/TextureLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
 import { useRouter } from "vue-router";
-import router from "../router";
+const router = useRouter();
+
 export default {
   setup() {},
   data() {
@@ -125,7 +132,7 @@ export default {
       userAddress: null,
       userEmail: null,
       formError: null,
-      colorOptions: ["#FFFF00", "#FF0000", "#FFC0CB", "#C9C9C9"],
+      colorOptions: ["#ffd700", "#88FF00", "#00FFA6", "#A200FF"],
       materialOptions: [
         "/textures/leather.jpg",
         "/textures/holes.jpg",
@@ -144,7 +151,6 @@ export default {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, ratio, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
-    // renderer.setSize(window.innerWidth, window.innerHeight * 0.5);
     renderer.setPixelRatio(window.devicePixelRatio);
     canvasContainer.appendChild(renderer.domElement);
 
@@ -217,7 +223,6 @@ export default {
       Whale: { model: null, position: new THREE.Vector3(-1, 1.4, 0.95) },
     };
 
-    // Load jewel models
     Object.keys(jewelModels).forEach((jewelType) => {
       const modelPath = `/models/pendant${jewelType}.glb`;
       gltfLoader.load(modelPath, (gltf) => {
@@ -245,7 +250,6 @@ export default {
       });
     });
 
-    // Function to update jewel visibility
     const updateJewel = (jewelType) => {
       Object.keys(jewelModels).forEach((type) => {
         const model = jewelModels[type].model;
@@ -295,9 +299,6 @@ export default {
           material.color.setStyle(hexColor);
           material.needsUpdate = true;
         }
-
-        console.log("Updated color:", colorType, hexColor);
-        console.log("Selected colors:", this.selectedColors);
       }
     };
 
@@ -308,7 +309,9 @@ export default {
         const textureLoader = new THREE.TextureLoader();
         const texture = textureLoader.load(textureUrl);
 
-        console.log("💕", texture);
+        texture.repeat.set(2, 2);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
 
         let material;
         switch (materialType) {
@@ -348,12 +351,8 @@ export default {
 
     const toggleInitials = () => {
       this.initialsState = !this.initialsState;
-      console.log(this.initialsState);
-      console.log(this.initials);
 
       if (this.initialsState === true) {
-        console.log("initialsState is true");
-
         fontLoader.load("fonts/helvetiker_regular.typeface.json", (font) => {
           const textGeometry = new TextGeometry(this.initials, {
             font: font,
@@ -441,7 +440,6 @@ export default {
         },
       };
 
-      // Additional properties for color and material selections
       data.shoe.colorOptions = this.colorOptions;
       data.shoe.selectedColors = this.selectedColors;
       data.shoe.selectedMaterials = this.selectedMaterials;
@@ -455,7 +453,6 @@ export default {
       })
         .then((response) => response.json())
         .then((data) => {
-          // Handle the response if needed
           console.log("Data successfully sent:", data);
         })
         .catch((error) => {
@@ -513,7 +510,6 @@ button {
   flex-direction: row;
   align-items: center;
   gap: 120px;
-  margin-top: 50px;
   margin-left: 50px;
   margin-right: 50px;
   padding-left: 50px;
@@ -567,5 +563,51 @@ input {
 
 .options .circle:hover {
   transform: scale(1.2);
+}
+
+.router {
+  text-decoration: none;
+  color: #d6ff38;
+  background-color: #000;
+  width: 20%;
+  max-width: 150px;
+  height: 24px;
+  font-family: "cooper-black-std", serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  display: block;
+  margin-left: 40px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+h1 {
+  color: white;
+  font-size: 1.5rem;
+  margin: 0;
+  font-family: "cooper-black-std", serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  margin-left: 40px;
+  margin-top: 20px;
+}
+
+.price {
+  color: white;
+  font-size: 1.5rem;
+  margin: 0;
+  font-family: "cooper-black-std", serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  margin-left: 40px;
+  margin-top: 20px;
 }
 </style>

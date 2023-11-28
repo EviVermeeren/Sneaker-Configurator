@@ -73,7 +73,9 @@ export default {
 
       socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
-        console.log(data);
+        if(data){
+          console.log(data);
+        }
         
       };
 

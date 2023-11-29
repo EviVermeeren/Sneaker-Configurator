@@ -1,6 +1,6 @@
 <template>
   <div class="bgc">
-    <h1>Our models</h1>
+    <h1 id="ourmodels">Our models</h1>
     <div class="flex">
       <div>
         <div class="canvas-container" ref="canvasContainer1"></div>
@@ -121,6 +121,18 @@ h1 {
   letter-spacing: 1.08px;
   line-height: normal;
   margin: 0;
+}
+
+#ourmodels {
+  font-family: "cooper-black-std", serif;
+  font-weight: 400;
+  color: #000000;
+  font-size: 36px;
+  letter-spacing: 1.08px;
+  line-height: normal;
+  margin: 0;
+  padding-top: 50px;
+  margin-left: 100px;
 }
 
 h2 {

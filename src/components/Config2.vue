@@ -107,6 +107,8 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 import { ref, onMounted } from "vue";
 
+let socket = null;
+
 export default {
   setup() {},
   data() {
@@ -302,6 +304,11 @@ export default {
     };
 
     animate();
+
+    this.socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
+    this.socket.onopen = function (event) {
+      console.log("socket open");
+    };
   },
 
   methods: {
@@ -328,7 +335,7 @@ export default {
         this.formError = null;
 
         this.fetchData();
-        router.push("/thankyou");
+        // router.push("/thankyou");
       } else {
         this.formError =
           "Please fill in all the required fields and selections.";

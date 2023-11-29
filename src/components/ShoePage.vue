@@ -1,8 +1,9 @@
 <template>
   <div class="bgc">
+    <h1>Our models</h1>
     <div class="flex">
       <div>
-        <div class="canvas-container" ref="canvasContainer"></div>
+        <div class="canvas-container" ref="canvasContainer1"></div>
       </div>
       <div>
         <h1>AIR REV. NITRO S</h1>
@@ -10,7 +11,20 @@
         <p>€200,00</p>
         <div class="buttons">
           <button><router-link to="/customize">CUSTOMIZE</router-link></button>
-          <button>BUY</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex">
+      <div>
+        <div class="canvas-container" ref="canvasContainer2"></div>
+      </div>
+      <div>
+        <h1>AIR REV. XTRA</h1>
+        <h2>Custom shoes</h2>
+        <p>€180,00</p>
+        <div class="buttons">
+          <button><router-link to="/config2">CUSTOMIZE</router-link></button>
         </div>
       </div>
     </div>
@@ -28,62 +42,65 @@ export default {
     const windowWidth = window.innerWidth;
     const squareSize = windowWidth * 0.4;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(100, 1, 0.1, 1000); // Aspect ratio is set to 1 for a square
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(squareSize, squareSize);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    this.$refs.canvasContainer.appendChild(renderer.domElement);
+    const createScene = (container, modelPath) => {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(100, 1, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(squareSize, squareSize);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+      camera.position.z = 7;
 
-    camera.position.z = 7;
+      const loadingManager = new THREE.LoadingManager();
 
-    const loadingManager = new THREE.LoadingManager();
+      const gltfLoader = new GLTFLoader(loadingManager);
 
-    const gltfLoader = new GLTFLoader(loadingManager);
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.maxPolarAngle = Math.PI / 2;
+      controls.enablePan = false;
 
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.maxPolarAngle = Math.PI / 2;
-    controls.enablePan = false;
+      scene.background = new THREE.Color(0xffffff);
 
-    scene.background = new THREE.Color(0xffffff);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
+      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.7);
+      const directionalLight3 = new THREE.DirectionalLight(0xffffff, 1.7);
+      const directionalLight4 = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(0, 0, 1);
+      directionalLight2.position.set(0, 0, -1);
+      directionalLight3.position.set(0, 1, 0);
+      directionalLight4.position.set(-1, 0, 0);
+      scene.add(directionalLight);
+      scene.add(directionalLight2);
+      scene.add(directionalLight3);
+      scene.add(directionalLight4);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
-    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.7);
-    const directionalLight3 = new THREE.DirectionalLight(0xffffff, 1.7);
-    const directionalLight4 = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(0, 0, 1);
-    directionalLight2.position.set(0, 0, -1);
-    directionalLight3.position.set(0, 1, 0);
-    directionalLight4.position.set(-1, 0, 0);
-    scene.add(directionalLight);
-    scene.add(directionalLight2);
-    scene.add(directionalLight3);
-    scene.add(directionalLight4);
+      let shoe;
 
-    let shoe;
+      gltfLoader.load(modelPath, (gltf) => {
+        shoe = gltf.scene;
+        shoe.scale.set(2, 2, 2);
+        shoe.rotation.order = "YXZ";
+        shoe.rotation.x = 0.5;
+        shoe.rotation.y = 1.5;
+        shoe.position.z = 0;
+        shoe.position.y = -0.5;
+        shoe.position.x = -0.5;
+        scene.add(shoe);
+      });
 
-    gltfLoader.load("/models/new-shoe.glb", (gltf) => {
-      shoe = gltf.scene;
-      shoe.scale.set(2.5, 2.5, 2.5);
+      const animate = () => {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      };
 
-      shoe.rotation.order = "YXZ";
-
-      shoe.rotation.x = 0.5;
-      shoe.rotation.y = 1.5;
-
-      shoe.position.z = 0;
-      shoe.position.y = -0.5;
-      shoe.position.x = -0.5;
-
-      scene.add(shoe);
-    });
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-      renderer.render(scene, camera);
+      animate();
     };
 
-    animate();
+    // Load the first model in the first container
+    createScene(this.$refs.canvasContainer1, "/models/new-shoe.glb");
+
+    // Load a different model in the second container
+    createScene(this.$refs.canvasContainer2, "/models/vans-shoe.glb");
   },
 };
 </script>
@@ -91,7 +108,6 @@ export default {
 <style scoped>
 .bgc {
   background-color: #fff;
-  height: 100vh;
 }
 a {
   text-decoration: none;

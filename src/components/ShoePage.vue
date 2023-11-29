@@ -1,30 +1,38 @@
 <template>
-  <div class="bgc">
-    <h1 id="ourmodels">Our models</h1>
-    <div class="flex">
+  <div class="models-container">
+    <h1 id="ourmodels" class="models-container__title">Our models</h1>
+    <div class="model flex">
       <div>
         <div class="canvas-container" ref="canvasContainer1"></div>
       </div>
       <div>
-        <h1>AIR REV. NITRO S</h1>
-        <h2>Custom shoes</h2>
-        <p>€200,00</p>
-        <div class="buttons">
-          <button><router-link to="/customize">CUSTOMIZE</router-link></button>
+        <h1 class="model__name">AIR REV. NITRO S</h1>
+        <h2 class="model__type">Custom shoes</h2>
+        <p class="model__price">€200,00</p>
+        <div class="model__buttons buttons">
+          <button>
+            <router-link to="/customize" class="buttons__link"
+              >CUSTOMIZE</router-link
+            >
+          </button>
         </div>
       </div>
     </div>
 
-    <div class="flex">
+    <div class="model flex">
       <div>
         <div class="canvas-container" ref="canvasContainer2"></div>
       </div>
       <div>
-        <h1>AIR REV. XTRA</h1>
-        <h2>Custom shoes</h2>
-        <p>€180,00</p>
-        <div class="buttons">
-          <button><router-link to="/config2">CUSTOMIZE</router-link></button>
+        <h1 class="model__name">AIR REV. XTRA</h1>
+        <h2 class="model__type">Custom shoes</h2>
+        <p class="model__price">€180,00</p>
+        <div class="model__buttons buttons">
+          <button>
+            <router-link to="/config2" class="buttons__link"
+              >CUSTOMIZE</router-link
+            >
+          </button>
         </div>
       </div>
     </div>
@@ -49,7 +57,7 @@ export default {
       renderer.setSize(squareSize, squareSize);
       renderer.setPixelRatio(window.devicePixelRatio);
       container.appendChild(renderer.domElement);
-      camera.position.z = 7;
+      camera.position.z = 5;
 
       const loadingManager = new THREE.LoadingManager();
 
@@ -59,7 +67,7 @@ export default {
       controls.maxPolarAngle = Math.PI / 2;
       controls.enablePan = false;
 
-      scene.background = new THREE.Color(0xffffff);
+      scene.background = new THREE.Color(0x242424);
 
       const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
       const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.7);
@@ -106,27 +114,19 @@ export default {
 </script>
 
 <style scoped>
-.bgc {
-  background-color: #fff;
+.models-container {
+  background-color: #242424;
 }
+
 a {
   text-decoration: none;
   color: #d6ff38;
 }
-h1 {
-  font-family: "cooper-black-std", serif;
-  font-weight: 400;
-  color: #000000;
-  font-size: 36px;
-  letter-spacing: 1.08px;
-  line-height: normal;
-  margin: 0;
-}
 
-#ourmodels {
+.models-container__title {
   font-family: "cooper-black-std", serif;
   font-weight: 400;
-  color: #000000;
+  color: white;
   font-size: 36px;
   letter-spacing: 1.08px;
   line-height: normal;
@@ -135,10 +135,33 @@ h1 {
   margin-left: 100px;
 }
 
-h2 {
+.model {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 100vw;
+}
+
+img {
+  width: 25vw;
+}
+
+.model__name,
+.model__type,
+.model__price {
   font-family: "cooper-black-std", serif;
   font-weight: 400;
-  color: #000000;
+  color: white;
+}
+
+.model__name {
+  font-size: 36px;
+  letter-spacing: 1.08px;
+  line-height: normal;
+  margin: 0;
+}
+
+.model__type {
   font-size: 20px;
   letter-spacing: 0.72px;
   line-height: normal;
@@ -146,25 +169,17 @@ h2 {
   margin: 0;
 }
 
+.model__price,
 p {
   font-family: "basic-sans", sans-serif;
   font-weight: 400;
-  color: #000000;
+  color: white;
   font-size: 16px;
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
 }
-.flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-}
 
-img {
-  width: 25vw;
-}
 .buttons {
   display: flex;
   flex-direction: column;
@@ -183,5 +198,10 @@ button {
   font-size: 14px;
   letter-spacing: 1.61px;
   line-height: normal;
+}
+
+.buttons__link {
+  text-decoration: none;
+  color: #d6ff38;
 }
 </style>

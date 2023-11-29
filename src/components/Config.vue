@@ -444,8 +444,6 @@ export default {
         this.formError = null; // Clear any previous errors
 
         this.fetchData();
-
-        this.router.push("/thankyou");
       } else {
         this.formError =
           "Please fill in all the required fields and selections.";
@@ -489,10 +487,24 @@ export default {
         body: JSON.stringify(data),
       })
         .then((response) => response.json())
-        .then((data) => {
-          console.log("Data successfully sent:", data);
+        .then((responseData) => {
+          console.log("Data successfully sent:", responseData);
 
-          this.sendToSocket(data);
+          if (
+            responseData &&
+            responseData.data &&
+            responseData.data.shoe &&
+            responseData.data.shoe._id
+          ) {
+            const newId = responseData.data.shoe._id;
+
+            console.log(newId);
+            this.sendToSocket(responseData);
+            this.$router.push({ path: "/thankyou", query: { id: newId } });
+          } else {
+            console.error("Invalid server response format");
+            // Handle the error or show a message to the user
+          }
         })
         .catch((error) => {
           console.error("Error:", error);

@@ -103,14 +103,17 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader.js";
 
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
-import { ref, onMounted } from "vue";
 
 let socket = null;
 
 export default {
-  setup() {},
+  setup() {
+    const router = useRouter();
+    return { router };
+  },
   data() {
     return {
       selectedColors: {
@@ -333,9 +336,9 @@ export default {
         this.selectedMaterials.shoeMaterialPanelUp
       ) {
         this.formError = null;
-
         this.fetchData();
-        // router.push("/thankyou");
+
+        this.router.push("/thankyou");
       } else {
         this.formError =
           "Please fill in all the required fields and selections.";

@@ -1,26 +1,46 @@
 <template>
-  <div class="bgc">
-    <div class="flex">
+  <div class="order-container">
+    <div class="order-container__flex">
       <div>
         <div class="canvas-container" ref="canvasContainer"></div>
       </div>
       <div>
-        <h1 id="type">{{ shoe.shoeType }}</h1>
-        <h2>{{ shoe.userName }}</h2>
-        <p>Shipping address: {{ shoe.userAddress }}</p>
-        <p>Size: {{ shoe.shoeSize }}</p>
-        <p>Status: {{ shoe.status }}</p>
+        <div class="order-info">
+          <h1 class="order-info__title">Overview of order</h1>
+          <p id="type" class="order-info__shoe-type">
+            Shoe type: {{ shoe.shoeType }}
+          </p>
+          <p class="order-info__user-name">Name: {{ shoe.userName }}</p>
+          <p class="order-info__user-address">
+            Shipping address: {{ shoe.userAddress }}
+          </p>
+          <p class="order-info__user-email">Email: {{ shoe.userEmail }}</p>
+          <p class="order-info__shoe-size">Size: {{ shoe.shoeSize }}</p>
+          <p class="order-info__status">Status: {{ shoe.status }}</p>
+        </div>
+
         <div class="buttons">
-          <button @click="updateStatus('in production')">
+          <button
+            @click="updateStatus('in production')"
+            class="status-update-button"
+          >
             Update status to “in production”
           </button>
-          <button @click="updateStatus('in transit')">
+          <button
+            @click="updateStatus('in transit')"
+            class="status-update-button"
+          >
             Update status to “in transit”
           </button>
-          <button @click="updateStatus('complete')">
+          <button
+            @click="updateStatus('complete')"
+            class="status-update-button"
+          >
             Update status to “complete”
           </button>
-          <button @click="deleteOrder">Delete order</button>
+          <button @click="deleteOrder" class="delete-button">
+            Delete order
+          </button>
         </div>
       </div>
     </div>
@@ -64,7 +84,7 @@ export default {
   async mounted() {
     await this.fetchShoes(); // Wait for the fetch to complete
     const windowWidth = window.innerWidth;
-    const squareSize = windowWidth * 0.4;
+    const squareSize = windowWidth * 0.3;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000); // Aspect ratio is set to 1 for a square
@@ -83,7 +103,7 @@ export default {
     controls.maxPolarAngle = Math.PI / 2;
     controls.enablePan = false;
 
-    scene.background = new THREE.Color(0xffffff);
+    scene.background = new THREE.Color(0x242424);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
     const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.7);
@@ -471,52 +491,52 @@ export default {
 </script>
 
 <style scoped>
-.bgc {
-  background-color: #fff;
+.order-container {
+  background-color: #242424;
   height: 100vh;
 }
 a {
   text-decoration: none;
   color: #d6ff38;
 }
-h1 {
+
+.order-info {
+  display: flex;
+  flex-direction: column;
+}
+.order-info__title {
   font-family: "cooper-black-std", serif;
   font-weight: 400;
-  color: #000000;
+  color: white;
   font-size: 36px;
   letter-spacing: 1.08px;
   line-height: normal;
   margin: 0;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
-
-h2 {
-  font-family: "cooper-black-std", serif;
-  font-weight: 400;
-  color: #000000;
-  font-size: 20px;
-  letter-spacing: 0.72px;
-  line-height: normal;
-  white-space: nowrap;
-  margin: 0;
-}
-
-p {
+.order-info__shoe-type,
+.order-info__user-name,
+.order-info__user-address,
+.order-info__user-email,
+.order-info__shoe-size,
+.order-info__status {
   font-family: "basic-sans", sans-serif;
   font-weight: 400;
-  color: #000000;
+  color: white;
   font-size: 16px;
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
+  margin-top: 0;
 }
-.flex {
+.order-container__flex {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100vw;
   gap: 100px;
 }
-
 img {
   width: 25vw;
 }
@@ -525,18 +545,28 @@ img {
   flex-direction: column;
   gap: 20px;
 }
-
-button {
+.status-update-button,
+.delete-button {
   width: 299px;
   height: 36px;
   top: 0;
   left: 0;
-  background-color: #000000;
   font-family: "basic-sans", sans-serif;
   font-weight: 700;
-  color: #d6ff38;
   font-size: 14px;
   letter-spacing: 1.61px;
   line-height: normal;
+}
+.status-update-button {
+  background-color: #000000;
+  color: #d6ff38;
+}
+
+.status-update-button:first-child {
+  margin-top: 20px;
+}
+.delete-button {
+  background-color: #000000;
+  color: #d6ff38;
 }
 </style>

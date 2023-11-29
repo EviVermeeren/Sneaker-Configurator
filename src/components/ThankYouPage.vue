@@ -57,12 +57,12 @@ export default {
     };
   },
   async mounted() {
-    await this.fetchShoes(); // Wait for the fetch to complete
+    await this.fetchShoes();
     const windowWidth = window.innerWidth;
-    const squareSize = windowWidth * 0.3; // 25% smaller
+    const squareSize = windowWidth * 0.3;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000); // Aspect ratio is set to 1 for a square
+    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(squareSize, squareSize);
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -314,7 +314,6 @@ export default {
 
           scene.add(shoe);
 
-          // Move the updateShoeColors call here, after the shoe model is loaded
           updateShoeColors();
         });
 
@@ -398,14 +397,13 @@ export default {
   methods: {
     async fetchShoes() {
       try {
-        // Use this.$route.query.id instead of this.shoeId
         const response = await fetch(
           `https://dev5-api-sneakers.onrender.com/api/v1/shoes?id=${this.$route.query.id}`
         );
         const data = await response.json();
 
         if (data.status === "success") {
-          this.shoe = data.data.shoe || {}; // Use empty object if undefined
+          this.shoe = data.data.shoe || {};
           console.log(this.shoe);
         } else {
           console.error("Error fetching shoes:", data.message);

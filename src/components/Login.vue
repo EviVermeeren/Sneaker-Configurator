@@ -1,25 +1,38 @@
 <template>
   <div class="login-container">
-    <h1>Admin login</h1>
+    <h1 class="login-container__title">Admin login</h1>
 
-    <!-- login form -->
     <div class="login-form">
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" v-model="username" />
+      <label for="username" class="login-form__label">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        v-model="username"
+        class="login-form__input"
+      />
 
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" v-model="password" />
+      <label for="password" class="login-form__label">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        v-model="password"
+        class="login-form__input"
+      />
 
-      <button type="submit" @click="login">Login</button>
+      <button type="submit" @click="login" class="login-form__button">
+        Login
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import { useRouter } from "vue-router"; // Import useRouter
+import { useRouter } from "vue-router";
 
-const router = useRouter(); // Get the router instance
+const router = useRouter();
 
 const username = ref("");
 const password = ref("");
@@ -46,19 +59,15 @@ const login = async () => {
       throw new Error("Login failed");
     }
 
-    // Handle successful login
     const responseData = await response.json();
     console.log("Login successful", responseData);
 
-    // Save the token to local storage
     localStorage.setItem("token", responseData.data.token);
     localStorage.setItem("username", responseData.data.user.userName);
 
-    // Redirect to the orders page
     router.push("/orders");
   } catch (error) {
     console.error("Login error:", error.message);
-    // Handle login error, display a message to the user, etc.
   }
 };
 </script>
@@ -78,17 +87,17 @@ a {
   flex-direction: column;
   gap: 1em;
 }
-h1 {
+.login-container__title {
   color: #fff;
   text-align: center;
   margin-top: 0;
-  padding-top: 4em;
+  padding-top: 2em;
   font-family: "cooper-black-std", serif;
   font-weight: 400;
   font-size: 36px;
   margin-bottom: 50px;
 }
-label {
+.login-form__label {
   font-family: "basic-sans", sans-serif;
   font-weight: 400;
   font-size: 18px;
@@ -97,7 +106,7 @@ label {
   margin: auto;
 }
 
-button {
+.login-form__button {
   color: #d6ff38;
   background-color: #000;
   width: 60%;
@@ -114,7 +123,7 @@ button {
   margin-bottom: 80px;
 }
 
-input {
+.login-form__input {
   border: 2px solid white;
   background-color: #242424;
   color: white;
@@ -133,7 +142,7 @@ input {
   padding-left: 20px;
 }
 
-input:focus {
+.login-form__input:focus {
   outline: none;
   border: 2px solid #d6ff38;
 }

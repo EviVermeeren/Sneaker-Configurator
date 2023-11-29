@@ -81,19 +81,6 @@
     <div v-if="formError" class="error-message">{{ formError }}</div>
 
     <button @click="handleDoneButtonClick">Send order!</button>
-
-    <div id="shoetype">
-      <h1>You are currently editing: AIR REV. XTRA BLACK</h1>
-      <p class="price">€ 180</p>
-      <router-link to="/"
-        ><button class="router">Go to AIR REV. NITRO S</button></router-link
-      >
-      <p id="disclaimer">
-        This shoe is the ultimate custom shoe, since all the artwork that is
-        used, is created for our brand by Stable Diffusion and Lexica and is not
-        available anywhere else.
-      </p>
-    </div>
   </div>
 </template>
 

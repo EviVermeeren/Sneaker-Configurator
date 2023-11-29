@@ -104,14 +104,6 @@
     <div v-if="formError" class="error-message">{{ formError }}</div>
 
     <button @click="handleDoneButtonClick">Send order!</button>
-
-    <div id="shoetype">
-      <h1>You are currently editing: AIR REV. NITRO S</h1>
-      <p class="price">€ 200</p>
-      <router-link to="/config2"
-        ><button class="router">Go to AIR REV. XTRA BLACK</button></router-link
-      >
-    </div>
   </div>
 </template>
 

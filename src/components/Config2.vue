@@ -102,8 +102,10 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader.js";
-import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
-import { FontLoader } from "three/addons/loaders/FontLoader.js";
+
+import { useRouter } from "vue-router";
+const router = useRouter();
+import { ref, onMounted } from "vue";
 
 export default {
   setup() {},
@@ -326,10 +328,16 @@ export default {
         this.formError = null;
 
         this.fetchData();
+        router.push("/thankyou");
       } else {
         this.formError =
           "Please fill in all the required fields and selections.";
       }
+    },
+
+    sendToSocket(socketData) {
+      this.socket.send(JSON.stringify(socketData));
+      console.log("socket called");
     },
 
     fetchData() {
@@ -363,6 +371,7 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           console.log("Data successfully sent:", data);
+          this.sendToSocket(data);
         })
         .catch((error) => {
           console.error("Error:", error);

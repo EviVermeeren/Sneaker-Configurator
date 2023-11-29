@@ -122,14 +122,18 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
+
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
-import { ref, onMounted } from "vue";
 
 let socket = null;
 
 export default {
-  setup() {},
+  setup() {
+    const router = useRouter();
+    return { router };
+  },
   data() {
     return {
       initials: "",
@@ -440,8 +444,8 @@ export default {
         this.formError = null; // Clear any previous errors
 
         this.fetchData();
-        //route to thank you page
-        // router.push("/thankyou");
+
+        this.router.push("/thankyou");
       } else {
         this.formError =
           "Please fill in all the required fields and selections.";

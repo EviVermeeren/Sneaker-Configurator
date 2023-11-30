@@ -6,8 +6,13 @@
       <a
         id="arrow"
         @click="
-          if (currentPartIndex > 0) currentPartIndex--;
-          else currentPartIndex = 5;
+          if (currentPartIndex > 0) {
+            currentPartIndex--;
+            updateCameraPosition();
+          } else {
+            currentPartIndex = 5;
+            updateCameraPosition();
+          }
         "
       >
         ←
@@ -92,8 +97,13 @@
       <a
         id="arrow"
         @click="
-          if (currentPartIndex < 5) currentPartIndex++;
-          else currentPartIndex = 0;
+          if (currentPartIndex < 5) {
+            currentPartIndex++;
+            updateCameraPosition();
+          } else {
+            currentPartIndex = 0;
+            updateCameraPosition();
+          }
         "
       >
         →
@@ -455,6 +465,10 @@ export default {
         material.needsUpdate = true;
         this.selectedColors[type] = hexColor;
       }
+    },
+
+    updateCameraPosition() {
+      console.log("changethis");
     },
     handleDoneButtonClick() {
       if (

@@ -20,7 +20,9 @@
         "
       >
         <div>
-          <p class="subtitle">{{ shoePart }} ({{ currentPartIndex + 1 }}/5)</p>
+          <p class="subtitle" style="text-transform: capitalize">
+            {{ shoePart }} ({{ currentPartIndex + 1 }}/5)
+          </p>
         </div>
         <div id="flex2">
           <div
@@ -51,7 +53,7 @@
 
       <div id="flex" v-if="currentPartIndex === 4">
         <div>
-          <p class="subtitle">jewel ({{ currentPartIndex + 1 }}/5)</p>
+          <p class="subtitle">Jewel ({{ currentPartIndex + 1 }}/5)</p>
         </div>
         <div id="flex2">
           <div
@@ -75,7 +77,7 @@
 
       <div id="flex" v-if="currentPartIndex === 5">
         <div>
-          <p class="subtitle">initials ({{ currentPartIndex + 1 }}/6)</p>
+          <p class="subtitle">Initials ({{ currentPartIndex + 1 }}/6)</p>
         </div>
         <div class="initials-container">
           <input id="checkbox" type="checkbox" @change="toggleInitials()" />
@@ -555,6 +557,7 @@ export default {
   flex-direction: row;
   align-items: start;
   gap: 20px;
+  margin-top: 20px;
 }
 
 p {
@@ -564,7 +567,7 @@ p {
   font-style: normal;
   font-weight: 300;
   line-height: normal;
-  color: black;
+  color: white;
 }
 
 label {
@@ -598,6 +601,7 @@ button {
   font-family: "cooper-black-std", serif;
   font-size: 32px;
   font-weight: 700;
+  margin-top: 15px;
 }
 
 #configurator {
@@ -609,6 +613,9 @@ button {
 
 .subtitle {
   color: white;
+  font-family: "basic-sans", sans-serif;
+  font-size: 24px;
+  font-style: normal;
 }
 
 .error-message {

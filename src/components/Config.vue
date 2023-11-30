@@ -3,74 +3,89 @@
     <div class="canvas-container" ref="canvasContainer"></div>
 
     <div id="configurator">
-      <button
+      <a
+        id="arrow"
         @click="
           if (currentPartIndex > 0) currentPartIndex--;
           else currentPartIndex = 4;
         "
       >
-        previous part
-      </button>
+        ←
+      </a>
 
       <div
+        id="flex"
         v-if="
           (currentPartIndex && currentPartIndex < 4) || currentPartIndex == 0
         "
       >
-        <p class="subtitle">{{ shoePart }} color</p>
-        <div
-          v-for="color in colorOptions"
-          :key="color"
-          :class="{ options: true }"
-          @click="updateColor(shoePart, color)"
-        >
-          <div class="circle" :style="{ backgroundColor: color }"></div>
+        <div>
+          <p class="subtitle">{{ shoePart }} color</p>
         </div>
-      </div>
-
-      <div v-if="shoePart === 'inside' || shoePart === 'outside'">
-        <p class="subtitle">{{ materialPart }} material</p>
-        <div
-          v-for="material in materialOptions"
-          :key="material"
-          :class="{ options: true }"
-          @click="updateMaterial(materialPart, material)"
-        >
+        <div id="flex2">
           <div
-            class="circle"
-            :style="{ backgroundImage: `url(${material})` }"
-          ></div>
+            v-for="color in colorOptions"
+            :key="color"
+            :class="{ options: true }"
+            @click="updateColor(shoePart, color)"
+          >
+            <div class="circle" :style="{ backgroundColor: color }"></div>
+          </div>
         </div>
       </div>
 
-      <div v-if="currentPartIndex === 4">
-        <p class="subtitle">jewel</p>
-        <div
-          v-for="jewelType in jewelOptions"
-          :key="jewelType"
-          :id="`${jewelType}jewel`"
-          :class="{ options: true }"
-          @click="updateJewel(jewelType)"
-        >
+      <div id="flex" v-if="shoePart === 'inside' || shoePart === 'outside'">
+        <div>
+          <p class="subtitle">{{ materialPart }} material</p>
+        </div>
+        <div id="flex2">
           <div
-            class="circle"
-            :style="{
-              backgroundImage: `url('/media/${jewelType.toLowerCase()}.jpg')`,
-              backgroundSize: 'contain',
-              backgroundRepeat: 'no-repeat',
-            }"
-          ></div>
+            v-for="material in materialOptions"
+            :key="material"
+            :class="{ options: true }"
+            @click="updateMaterial(materialPart, material)"
+          >
+            <div
+              class="circle"
+              :style="{ backgroundImage: `url(${material})` }"
+            ></div>
+          </div>
         </div>
       </div>
 
-      <button
+      <div id="flex" v-if="currentPartIndex === 4">
+        <div>
+          <p class="subtitle">jewel</p>
+        </div>
+        <div id="flex2">
+          <div
+            v-for="jewelType in jewelOptions"
+            :key="jewelType"
+            :id="`${jewelType}jewel`"
+            :class="{ options: true }"
+            @click="updateJewel(jewelType)"
+          >
+            <div
+              class="circle"
+              :style="{
+                backgroundImage: `url('/media/${jewelType.toLowerCase()}.jpg')`,
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+              }"
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      <a
+        id="arrow"
         @click="
           if (currentPartIndex < 4) currentPartIndex++;
           else currentPartIndex = 0;
         "
       >
-        next part
-      </button>
+        →
+      </a>
     </div>
 
     <div class="initials-container">
@@ -574,18 +589,20 @@ button {
   margin-bottom: 80px;
 }
 
+#arrow {
+  color: #d6ff38;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-family: "cooper-black-std", serif;
+  font-size: 32px;
+  font-weight: 700;
+}
+
 #configurator {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   gap: 120px;
-  margin-left: 50px;
-  margin-right: 50px;
-  padding-left: 50px;
-  padding-right: 50px;
   padding-bottom: 10px;
-  overflow-x: auto;
-  flex-wrap: nowrap;
+  justify-content: center;
 }
 
 .subtitle {
@@ -718,5 +735,24 @@ h2 {
 
 #shoetype {
   margin-top: 50px;
+}
+
+#flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+#flex2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 </style>

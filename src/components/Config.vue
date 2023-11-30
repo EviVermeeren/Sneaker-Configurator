@@ -3,33 +3,38 @@
     <div class="canvas-container" ref="canvasContainer"></div>
 
     <div id="configurator">
-      <div
-        v-for="colorType in ['laces', 'sole', 'inside', 'outside']"
-        :key="colorType"
-        :id="`${colorType}color`"
+      <button
+        @click="
+          if (currentPartIndex > 0) currentPartIndex--;
+          else currentPartIndex = 4;
+        "
       >
-        <p class="subtitle">{{ colorType }} color</p>
+        previous part
+      </button>
+
+      <div
+        v-if="
+          (currentPartIndex && currentPartIndex < 4) || currentPartIndex == 0
+        "
+      >
+        <p class="subtitle">{{ shoePart }} color</p>
         <div
           v-for="color in colorOptions"
           :key="color"
           :class="{ options: true }"
-          @click="updateColor(colorType, color)"
+          @click="updateColor(shoePart, color)"
         >
           <div class="circle" :style="{ backgroundColor: color }"></div>
         </div>
       </div>
 
-      <div
-        v-for="materialType in ['top', 'bottom']"
-        :key="materialType"
-        :id="`${materialType}material`"
-      >
-        <p class="subtitle">{{ materialType }} material</p>
+      <div v-if="shoePart === 'inside' || shoePart === 'outside'">
+        <p class="subtitle">{{ materialPart }} material</p>
         <div
           v-for="material in materialOptions"
           :key="material"
           :class="{ options: true }"
-          @click="updateMaterial(materialType, material)"
+          @click="updateMaterial(materialPart, material)"
         >
           <div
             class="circle"
@@ -38,7 +43,7 @@
         </div>
       </div>
 
-      <div>
+      <div v-if="currentPartIndex === 4">
         <p class="subtitle">jewel</p>
         <div
           v-for="jewelType in jewelOptions"
@@ -57,6 +62,15 @@
           ></div>
         </div>
       </div>
+
+      <button
+        @click="
+          if (currentPartIndex < 4) currentPartIndex++;
+          else currentPartIndex = 0;
+        "
+      >
+        next part
+      </button>
     </div>
 
     <div class="initials-container">
@@ -128,6 +142,9 @@ export default {
   },
   data() {
     return {
+      shoeParts: ["laces", "sole", "inside", "outside"],
+      materialParts: ["bottom", "top"],
+      currentPartIndex: 0,
       initials: "",
       initialsState: false,
       selectedColors: {
@@ -163,6 +180,9 @@ export default {
     const ratio = windowWidth / window.innerHeight;
 
     const scene = new THREE.Scene();
+    scene.background = new THREE.CubeTextureLoader()
+      .setPath("/cubemap/jpg/")
+      .load(["px.jpg", "nx.jpg", "py.jpg", "ny.jpg", "pz.jpg", "nz.jpg"]);
     const camera = new THREE.PerspectiveCamera(75, ratio, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -196,8 +216,6 @@ export default {
     controls.maxPolarAngle = Math.PI / 2;
     controls.enablePan = false;
 
-    scene.background = new THREE.Color(0xffffff);
-
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
     const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.7);
     const directionalLight3 = new THREE.DirectionalLight(0xffffff, 1.7);
@@ -216,8 +234,6 @@ export default {
     let shoeText;
 
     const textureLoader = new TextureLoader();
-    const bgi = textureLoader.load("/media/bgi.jpg");
-    scene.background = bgi;
 
     gltfLoader.load("/models/new-shoe.glb", (gltf) => {
       shoe = gltf.scene;
@@ -501,6 +517,14 @@ export default {
         .catch((error) => {
           console.error("Error:", error);
         });
+    },
+  },
+  computed: {
+    shoePart() {
+      return this.shoeParts[this.currentPartIndex];
+    },
+    materialPart() {
+      return this.materialParts[this.currentPartIndex - 2];
     },
   },
 };

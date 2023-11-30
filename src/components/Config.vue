@@ -214,7 +214,9 @@ export default {
     scene.background = new THREE.CubeTextureLoader()
       .setPath("/cubemap/jpg/")
       .load(["px.jpg", "nx.jpg", "py.jpg", "ny.jpg", "pz.jpg", "nz.jpg"]);
+
     const camera = new THREE.PerspectiveCamera(75, ratio, 0.1, 1000);
+
     const renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     canvasContainer.appendChild(renderer.domElement);
@@ -281,6 +283,39 @@ export default {
 
       scene.add(shoe);
     });
+
+    const updateCameraPosition = (currentPartIndex) => {
+      console.log(this.currentPartIndex);
+
+      switch (this.currentPartIndex) {
+        case 0:
+          console.log("laces");
+          shoe.position.z = 5;
+          shoe.position.y = -0.5;
+          shoe.position.x = -0.5;
+          break;
+        case 1:
+          console.log("sole");
+          break;
+        case 2:
+          console.log("inside");
+          break;
+        case 3:
+          console.log("outside");
+          break;
+        case 4:
+          console.log("jewel");
+          break;
+        case 5:
+          console.log("initials");
+          break;
+        default:
+          break;
+      }
+    };
+
+    this.updateCameraPosition = updateCameraPosition;
+
     const jewelModels = {
       Giraffe: { model: null, position: new THREE.Vector3(-1.6, 0.8, 1.35) },
       Elephant: { model: null, position: new THREE.Vector3(-1, 1, 1.25) },
@@ -467,9 +502,6 @@ export default {
       }
     },
 
-    updateCameraPosition() {
-      console.log("changethis");
-    },
     handleDoneButtonClick() {
       if (
         this.shoeSize &&

@@ -662,8 +662,8 @@ select {
 .options .circle {
   cursor: pointer;
   transition: transform 0.2s;
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin: 10px 0;
   border: 2px solid #fff;

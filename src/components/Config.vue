@@ -7,7 +7,7 @@
         id="arrow"
         @click="
           if (currentPartIndex > 0) currentPartIndex--;
-          else currentPartIndex = 4;
+          else currentPartIndex = 5;
         "
       >
         ←
@@ -20,7 +20,7 @@
         "
       >
         <div>
-          <p class="subtitle">{{ shoePart }} color</p>
+          <p class="subtitle">{{ shoePart }} ({{ currentPartIndex + 1 }}/5)</p>
         </div>
         <div id="flex2">
           <div
@@ -32,30 +32,26 @@
             <div class="circle" :style="{ backgroundColor: color }"></div>
           </div>
         </div>
-      </div>
-
-      <div id="flex" v-if="shoePart === 'inside' || shoePart === 'outside'">
-        <div>
-          <p class="subtitle">{{ materialPart }} material</p>
-        </div>
-        <div id="flex2">
-          <div
-            v-for="material in materialOptions"
-            :key="material"
-            :class="{ options: true }"
-            @click="updateMaterial(materialPart, material)"
-          >
+        <div v-if="shoePart === 'inside' || shoePart === 'outside'">
+          <div id="flex2">
             <div
-              class="circle"
-              :style="{ backgroundImage: `url(${material})` }"
-            ></div>
+              v-for="material in materialOptions"
+              :key="material"
+              :class="{ options: true }"
+              @click="updateMaterial(materialPart, material)"
+            >
+              <div
+                class="circle"
+                :style="{ backgroundImage: `url(${material})` }"
+              ></div>
+            </div>
           </div>
         </div>
       </div>
 
       <div id="flex" v-if="currentPartIndex === 4">
         <div>
-          <p class="subtitle">jewel</p>
+          <p class="subtitle">jewel ({{ currentPartIndex + 1 }}/5)</p>
         </div>
         <div id="flex2">
           <div
@@ -77,21 +73,30 @@
         </div>
       </div>
 
+      <div id="flex" v-if="currentPartIndex === 5">
+        <div>
+          <p class="subtitle">initials ({{ currentPartIndex + 1 }}/6)</p>
+        </div>
+        <div class="initials-container">
+          <input id="checkbox" type="checkbox" @change="toggleInitials()" />
+          <label> Add your initials to your shoe:</label>
+          <input
+            v-model="initials"
+            @input="handleInitialsInput"
+            maxlength="2"
+          />
+        </div>
+      </div>
+
       <a
         id="arrow"
         @click="
-          if (currentPartIndex < 4) currentPartIndex++;
+          if (currentPartIndex < 5) currentPartIndex++;
           else currentPartIndex = 0;
         "
       >
         →
       </a>
-    </div>
-
-    <div class="initials-container">
-      <input id="checkbox" type="checkbox" @change="toggleInitials()" />
-      <label> Add your initials to your shoe:</label>
-      <input v-model="initials" @input="handleInitialsInput" maxlength="2" />
     </div>
 
     <h2>Your information:</h2>
@@ -751,7 +756,6 @@ h2 {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin-bottom: 20px;
   gap: 40px;
   flex-wrap: wrap;
 }

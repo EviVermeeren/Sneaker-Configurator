@@ -79,7 +79,6 @@
         </div>
         <div class="initials-container">
           <input id="checkbox" type="checkbox" @change="toggleInitials()" />
-          <label> Add your initials to your shoe:</label>
           <input
             v-model="initials"
             @input="handleInitialsInput"
@@ -555,9 +554,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: start;
-  padding: 43px;
   gap: 20px;
-  margin-left: 40px;
 }
 
 p {

@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="shoe-configurator">
     <div class="canvas-container" ref="canvasContainer"></div>
 
-    <div id="configurator">
+    <div class="configurator">
       <a
-        id="arrow"
+        class="configurator__arrow"
         @click="
           if (currentPartIndex > 0) {
             currentPartIndex--;
@@ -19,36 +19,39 @@
       </a>
 
       <div
-        id="flex"
+        class="configurator__flex"
         v-if="
           (currentPartIndex && currentPartIndex < 4) || currentPartIndex == 0
         "
       >
         <div>
-          <p class="subtitle" style="text-transform: capitalize">
+          <p class="configurator__subtitle" style="text-transform: capitalize">
             {{ shoePart }} ({{ currentPartIndex + 1 }}/6)
           </p>
         </div>
-        <div id="flex2">
+        <div class="configurator__flex2">
           <div
             v-for="color in colorOptions"
             :key="color"
-            :class="{ options: true }"
+            class="configurator__options"
             @click="updateColor(shoePart, color)"
           >
-            <div class="circle" :style="{ backgroundColor: color }"></div>
+            <div
+              class="configurator__circle"
+              :style="{ backgroundColor: color }"
+            ></div>
           </div>
         </div>
         <div v-if="shoePart === 'inside' || shoePart === 'outside'">
-          <div id="flex2">
+          <div class="configurator__flex2">
             <div
               v-for="material in materialOptions"
               :key="material"
-              :class="{ options: true }"
+              class="configurator__options"
               @click="updateMaterial(materialPart, material)"
             >
               <div
-                class="circle"
+                class="configurator__circle"
                 :style="{ backgroundImage: `url(${material})` }"
               ></div>
             </div>
@@ -56,20 +59,22 @@
         </div>
       </div>
 
-      <div id="flex" v-if="currentPartIndex === 4">
+      <div class="configurator__flex" v-if="currentPartIndex === 4">
         <div>
-          <p class="subtitle">Jewel ({{ currentPartIndex + 1 }}/6)</p>
+          <p class="configurator__subtitle">
+            Jewel ({{ currentPartIndex + 1 }}/6)
+          </p>
         </div>
-        <div id="flex2">
+        <div class="configurator__flex2">
           <div
             v-for="jewelType in jewelOptions"
             :key="jewelType"
             :id="`${jewelType}jewel`"
-            :class="{ options: true }"
+            class="configurator__options"
             @click="updateJewel(jewelType)"
           >
             <div
-              class="circle"
+              class="configurator__circle"
               :style="{
                 backgroundImage: `url('/media/${jewelType.toLowerCase()}.jpg')`,
                 backgroundSize: 'contain',
@@ -80,12 +85,18 @@
         </div>
       </div>
 
-      <div id="flex" v-if="currentPartIndex === 5">
+      <div class="configurator__flex" v-if="currentPartIndex === 5">
         <div>
-          <p class="subtitle">Initials ({{ currentPartIndex + 1 }}/6)</p>
+          <p class="configurator__subtitle">
+            Initials ({{ currentPartIndex + 1 }}/6)
+          </p>
         </div>
-        <div class="initials-container">
-          <input id="checkbox" type="checkbox" @change="toggleInitials()" />
+        <div class="configurator__initials-container">
+          <input
+            class="configurator__checkbox"
+            type="checkbox"
+            @change="toggleInitials()"
+          />
           <input
             v-model="initials"
             @input="handleInitialsInput"
@@ -95,7 +106,7 @@
       </div>
 
       <a
-        id="arrow"
+        class="configurator__arrow"
         @click="
           if (currentPartIndex < 5) {
             currentPartIndex++;
@@ -146,8 +157,9 @@
       </div>
     </div>
 
-    <div v-if="formError" class="error-message">{{ formError }}</div>
-
+    <div v-if="formError" class="configurator__error-message">
+      {{ formError }}
+    </div>
     <button @click="handleDoneButtonClick">Send order!</button>
   </div>
 </template>
@@ -662,16 +674,6 @@ export default {
   margin-top: 20px;
 }
 
-p {
-  font-family: "basic-sans", sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  color: white;
-}
-
 label {
   font-family: "basic-sans", sans-serif;
   font-weight: 400;
@@ -696,55 +698,6 @@ button {
   margin-bottom: 80px;
 }
 
-#arrow {
-  color: #d6ff38;
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-family: "cooper-black-std", serif;
-  font-size: 32px;
-  font-weight: 700;
-  margin-top: 15px;
-}
-
-#configurator {
-  display: flex;
-  gap: 120px;
-  padding-bottom: 10px;
-  justify-content: center;
-}
-
-.subtitle {
-  color: white;
-  font-family: "basic-sans", sans-serif;
-  font-size: 24px;
-  font-style: normal;
-}
-
-.error-message {
-  color: red;
-  margin-top: 10px;
-  margin-left: 100px;
-  margin-bottom: 10px;
-  font-family: "basic-sans", sans-serif;
-  font-size: 18px;
-}
-
-.user-details {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: space-around;
-  margin-left: 100px;
-  margin-bottom: 20px;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-.user-details-div {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-
 input,
 select {
   border: 2px solid #d6ff38;
@@ -756,54 +709,13 @@ select {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
+  padding: 5px;
+  border-radius: 5px;
+  width: 150px;
 }
 
 select {
   height: 30px;
-}
-.options .circle {
-  cursor: pointer;
-  transition: transform 0.2s;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin: 10px 0;
-  border: 2px solid #fff;
-}
-
-.options .circle:hover {
-  transform: scale(1.2);
-}
-.router {
-  text-decoration: none;
-  color: #d6ff38;
-  background-color: #000;
-  width: 20%;
-  max-width: 250px;
-  height: 34px;
-  font-family: "basic-sans", sans-serif;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  display: block;
-  margin-left: 100px;
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
-
-h1 {
-  color: white;
-  font-size: 1.5rem;
-  margin: 0;
-  font-family: "cooper-black-std", serif;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.6px;
-  margin-left: 100px;
-  margin-top: 200px;
 }
 
 h2 {
@@ -821,34 +733,40 @@ h2 {
   margin-bottom: 30px;
   margin-top: 80px;
 }
+.configurator {
+  display: flex;
+  gap: 120px;
+  padding-bottom: 10px;
+  justify-content: center;
+}
 
-.price {
+.configurator__arrow {
+  color: #d6ff38;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-family: "cooper-black-std", serif;
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 15px;
+}
+
+.configurator__subtitle {
   color: white;
-  font-size: 1.5rem;
-  margin: 0;
   font-family: "basic-sans", sans-serif;
-  font-size: 16px;
+  font-size: 24px;
   font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.6px;
+}
+
+.configurator__error-message {
+  color: red;
+  margin-top: 10px;
   margin-left: 100px;
-  margin-top: 5px;
+  margin-bottom: 10px;
+  font-family: "basic-sans", sans-serif;
+  font-size: 18px;
 }
 
-#checkbox {
-  border: 2px solid #d6ff38;
-  background-color: #242424;
-  color: white;
-  width: 20px;
-  margin-left: 15px;
-}
-
-#shoetype {
-  margin-top: 50px;
-}
-
-#flex {
+.configurator__flex {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -857,7 +775,7 @@ h2 {
   flex-wrap: wrap;
 }
 
-#flex2 {
+.configurator__flex2 {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -865,4 +783,53 @@ h2 {
   gap: 40px;
   flex-wrap: wrap;
 }
+
+.configurator__options .configurator__circle {
+  cursor: pointer;
+  transition: transform 0.2s;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 10px 0;
+  border: 2px solid #fff;
+}
+
+.configurator__options .configurator__circle:hover {
+  transform: scale(1.2);
+}
+
+.configurator__initials-container {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.configurator__checkbox {
+  border: 2px solid #d6ff38;
+  background-color: #242424;
+  color: white;
+  width: 20px;
+  margin-left: 15px;
+  margin-top: 5px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: space-around;
+  margin-left: 100px;
+  margin-bottom: 20px;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.user-details-div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
 </style>
+```

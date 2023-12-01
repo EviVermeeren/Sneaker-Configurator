@@ -26,7 +26,7 @@
       >
         <div>
           <p class="subtitle" style="text-transform: capitalize">
-            {{ shoePart }} ({{ currentPartIndex + 1 }}/5)
+            {{ shoePart }} ({{ currentPartIndex + 1 }}/6)
           </p>
         </div>
         <div id="flex2">
@@ -58,7 +58,7 @@
 
       <div id="flex" v-if="currentPartIndex === 4">
         <div>
-          <p class="subtitle">Jewel ({{ currentPartIndex + 1 }}/5)</p>
+          <p class="subtitle">Jewel ({{ currentPartIndex + 1 }}/6)</p>
         </div>
         <div id="flex2">
           <div
@@ -274,10 +274,10 @@ export default {
 
       shoe.rotation.order = "YXZ";
 
-      shoe.rotation.x = 0.5;
-      shoe.rotation.y = 1.5;
+      shoe.rotation.x = 0.7;
+      shoe.rotation.y = 0.1;
 
-      shoe.position.z = 0;
+      shoe.position.z = -1;
       shoe.position.y = -0.5;
       shoe.position.x = -0.5;
 
@@ -290,12 +290,14 @@ export default {
       switch (this.currentPartIndex) {
         case 0:
           console.log("laces");
-          shoe.position.z = 5;
-          shoe.position.y = -0.5;
-          shoe.position.x = -0.5;
+          shoe.rotation.y = 0.1;
+          shoe.position.z = -1;
+          shoe.rotation.x = 0.7;
           break;
         case 1:
           console.log("sole");
+          shoe.rotation.x = 0.6;
+          shoe.rotation.y = 2.8;
           break;
         case 2:
           console.log("inside");

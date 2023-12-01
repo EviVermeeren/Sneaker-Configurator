@@ -206,4 +206,61 @@ a {
 img {
   width: 200px;
 }
+
+@media (max-width: 600px) {
+  .admin-title {
+    font-size: 30px;
+    margin-top: 50px;
+    margin-left: 50px;
+  }
+
+  .orders-title {
+    font-size: 24px;
+    margin-top: 50px;
+    margin-left: 50px;
+  }
+
+  .container {
+    margin-left: 50px;
+  }
+
+  .view-button {
+    width: 80%;
+    height: 30px;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  #passwordchange {
+    width: 80%;
+    max-width: 200px;
+    height: 40px;
+    font-size: 14px;
+    margin-left: 50px;
+  }
+}
+
+@media (max-width: 300px) {
+  .admin-title {
+    font-size: 24px;
+    margin-top: 30px;
+    margin-left: 30px;
+  }
+
+  .orders-title {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-left: 30px;
+  }
+
+  .container {
+    margin-left: 30px;
+  }
+
+  #passwordchange {
+    max-width: 180px;
+    margin-left: 30px;
+  }
+}
 </style>

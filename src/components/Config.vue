@@ -303,7 +303,6 @@ export default {
     const updateCameraPosition = (currentPartIndex) => {
       resetCamera();
 
-      console.log(this.currentPartIndex);
       const targetValues = getTargetValues(this.currentPartIndex);
 
       new TWEEN.Tween(shoe.rotation)
@@ -318,11 +317,8 @@ export default {
     };
 
     const getTargetValues = (currentPartIndex) => {
-      console.log(this.currentPartIndex);
-
       switch (this.currentPartIndex) {
         case 0:
-          console.log("laces");
           return {
             rotationX: 0.7,
             rotationY: 0.1,
@@ -330,7 +326,6 @@ export default {
             positionZ: -1,
           };
         case 1:
-          console.log("sole");
           return {
             rotationX: 0.6,
             rotationY: 2.8,
@@ -338,7 +333,6 @@ export default {
             positionZ: 1,
           };
         case 2:
-          console.log("inside");
           return {
             rotationX: 0.6,
             rotationY: 1,
@@ -346,7 +340,6 @@ export default {
             positionZ: -1,
           };
         case 3:
-          console.log("outside");
           return {
             rotationX: 0.6,
             rotationY: -0.8,
@@ -354,7 +347,6 @@ export default {
             positionZ: -1,
           };
         case 4:
-          console.log("jewel");
           return {
             rotationX: 0.6,
             rotationY: 1.5,
@@ -362,7 +354,6 @@ export default {
             positionZ: 1.6,
           };
         case 5:
-          console.log("initials");
           return {
             rotationX: -0.2,
             rotationY: 3.3,
@@ -370,7 +361,6 @@ export default {
             positionZ: 1.2,
           };
         default:
-          console.log("default");
           return {
             rotationX: 0.7,
             rotationY: 0.1,
@@ -640,7 +630,6 @@ export default {
           ) {
             const newId = responseData.data.shoe._id;
 
-            console.log(newId);
             this.sendToSocket(responseData);
             this.$router.push({ path: "/thankyou", query: { id: newId } });
           } else {

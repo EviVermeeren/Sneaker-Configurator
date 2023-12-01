@@ -159,6 +159,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
+import TWEEN from "tween.js";
 
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
@@ -286,52 +287,79 @@ export default {
 
     const updateCameraPosition = (currentPartIndex) => {
       console.log(this.currentPartIndex);
+      const targetValues = getTargetValues(this.currentPartIndex);
+
+      new TWEEN.Tween(shoe.rotation)
+        .to({ x: targetValues.rotationX, y: targetValues.rotationY }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+
+      new TWEEN.Tween(shoe.position)
+        .to({ y: targetValues.positionY, z: targetValues.positionZ }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    };
+
+    const getTargetValues = (currentPartIndex) => {
+      console.log(this.currentPartIndex);
 
       switch (this.currentPartIndex) {
         case 0:
           console.log("laces");
-          shoe.rotation.x = 0.7;
-          shoe.rotation.y = 0.1;
-          shoe.position.y = 0;
-          shoe.position.z = -1;
-          break;
+          return {
+            rotationX: 0.7,
+            rotationY: 0.1,
+            positionY: 0,
+            positionZ: -1,
+          };
         case 1:
           console.log("sole");
-          shoe.rotation.x = 0.6;
-          shoe.rotation.y = 2.8;
-          shoe.position.y = -0.5;
-          shoe.position.z = 1;
-          break;
+          return {
+            rotationX: 0.6,
+            rotationY: 2.8,
+            positionY: -0.5,
+            positionZ: 1,
+          };
         case 2:
           console.log("inside");
-          shoe.rotation.x = 0.6;
-          shoe.rotation.y = 1;
-          shoe.position.y = -0.5;
-          shoe.position.z = -1;
-          break;
+          return {
+            rotationX: 0.6,
+            rotationY: 1,
+            positionY: -0.5,
+            positionZ: -1,
+          };
         case 3:
           console.log("outside");
-          shoe.rotation.x = 0.6;
-          shoe.rotation.y = -0.8;
-          shoe.position.y = -0.5;
-          shoe.position.z = -1;
-          break;
+          return {
+            rotationX: 0.6,
+            rotationY: -0.8,
+            positionY: -0.5,
+            positionZ: -1,
+          };
         case 4:
           console.log("jewel");
-          shoe.rotation.x = 0.6;
-          shoe.rotation.y = 1.5;
-          shoe.position.y = -0.5;
-          shoe.position.z = 1.6;
-          break;
+          return {
+            rotationX: 0.6,
+            rotationY: 1.5,
+            positionY: -0.5,
+            positionZ: 1.6,
+          };
         case 5:
           console.log("initials");
-          shoe.rotation.x = -0.2;
-          shoe.rotation.y = 3.3;
-          shoe.position.y = -0.5;
-          shoe.position.z = 1.2;
-          break;
+          return {
+            rotationX: -0.2,
+            rotationY: 3.3,
+            positionY: -0.5,
+            positionZ: 1.2,
+          };
         default:
-          break;
+          console.log("default");
+          return {
+            rotationX: 0.7,
+            rotationY: 0.1,
+            positionY: 0,
+            positionZ: -1,
+          };
       }
     };
 
@@ -459,6 +487,7 @@ export default {
 
     const animate = () => {
       requestAnimationFrame(animate);
+      TWEEN.update();
       renderer.render(scene, camera);
     };
 

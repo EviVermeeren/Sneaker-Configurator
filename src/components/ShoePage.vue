@@ -132,7 +132,7 @@ a {
   line-height: normal;
   margin: 0;
   padding-top: 50px;
-  margin-left: 100px;
+  margin-left: 50px;
 }
 
 .model {
@@ -203,5 +203,57 @@ button {
 .buttons__link {
   text-decoration: none;
   color: #d6ff38;
+}
+
+@media (max-width: 800px) {
+  .models-container__title {
+    font-size: 30px;
+    margin: 0;
+    padding-top: 25px;
+    margin-left: 25px;
+    margin-bottom: 50px;
+  }
+
+  .model {
+    flex-wrap: wrap;
+    width: 90vw;
+    justify-content: left;
+    margin-left: 25px;
+  }
+
+  .model__name {
+    font-size: 24px;
+  }
+  button {
+    margin-bottom: 50px;
+  }
+}
+
+@media (max-width: 400px) {
+  .models-container__title {
+    font-size: 24px;
+    padding-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  .model__name {
+    font-size: 20px;
+  }
+
+  .model__type {
+    font-size: 16px;
+  }
+
+  .model__price,
+  p {
+    font-size: 16px;
+  }
+
+  button {
+    width: 150px;
+    font-size: 12px;
+    margin-bottom: 50px;
+  }
 }
 </style>

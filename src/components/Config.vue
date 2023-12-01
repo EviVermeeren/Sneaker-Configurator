@@ -215,7 +215,7 @@ export default {
         "/textures/fabric.jpg",
       ],
       jewelOptions: ["Giraffe", "Elephant", "Hedgehog", "Whale"],
-      prograssState: false,
+      progressState: false,
     };
   },
   mounted() {

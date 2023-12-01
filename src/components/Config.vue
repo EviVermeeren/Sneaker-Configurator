@@ -215,6 +215,7 @@ export default {
         "/textures/fabric.jpg",
       ],
       jewelOptions: ["Giraffe", "Elephant", "Hedgehog", "Whale"],
+      prograssState: false,
     };
   },
   mounted() {
@@ -508,6 +509,20 @@ export default {
       requestAnimationFrame(animate);
       TWEEN.update();
       renderer.render(scene, camera);
+
+      if(this.selectedColors.shoeColorLaces &&
+        this.selectedColors.shoeColorSole &&
+        this.selectedColors.shoeColorPanelDown &&
+        this.selectedColors.shoeColorPanelUp &&
+        this.selectedMaterials.shoeMaterialPanelDown &&
+        this.selectedMaterials.shoeMaterialPanelUp &&
+        this.jewel &&
+        this.progressState === false
+        ){
+          console.log("all selected");
+          this.progressState = true;
+          this.onProgress();
+        }
     };
 
     animate();
@@ -554,6 +569,33 @@ export default {
     };
 
     this.toggleInitials = toggleInitials;
+
+    const onProgress = () => {
+      const particleGeometry = new THREE.BufferGeometry();
+      const count = 400;
+      const spreadDistance = 10;
+
+      let vertices = new Float32Array(count * 3);
+      for (let i = 0; i < count * 3; i++) {
+        vertices[i] = THREE.MathUtils.randFloatSpread(1);
+      }
+      particleGeometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(vertices, 3)
+      );
+
+      const particleMaterial = new THREE.PointsMaterial({
+        size: 0.5,
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.7,
+      });
+
+      const particles = new THREE.Points(particleGeometry, particleMaterial);
+      scene.add(particles);
+    };
+
+    this.onProgress = onProgress;
 
     this.socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
     this.socket.onopen = function (event) {

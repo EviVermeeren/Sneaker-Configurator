@@ -278,7 +278,7 @@ export default {
       shoe.rotation.y = 0.1;
 
       shoe.position.z = -1;
-      shoe.position.y = -0.5;
+      shoe.position.y = 0;
       shoe.position.x = -0.5;
 
       scene.add(shoe);
@@ -290,26 +290,45 @@ export default {
       switch (this.currentPartIndex) {
         case 0:
           console.log("laces");
-          shoe.rotation.y = 0.1;
-          shoe.position.z = -1;
           shoe.rotation.x = 0.7;
+          shoe.rotation.y = 0.1;
+          shoe.position.y = 0;
+          shoe.position.z = -1;
           break;
         case 1:
           console.log("sole");
           shoe.rotation.x = 0.6;
           shoe.rotation.y = 2.8;
+          shoe.position.y = -0.5;
+          shoe.position.z = 1;
           break;
         case 2:
           console.log("inside");
+          shoe.rotation.x = 0.6;
+          shoe.rotation.y = 1;
+          shoe.position.y = -0.5;
+          shoe.position.z = -1;
           break;
         case 3:
           console.log("outside");
+          shoe.rotation.x = 0.6;
+          shoe.rotation.y = -0.8;
+          shoe.position.y = -0.5;
+          shoe.position.z = -1;
           break;
         case 4:
           console.log("jewel");
+          shoe.rotation.x = 0.6;
+          shoe.rotation.y = 1.5;
+          shoe.position.y = -0.5;
+          shoe.position.z = 1.6;
           break;
         case 5:
           console.log("initials");
+          shoe.rotation.x = -0.2;
+          shoe.rotation.y = 3.3;
+          shoe.position.y = -0.5;
+          shoe.position.z = 1.2;
           break;
         default:
           break;

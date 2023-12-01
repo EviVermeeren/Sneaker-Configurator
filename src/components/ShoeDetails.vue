@@ -569,4 +569,80 @@ img {
   background-color: #000000;
   color: #d6ff38;
 }
+
+@media (max-width: 800px) {
+  .order-info__title {
+    font-size: 30px;
+  }
+  .order-container__flex {
+    width: 90vw;
+    gap: 80px;
+  }
+  .buttons {
+    gap: 15px;
+  }
+  .status-update-button,
+  .delete-button {
+    width: 280px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .status-update-button:first-child {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .order-info__title {
+    font-size: 24px;
+  }
+  .order-info__shoe-type,
+  .order-info__user-name,
+  .order-info__user-address,
+  .order-info__user-email,
+  .order-info__shoe-size,
+  .order-info__status {
+    font-size: 14px;
+    white-space: wrap;
+  }
+  .order-container__flex {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100vw;
+    gap: 50px;
+  }
+  .status-update-button,
+  .delete-button {
+    width: 260px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 350px) {
+  .order-info__title {
+    font-size: 20px;
+    margin-left: 10px;
+  }
+  .order-info__shoe-type,
+  .order-info__user-name,
+  .order-info__user-address,
+  .order-info__user-email,
+  .order-info__shoe-size,
+  .order-info__status {
+    font-size: 14px;
+    margin-left: 10px;
+  }
+  .order-container__flex {
+    width: 80vw;
+    margin-left: 30px;
+  }
+  .status-update-button,
+  .delete-button {
+    width: 200px;
+    height: 40px;
+    font-size: 12px;
+    margin-left: 10px;
+  }
+}
 </style>

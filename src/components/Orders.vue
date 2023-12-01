@@ -73,6 +73,7 @@ export default {
 
       socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
+        console.log(data);
         if (data.data) {
           this.shoes.push(data.data.shoe);
           console.log('shoes:', data.data);

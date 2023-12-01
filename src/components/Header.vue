@@ -1,12 +1,12 @@
 <template>
-  <header>
+  <header class="header">
     <router-link to="/">
-      <div class="shoe-desc">
+      <div class="header__logo">
         <img src="../assets/SWEAR_Logo.webp" alt="SWEAR-LOGO" />
       </div>
     </router-link>
     <router-link to="/login">
-      <a class="link" href="">Admin</a>
+      <button class="header__admin-button" href="">Admin</button>
     </router-link>
   </header>
 </template>
@@ -18,34 +18,43 @@ export default {
 </script>
 
 <style scoped>
-header {
-  background-color: #fff;
+.header {
+  background-color: #242424;
   color: #000;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100vw;
   margin: 0;
-  border-bottom: #000;
+  border-bottom: #d6ff38;
   border-width: 0 0 2px 0;
   border-style: solid;
 }
 
-.shoe-desc {
+.header__logo {
   flex-direction: column;
   align-items: start;
   padding: 43px;
   background-color: #d6ff38;
 }
 
-.link {
-  font-family: "basic-sans", sans-serif;
-  font-weight: 400;
-  color: #000000;
-  font-size: 24px;
-  letter-spacing: 0.96px;
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.header__admin-button {
+  color: #d6ff38;
+  background-color: #000;
+  width: 80%;
+  max-width: 300px;
+  height: 68px;
+  font-family: "cooper-black-std", serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
   line-height: normal;
-  text-decoration: underline;
-  margin-right: 43px;
+  display: block;
+  margin-right: 100px;
 }
 </style>

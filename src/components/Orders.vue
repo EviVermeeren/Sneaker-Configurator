@@ -1,23 +1,25 @@
 <template>
-  <h1>Hello admin!</h1>
-  <button id="passwordchange">
-    <router-link to="/changepassword">Change password</router-link>
+  <h1 class="admin-title">Hello admin!</h1>
+  <button id="passwordchange" class="admin-password-change">
+    <router-link to="/changepassword" class="admin-password-change__link"
+      >Change password</router-link
+    >
   </button>
-  <h1>All orders</h1>
-  <div id="numberoforders">
-    <p>Number of orders:</p>
-    <p> {{shoes.length}}</p>
-  </div>
+  <h1 class="orders-title">All orders ({{ shoes.length }})</h1>
+
   <div class="container">
     <div v-for="shoe in shoes" :key="shoe.id" class="shoe-item">
       <div class="shoe-info">
-        <p id="type">{{ shoe.shoeType }}</p>
-        <p>Status: {{ shoe.status }}</p>
-        <p>Size: {{ shoe.shoeSize }}</p>
-        <p>User: {{ shoe.userName }}</p>
+        <p id="type" class="shoe-info__type">{{ shoe.shoeType }}</p>
+        <p class="shoe-info__status">Status: {{ shoe.status }}</p>
+        <p class="shoe-info__size">Size: {{ shoe.shoeSize }}</p>
+        <p class="shoe-info__user">User: {{ shoe.userName }}</p>
       </div>
-      <button>
-        <router-link :to="'/shoe/' + shoe._id" @click="viewShoe(shoe._id)"
+      <button class="view-button">
+        <router-link
+          :to="'/shoe/' + shoe._id"
+          @click="viewShoe(shoe._id)"
+          class="view-button__link"
           >View</router-link
         >
       </button>
@@ -27,7 +29,7 @@
 
 <script>
 import { useRouter } from "vue-router"; // Import useRouter
-import {ref, onMounted} from "vue";
+import { ref, onMounted } from "vue";
 
 let socket = null;
 
@@ -52,7 +54,7 @@ export default {
 
         if (data.status === "success") {
           this.shoes = data.data.shoes;
-          console.log('fetched shoes:', this.shoes);
+          console.log("fetched shoes:", this.shoes);
         } else {
           console.error("Error fetching shoes:", data.message);
         }
@@ -65,10 +67,10 @@ export default {
       this.$router.push(`/shoe/${shoeId}`);
     },
     socketConnect() {
-      socket = new WebSocket('wss://shoe-config-ws.onrender.com/primus');
+      socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
 
       socket.onopen = () => {
-        console.log('connected with WebSocket');
+        console.log("connected with WebSocket");
       };
 
       socket.onmessage = (event) => {
@@ -76,12 +78,9 @@ export default {
         console.log(data);
         if (data.data) {
           this.shoes.push(data.data.shoe);
-          console.log('shoes:', data.data);
+          console.log("shoes:", data.data);
         }
-        
       };
-
-
     },
   },
 };
@@ -92,7 +91,7 @@ a {
   text-decoration: none;
   color: #d6ff38;
 }
-h1 {
+.admin-title {
   font-family: "cooper-black-std", serif;
   font-weight: 400;
   color: white;
@@ -103,17 +102,25 @@ h1 {
   margin-left: 100px;
 }
 
-#type {
+.orders-title {
   font-family: "cooper-black-std", serif;
   font-weight: 400;
   color: white;
-  font-size: 18px;
+  font-size: 36px;
+  letter-spacing: 1.08px;
   line-height: normal;
-  white-space: nowrap;
-  margin-top: 10px;
+  margin-left: 100px;
+  margin-top: 50px;
 }
 
-p {
+.order-count {
+  display: flex;
+  flex-direction: row;
+  margin-left: 100px;
+}
+
+.order-count__label,
+.order-count__value {
   font-family: "basic-sans", sans-serif;
   font-weight: 400;
   color: white;
@@ -122,16 +129,16 @@ p {
   line-height: normal;
   white-space: nowrap;
 }
+
 .container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: left;
   gap: 20px;
   background-color: #242424;
-  padding-top: 50px;
-  margin-left: 80px;
+  margin-left: 100px;
 }
 
 .shoe-item {
@@ -144,7 +151,20 @@ p {
   flex-grow: 1;
 }
 
-button {
+.shoe-info__type,
+.shoe-info__status,
+.shoe-info__size,
+.shoe-info__user {
+  font-family: "basic-sans", sans-serif;
+  font-weight: 400;
+  color: white;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.view-button {
   color: #d6ff38;
   background-color: #000;
   width: 90%;
@@ -158,6 +178,11 @@ button {
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.view-button__link {
+  text-decoration: none;
+  color: #d6ff38;
 }
 
 #passwordchange {
@@ -180,12 +205,5 @@ button {
 
 img {
   width: 200px;
-}
-
-#numberoforders {
-  display: flex;
-  flex-direction: row;
-  margin-left: 100px;
-  margin-bottom: 50px;
 }
 </style>

@@ -2,101 +2,153 @@
   <div>
     <div class="canvas-container" ref="canvasContainer"></div>
 
-    <div>
-      <h1>AIR REV. NITRO S</h1>
-      <p class="price">€ 200</p>
-      <router-link to="/config2"
-        ><button class="router">Go to other model</button></router-link
-      >
-
-      <div class="initials-container">
-        <label>
-          <input type="checkbox" @change="toggleInitials()" />
-          Show Initials
-        </label>
-        <input v-model="initials" @input="handleInitialsInput" maxlength="2" />
-      </div>
-    </div>
-
     <div id="configurator">
-      <div
-        v-for="colorType in ['laces', 'sole', 'inside', 'outside']"
-        :key="colorType"
-        :id="`${colorType}color`"
+      <a
+        id="arrow"
+        @click="
+          if (currentPartIndex > 0) {
+            currentPartIndex--;
+            updateCameraPosition();
+          } else {
+            currentPartIndex = 5;
+            updateCameraPosition();
+          }
+        "
       >
-        <p class="subtitle">{{ colorType }} color</p>
-        <div
-          v-for="color in colorOptions"
-          :key="color"
-          :class="{ options: true }"
-          @click="updateColor(colorType, color)"
-        >
-          <div class="circle" :style="{ backgroundColor: color }"></div>
+        ←
+      </a>
+
+      <div
+        id="flex"
+        v-if="
+          (currentPartIndex && currentPartIndex < 4) || currentPartIndex == 0
+        "
+      >
+        <div>
+          <p class="subtitle" style="text-transform: capitalize">
+            {{ shoePart }} ({{ currentPartIndex + 1 }}/6)
+          </p>
+        </div>
+        <div id="flex2">
+          <div
+            v-for="color in colorOptions"
+            :key="color"
+            :class="{ options: true }"
+            @click="updateColor(shoePart, color)"
+          >
+            <div class="circle" :style="{ backgroundColor: color }"></div>
+          </div>
+        </div>
+        <div v-if="shoePart === 'inside' || shoePart === 'outside'">
+          <div id="flex2">
+            <div
+              v-for="material in materialOptions"
+              :key="material"
+              :class="{ options: true }"
+              @click="updateMaterial(materialPart, material)"
+            >
+              <div
+                class="circle"
+                :style="{ backgroundImage: `url(${material})` }"
+              ></div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div
-        v-for="materialType in ['top', 'bottom']"
-        :key="materialType"
-        :id="`${materialType}material`"
-      >
-        <p class="subtitle">{{ materialType }} material</p>
-        <div
-          v-for="material in materialOptions"
-          :key="material"
-          :class="{ options: true }"
-          @click="updateMaterial(materialType, material)"
-        >
+      <div id="flex" v-if="currentPartIndex === 4">
+        <div>
+          <p class="subtitle">Jewel ({{ currentPartIndex + 1 }}/6)</p>
+        </div>
+        <div id="flex2">
           <div
-            class="circle"
-            :style="{ backgroundImage: `url(${material})` }"
-          ></div>
+            v-for="jewelType in jewelOptions"
+            :key="jewelType"
+            :id="`${jewelType}jewel`"
+            :class="{ options: true }"
+            @click="updateJewel(jewelType)"
+          >
+            <div
+              class="circle"
+              :style="{
+                backgroundImage: `url('/media/${jewelType.toLowerCase()}.jpg')`,
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+              }"
+            ></div>
+          </div>
         </div>
       </div>
 
-      <div>
-        <p class="subtitle">Jewels</p>
-        <div
-          v-for="jewelType in jewelOptions"
-          :key="jewelType"
-          :id="`${jewelType}jewel`"
-          :class="{ options: true }"
-          @click="updateJewel(jewelType)"
-        >
-          <div
-            class="circle"
-            :style="{
-              backgroundImage: `url('/media/${jewelType.toLowerCase()}.jpg')`,
-              backgroundSize: 'contain',
-              backgroundRepeat: 'no-repeat',
-            }"
-          ></div>
+      <div id="flex" v-if="currentPartIndex === 5">
+        <div>
+          <p class="subtitle">Initials ({{ currentPartIndex + 1 }}/6)</p>
+        </div>
+        <div class="initials-container">
+          <input id="checkbox" type="checkbox" @change="toggleInitials()" />
+          <input
+            v-model="initials"
+            @input="handleInitialsInput"
+            maxlength="2"
+          />
         </div>
       </div>
+
+      <a
+        id="arrow"
+        @click="
+          if (currentPartIndex < 5) {
+            currentPartIndex++;
+            updateCameraPosition();
+          } else {
+            currentPartIndex = 0;
+            updateCameraPosition();
+          }
+        "
+      >
+        →
+      </a>
     </div>
 
+    <h2>Your information:</h2>
     <div class="user-details">
       <div class="user-details-div">
         <label for="shoeSize">Shoe Size:</label>
-        <input type="number" v-model="shoeSize" />
+        <select id="shoeSize" name="shoeSize" v-model="shoeSize">
+          <option value="36">36</option>
+          <option value="37">37</option>
+          <option value="38">38</option>
+          <option value="39">39</option>
+          <option value="40">40</option>
+          <option value="41">41</option>
+          <option value="42">42</option>
+          <option value="43">43</option>
+          <option value="44">44</option>
+          <option value="45">45</option>
+          <option value="46">46</option>
+          <option value="47">47</option>
+          <option value="48">48</option>
+          <option value="49">49</option>
+          <option value="50">50</option>
+        </select>
       </div>
       <div class="user-details-div">
-        <label for="userName">User Name:</label>
+        <label for="userName">Your name:</label>
         <input type="text" v-model="userName" />
       </div>
       <div class="user-details-div">
-        <label for="userAddress">User Address:</label>
+        <label for="userAddress">Your address:</label>
         <input type="text" v-model="userAddress" />
       </div>
       <div class="user-details-div">
-        <label for="userEmail">User Email:</label>
+        <label for="userEmail">Your email:</label>
         <input type="email" v-model="userEmail" />
       </div>
     </div>
 
     <div v-if="formError" class="error-message">{{ formError }}</div>
 
-    <button @click="handleDoneButtonClick">Done</button>
+    <button @click="handleDoneButtonClick">Send order!</button>
   </div>
 </template>
 
@@ -107,16 +159,24 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
+import TWEEN from "tween.js";
+
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
-import { ref, onMounted } from "vue";
 
 let socket = null;
 
 export default {
-  setup() {},
+  setup() {
+    const router = useRouter();
+    return { router };
+  },
   data() {
     return {
+      shoeParts: ["laces", "sole", "inside", "outside"],
+      materialParts: ["bottom", "top"],
+      currentPartIndex: 0,
       initials: "",
       initialsState: false,
       selectedColors: {
@@ -152,7 +212,12 @@ export default {
     const ratio = windowWidth / window.innerHeight;
 
     const scene = new THREE.Scene();
+    scene.background = new THREE.CubeTextureLoader()
+      .setPath("/cubemap/jpg/")
+      .load(["px.jpg", "nx.jpg", "py.jpg", "ny.jpg", "pz.jpg", "nz.jpg"]);
+
     const camera = new THREE.PerspectiveCamera(75, ratio, 0.1, 1000);
+
     const renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     canvasContainer.appendChild(renderer.domElement);
@@ -185,8 +250,6 @@ export default {
     controls.maxPolarAngle = Math.PI / 2;
     controls.enablePan = false;
 
-    scene.background = new THREE.Color(0xffffff);
-
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
     const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.7);
     const directionalLight3 = new THREE.DirectionalLight(0xffffff, 1.7);
@@ -204,21 +267,111 @@ export default {
 
     let shoeText;
 
+    const textureLoader = new TextureLoader();
+
     gltfLoader.load("/models/new-shoe.glb", (gltf) => {
       shoe = gltf.scene;
       shoe.scale.set(2.5, 2.5, 2.5);
 
       shoe.rotation.order = "YXZ";
 
-      shoe.rotation.x = 0.5;
-      shoe.rotation.y = 1.5;
+      shoe.rotation.x = 0.7;
+      shoe.rotation.y = 0.1;
 
-      shoe.position.z = 0;
-      shoe.position.y = -0.5;
+      shoe.position.z = -1;
+      shoe.position.y = 0;
       shoe.position.x = -0.5;
 
       scene.add(shoe);
     });
+
+    const resetCamera = () => {
+      const initialPosition = { x: 0, y: 0, z: 7 };
+      const initialRotation = { x: 0, y: 0, z: 0 };
+
+      new TWEEN.Tween(camera.position)
+        .to(initialPosition, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+
+      new TWEEN.Tween(camera.rotation)
+        .to(initialRotation, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    };
+
+    const updateCameraPosition = (currentPartIndex) => {
+      resetCamera();
+
+      const targetValues = getTargetValues(this.currentPartIndex);
+
+      new TWEEN.Tween(shoe.rotation)
+        .to({ x: targetValues.rotationX, y: targetValues.rotationY }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+
+      new TWEEN.Tween(shoe.position)
+        .to({ y: targetValues.positionY, z: targetValues.positionZ }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    };
+
+    const getTargetValues = (currentPartIndex) => {
+      switch (this.currentPartIndex) {
+        case 0:
+          return {
+            rotationX: 0.7,
+            rotationY: 0.1,
+            positionY: 0,
+            positionZ: -1,
+          };
+        case 1:
+          return {
+            rotationX: 0.6,
+            rotationY: 2.8,
+            positionY: -0.5,
+            positionZ: 1,
+          };
+        case 2:
+          return {
+            rotationX: 0.6,
+            rotationY: 1,
+            positionY: -0.5,
+            positionZ: -1,
+          };
+        case 3:
+          return {
+            rotationX: 0.6,
+            rotationY: -0.8,
+            positionY: -0.5,
+            positionZ: -1,
+          };
+        case 4:
+          return {
+            rotationX: 0.6,
+            rotationY: 1.5,
+            positionY: -0.5,
+            positionZ: 1.6,
+          };
+        case 5:
+          return {
+            rotationX: -0.2,
+            rotationY: 3.3,
+            positionY: -0.5,
+            positionZ: 1.2,
+          };
+        default:
+          return {
+            rotationX: 0.7,
+            rotationY: 0.1,
+            positionY: 0,
+            positionZ: -1,
+          };
+      }
+    };
+
+    this.updateCameraPosition = updateCameraPosition;
+
     const jewelModels = {
       Giraffe: { model: null, position: new THREE.Vector3(-1.6, 0.8, 1.35) },
       Elephant: { model: null, position: new THREE.Vector3(-1, 1, 1.25) },
@@ -341,6 +494,7 @@ export default {
 
     const animate = () => {
       requestAnimationFrame(animate);
+      TWEEN.update();
       renderer.render(scene, camera);
     };
 
@@ -389,10 +543,10 @@ export default {
 
     this.toggleInitials = toggleInitials;
 
-    this.socket = new WebSocket('wss://shoe-config-ws.onrender.com/primus');
+    this.socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
     this.socket.onopen = function (event) {
-    console.log('socket open');
-  };
+      console.log("socket open");
+    };
   },
 
   methods: {
@@ -404,6 +558,7 @@ export default {
         this.selectedColors[type] = hexColor;
       }
     },
+
     handleDoneButtonClick() {
       if (
         this.shoeSize &&
@@ -421,8 +576,6 @@ export default {
         this.formError = null; // Clear any previous errors
 
         this.fetchData();
-        //route to thank you page
-        // router.push("/thankyou");
       } else {
         this.formError =
           "Please fill in all the required fields and selections.";
@@ -466,14 +619,35 @@ export default {
         body: JSON.stringify(data),
       })
         .then((response) => response.json())
-        .then((data) => {
-          console.log("Data successfully sent:", data);
+        .then((responseData) => {
+          console.log("Data successfully sent:", responseData);
 
-          this.sendToSocket(data);
+          if (
+            responseData &&
+            responseData.data &&
+            responseData.data.shoe &&
+            responseData.data.shoe._id
+          ) {
+            const newId = responseData.data.shoe._id;
+
+            this.sendToSocket(responseData);
+            this.$router.push({ path: "/thankyou", query: { id: newId } });
+          } else {
+            console.error("Invalid server response format");
+            // Handle the error or show a message to the user
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
         });
+    },
+  },
+  computed: {
+    shoePart() {
+      return this.shoeParts[this.currentPartIndex];
+    },
+    materialPart() {
+      return this.materialParts[this.currentPartIndex - 2];
     },
   },
 };
@@ -482,9 +656,10 @@ export default {
 <style scoped>
 .initials-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: start;
-  padding: 43px;
+  gap: 20px;
+  margin-top: 20px;
 }
 
 p {
@@ -494,7 +669,7 @@ p {
   font-style: normal;
   font-weight: 300;
   line-height: normal;
-  color: black;
+  color: white;
 }
 
 label {
@@ -517,41 +692,49 @@ button {
   line-height: normal;
   display: block;
   margin: auto;
-  margin-top: 80px;
+  margin-top: 40px;
   margin-bottom: 80px;
+}
+
+#arrow {
+  color: #d6ff38;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-family: "cooper-black-std", serif;
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 15px;
 }
 
 #configurator {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   gap: 120px;
-  margin-left: 50px;
-  margin-right: 50px;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-bottom: 50px;
-  margin-bottom: 50px;
-  overflow-x: auto;
-  flex-wrap: nowrap; /* Prevent items from wrapping */
+  padding-bottom: 10px;
+  justify-content: center;
 }
 
 .subtitle {
   color: white;
+  font-family: "basic-sans", sans-serif;
+  font-size: 24px;
+  font-style: normal;
 }
 
 .error-message {
   color: red;
   margin-top: 10px;
+  margin-left: 100px;
+  margin-bottom: 10px;
+  font-family: "basic-sans", sans-serif;
+  font-size: 18px;
 }
 
 .user-details {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: left;
   justify-content: space-around;
-  margin-left: 80px;
-  margin-right: 80px;
+  margin-left: 100px;
   margin-bottom: 20px;
   gap: 40px;
   flex-wrap: wrap;
@@ -562,16 +745,27 @@ button {
   gap: 10px;
 }
 
-input {
+input,
+select {
   border: 2px solid #d6ff38;
   background-color: #242424;
   color: white;
+  height: 20px;
+  width: 200px;
+  font-family: "basic-sans", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+select {
+  height: 30px;
 }
 .options .circle {
   cursor: pointer;
   transition: transform 0.2s;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin: 10px 0;
   border: 2px solid #fff;
@@ -580,23 +774,22 @@ input {
 .options .circle:hover {
   transform: scale(1.2);
 }
-
 .router {
   text-decoration: none;
   color: #d6ff38;
   background-color: #000;
   width: 20%;
-  max-width: 150px;
-  height: 24px;
-  font-family: "cooper-black-std", serif;
-  font-size: 12px;
+  max-width: 250px;
+  height: 34px;
+  font-family: "basic-sans", sans-serif;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   line-height: normal;
   display: block;
-  margin-left: 40px;
+  margin-left: 100px;
   margin-top: 20px;
-  margin-bottom: 0px;
+  margin-bottom: 30px;
 }
 
 h1 {
@@ -609,21 +802,67 @@ h1 {
   font-weight: 400;
   line-height: normal;
   letter-spacing: 0.6px;
-  margin-left: 40px;
+  margin-left: 100px;
+  margin-top: 200px;
+}
+
+h2 {
+  color: white;
+  font-size: 1.5rem;
+  margin: 0;
+  font-family: "cooper-black-std", serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  margin-left: 100px;
   margin-top: 20px;
+  margin-bottom: 30px;
+  margin-top: 80px;
 }
 
 .price {
   color: white;
   font-size: 1.5rem;
   margin: 0;
-  font-family: "cooper-black-std", serif;
-  font-size: 20px;
+  font-family: "basic-sans", sans-serif;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: 0.6px;
-  margin-left: 40px;
-  margin-top: 20px;
+  margin-left: 100px;
+  margin-top: 5px;
+}
+
+#checkbox {
+  border: 2px solid #d6ff38;
+  background-color: #242424;
+  color: white;
+  width: 20px;
+  margin-left: 15px;
+}
+
+#shoetype {
+  margin-top: 50px;
+}
+
+#flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+#flex2 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 </style>

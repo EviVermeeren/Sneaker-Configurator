@@ -1,26 +1,46 @@
 <template>
-  <div class="bgc">
-    <div class="flex">
+  <div class="order-container">
+    <div class="order-container__flex">
       <div>
         <div class="canvas-container" ref="canvasContainer"></div>
       </div>
       <div>
-        <h1 id="type">{{ shoe.shoeType }}</h1>
-        <h2>{{ shoe.userName }}</h2>
-        <p>Shipping address: {{ shoe.userAddress }}</p>
-        <p>Size: {{ shoe.shoeSize }}</p>
-        <p>Status: {{ shoe.status }}</p>
+        <div class="order-info">
+          <h1 class="order-info__title">Overview of order</h1>
+          <p id="type" class="order-info__shoe-type">
+            Shoe type: {{ shoe.shoeType }}
+          </p>
+          <p class="order-info__user-name">Name: {{ shoe.userName }}</p>
+          <p class="order-info__user-address">
+            Shipping address: {{ shoe.userAddress }}
+          </p>
+          <p class="order-info__user-email">Email: {{ shoe.userEmail }}</p>
+          <p class="order-info__shoe-size">Size: {{ shoe.shoeSize }}</p>
+          <p class="order-info__status">Status: {{ shoe.status }}</p>
+        </div>
+
         <div class="buttons">
-          <button @click="updateStatus('in production')">
+          <button
+            @click="updateStatus('in production')"
+            class="status-update-button"
+          >
             Update status to “in production”
           </button>
-          <button @click="updateStatus('in transit')">
+          <button
+            @click="updateStatus('in transit')"
+            class="status-update-button"
+          >
             Update status to “in transit”
           </button>
-          <button @click="updateStatus('complete')">
+          <button
+            @click="updateStatus('complete')"
+            class="status-update-button"
+          >
             Update status to “complete”
           </button>
-          <button @click="deleteOrder">Delete order</button>
+          <button @click="deleteOrder" class="delete-button">
+            Delete order
+          </button>
         </div>
       </div>
     </div>
@@ -64,7 +84,7 @@ export default {
   async mounted() {
     await this.fetchShoes(); // Wait for the fetch to complete
     const windowWidth = window.innerWidth;
-    const squareSize = windowWidth * 0.4;
+    const squareSize = windowWidth * 0.3;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000); // Aspect ratio is set to 1 for a square
@@ -83,7 +103,7 @@ export default {
     controls.maxPolarAngle = Math.PI / 2;
     controls.enablePan = false;
 
-    scene.background = new THREE.Color(0xffffff);
+    scene.background = new THREE.Color(0x242424);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
     const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.7);
@@ -100,233 +120,306 @@ export default {
 
     let shoe;
 
-    const updateShoeColors = () => {
-      const shoeColorLaces = this.shoe.shoeColorLaces;
-      const shoeLaces = shoe.getObjectByName("laces");
-      shoeLaces.material.color.set(shoeColorLaces);
+    if (this.shoe.shoeType === "AIR REV. NITRO S") {
+      console.log("code AIR REV. NITRO S here");
 
-      const shoeColorSole = this.shoe.shoeColorSole;
-      const soleColorTop = shoe.getObjectByName("sole_1");
-      const soleColorBottom = shoe.getObjectByName("sole_2");
-      soleColorTop.material.color.set(shoeColorSole);
-      soleColorBottom.material.color.set(shoeColorSole);
+      const updateShoeColors = () => {
+        const shoeColorLaces = this.shoe.shoeColorLaces;
+        const shoeLaces = shoe.getObjectByName("laces");
+        shoeLaces.material.color.set(shoeColorLaces);
 
-      const textureLoader = new THREE.TextureLoader();
-      const textureUrl = this.shoe.shoeMaterialPanelUp;
-      const texture = textureLoader.load(textureUrl);
+        const shoeColorSole = this.shoe.shoeColorSole;
+        const soleColorTop = shoe.getObjectByName("sole_1");
+        const soleColorBottom = shoe.getObjectByName("sole_2");
+        soleColorTop.material.color.set(shoeColorSole);
+        soleColorBottom.material.color.set(shoeColorSole);
 
-      const MaterialTop = shoe.getObjectByName("outside_1");
-      const MaterialBottom = shoe.getObjectByName("outside_2");
+        const textureLoader = new THREE.TextureLoader();
+        const textureUrl = this.shoe.shoeMaterialPanelUp;
+        const texture = textureLoader.load(textureUrl);
 
-      MaterialTop.material = new THREE.MeshBasicMaterial({
-        map: texture,
-      });
+        const MaterialTop = shoe.getObjectByName("outside_1");
+        const MaterialBottom = shoe.getObjectByName("outside_2");
 
-      const shoeColorPanelDown = this.shoe.shoeColorPanelDown;
-      const panelDownColor1 = shoe.getObjectByName("outside_1");
-      const panelDownColor2 = shoe.getObjectByName("outside_2");
-      panelDownColor1.material.color.set(shoeColorPanelDown);
-      panelDownColor2.material.color.set(shoeColorPanelDown);
+        MaterialTop.material = new THREE.MeshBasicMaterial({
+          map: texture,
+        });
 
-      const textureLoader2 = new THREE.TextureLoader();
-      const textureUrl2 = this.shoe.shoeMaterialPanelDown;
-      const texture2 = textureLoader.load(textureUrl);
+        const shoeColorPanelDown = this.shoe.shoeColorPanelDown;
+        const panelDownColor1 = shoe.getObjectByName("outside_1");
+        const panelDownColor2 = shoe.getObjectByName("outside_2");
+        panelDownColor1.material.color.set(shoeColorPanelDown);
+        panelDownColor2.material.color.set(shoeColorPanelDown);
 
-      const MaterialTop2 = shoe.getObjectByName("inside");
+        const textureLoader2 = new THREE.TextureLoader();
+        const textureUrl2 = this.shoe.shoeMaterialPanelDown;
+        const texture2 = textureLoader.load(textureUrl);
 
-      MaterialTop2.material = new THREE.MeshBasicMaterial({
-        map: texture,
-      });
+        const MaterialTop2 = shoe.getObjectByName("inside");
 
-      const shoeColorPanelUp = this.shoe.shoeColorPanelUp;
-      const panelUpColor = shoe.getObjectByName("inside");
-      panelUpColor.material.color.set(shoeColorPanelUp);
-    };
+        MaterialTop2.material = new THREE.MeshBasicMaterial({
+          map: texture,
+        });
 
-    let jewelGiraffe;
+        const shoeColorPanelUp = this.shoe.shoeColorPanelUp;
+        const panelUpColor = shoe.getObjectByName("inside");
+        panelUpColor.material.color.set(shoeColorPanelUp);
+      };
 
-    gltfLoader.load("/models/pendantGiraffe.glb", (gltf) => {
-      jewelGiraffe = gltf.scene;
-      jewelGiraffe.scale.set(0.04, 0.04, 0.04);
+      let jewelGiraffe;
 
-      jewelGiraffe.rotation.x = -1.85;
-      jewelGiraffe.rotation.y = 0.3;
+      gltfLoader.load("/models/pendantGiraffe.glb", (gltf) => {
+        jewelGiraffe = gltf.scene;
+        jewelGiraffe.scale.set(0.04, 0.04, 0.04);
 
-      jewelGiraffe.position.z = 1.25;
-      jewelGiraffe.position.y = 0.8;
-      jewelGiraffe.position.x = -1.3;
+        jewelGiraffe.rotation.x = -1.85;
+        jewelGiraffe.rotation.y = 0.3;
 
-      const material = new THREE.MeshStandardMaterial({
-        color: 0xffd700,
-        metalness: 1,
-        roughness: 0.3,
-      });
+        jewelGiraffe.position.z = 1.25;
+        jewelGiraffe.position.y = 0.8;
+        jewelGiraffe.position.x = -1.3;
 
-      jewelGiraffe.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.material = material;
+        const material = new THREE.MeshStandardMaterial({
+          color: 0xffd700,
+          metalness: 1,
+          roughness: 0.3,
+        });
+
+        jewelGiraffe.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            child.material = material;
+          }
+        });
+
+        if (this.shoe.jewel === "Giraffe") {
+          scene.add(jewelGiraffe);
         }
       });
 
-      if (this.shoe.jewel === "Giraffe") {
-        scene.add(jewelGiraffe);
-      }
-    });
+      let jewelElephant;
 
-    let jewelElephant;
+      gltfLoader.load("/models/pendantElephant.glb", (gltf) => {
+        jewelElephant = gltf.scene;
+        jewelElephant.scale.set(0.05, 0.05, 0.05);
 
-    gltfLoader.load("/models/pendantElephant.glb", (gltf) => {
-      jewelElephant = gltf.scene;
-      jewelElephant.scale.set(0.05, 0.05, 0.05);
+        jewelElephant.rotation.x = -1.95;
+        jewelElephant.rotation.y = 0.6;
 
-      jewelElephant.rotation.x = -1.95;
-      jewelElephant.rotation.y = 0.6;
+        jewelElephant.position.z = 1.25;
+        jewelElephant.position.y = 1;
+        jewelElephant.position.x = -1;
 
-      jewelElephant.position.z = 1.25;
-      jewelElephant.position.y = 1;
-      jewelElephant.position.x = -1;
+        const material = new THREE.MeshStandardMaterial({
+          color: 0xffd700,
+          metalness: 1,
+          roughness: 0.3,
+        });
 
-      const material = new THREE.MeshStandardMaterial({
-        color: 0xffd700,
-        metalness: 1,
-        roughness: 0.3,
-      });
+        jewelElephant.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            child.material = material;
+          }
+        });
 
-      jewelElephant.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.material = material;
+        if (this.shoe.jewel === "Elephant") {
+          console.log("elephant");
+          scene.add(jewelElephant);
         }
       });
 
-      if (this.shoe.jewel === "Elephant") {
-        console.log("elephant");
-        scene.add(jewelElephant);
-      }
-    });
+      let jewelHedgehog;
 
-    let jewelHedgehog;
+      gltfLoader.load("/models/pendantHedgehog.glb", (gltf) => {
+        jewelHedgehog = gltf.scene;
+        jewelHedgehog.scale.set(0.05, 0.05, 0.05);
 
-    gltfLoader.load("/models/pendantHedgehog.glb", (gltf) => {
-      jewelHedgehog = gltf.scene;
-      jewelHedgehog.scale.set(0.05, 0.05, 0.05);
+        jewelHedgehog.rotation.x = -1.95;
+        jewelHedgehog.rotation.y = 0.6;
 
-      jewelHedgehog.rotation.x = -1.95;
-      jewelHedgehog.rotation.y = 0.6;
+        jewelHedgehog.position.z = 1.15;
+        jewelHedgehog.position.y = 1.2;
+        jewelHedgehog.position.x = -1;
 
-      jewelHedgehog.position.z = 1.15;
-      jewelHedgehog.position.y = 1.2;
-      jewelHedgehog.position.x = -1;
+        const material = new THREE.MeshStandardMaterial({
+          color: 0xffd700,
+          metalness: 1,
+          roughness: 0.3,
+        });
 
-      const material = new THREE.MeshStandardMaterial({
-        color: 0xffd700,
-        metalness: 1,
-        roughness: 0.3,
-      });
+        jewelHedgehog.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            child.material = material;
+          }
+        });
 
-      jewelHedgehog.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.material = material;
+        if (this.shoe.jewel === "Hedgehog") {
+          console.log("Hedgehog");
+          scene.add(jewelHedgehog);
         }
       });
 
-      if (this.shoe.jewel === "Hedgehog") {
-        console.log("Hedgehog");
-        scene.add(jewelHedgehog);
-      }
-    });
+      let jewelWhale;
 
-    let jewelWhale;
+      gltfLoader.load("/models/pendantWhale.glb", (gltf) => {
+        jewelWhale = gltf.scene;
+        jewelWhale.scale.set(0.05, 0.05, 0.05);
 
-    gltfLoader.load("/models/pendantWhale.glb", (gltf) => {
-      jewelWhale = gltf.scene;
-      jewelWhale.scale.set(0.05, 0.05, 0.05);
+        jewelWhale.rotation.x = -2;
+        jewelWhale.rotation.y = 0.6;
 
-      jewelWhale.rotation.x = -2;
-      jewelWhale.rotation.y = 0.6;
+        jewelWhale.position.z = 0.95;
+        jewelWhale.position.y = 1.4;
+        jewelWhale.position.x = -1;
 
-      jewelWhale.position.z = 0.95;
-      jewelWhale.position.y = 1.4;
-      jewelWhale.position.x = -1;
+        const material = new THREE.MeshStandardMaterial({
+          color: 0xffd700,
+          metalness: 1,
+          roughness: 0.3,
+        });
 
-      const material = new THREE.MeshStandardMaterial({
-        color: 0xffd700,
-        metalness: 1,
-        roughness: 0.3,
-      });
+        jewelWhale.traverse((child) => {
+          if (child instanceof THREE.Mesh) {
+            child.material = material;
+          }
+        });
 
-      jewelWhale.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          child.material = material;
+        if (this.shoe.jewel === "Whale") {
+          console.log("Whale");
+          scene.add(jewelWhale);
         }
       });
 
-      if (this.shoe.jewel === "Whale") {
-        console.log("Whale");
-        scene.add(jewelWhale);
-      }
-    });
-
-    const fontLoader = new FontLoader();
-    const textMaterial = new THREE.MeshStandardMaterial({
-      color: 0x000000,
-      metalness: 0.4,
-      roughness: 1,
-      wireframe: true,
-      wireframeLinewidth: 0.5,
-    });
-    fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
-      const textGeometry = new TextGeometry(this.shoe.initials, {
-        font: font,
-        size: 0.25,
-        height: 0.01,
-        curveSegments: 12,
-        bevelEnabled: true,
-        bevelThickness: 0.03,
-        bevelSize: 0.02,
-        bevelOffset: 0,
-        bevelSegments: 5,
+      const fontLoader = new FontLoader();
+      const textMaterial = new THREE.MeshStandardMaterial({
+        color: 0x000000,
+        metalness: 0.4,
+        roughness: 1,
+        wireframe: true,
+        wireframeLinewidth: 0.5,
       });
 
-      this.shoeText = new THREE.Mesh(textGeometry, textMaterial);
+      fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
+        const textGeometry = new TextGeometry(this.shoe.initials, {
+          font: font,
+          size: 0.25,
+          height: 0.01,
+          curveSegments: 12,
+          bevelEnabled: true,
+          bevelThickness: 0.03,
+          bevelSize: 0.02,
+          bevelOffset: 0,
+          bevelSegments: 5,
+        });
 
-      this.shoeText.rotation.order = "YXZ";
+        this.shoeText = new THREE.Mesh(textGeometry, textMaterial);
 
-      this.shoeText.rotation.x = -0.5;
-      this.shoeText.rotation.y = -1.75;
+        this.shoeText.rotation.order = "YXZ";
 
-      this.shoeText.position.x = -1.88;
-      this.shoeText.position.y = 2.2;
-      this.shoeText.position.z = -0.45;
+        this.shoeText.rotation.x = -0.5;
+        this.shoeText.rotation.y = -1.75;
 
-      scene.add(this.shoeText);
-    });
+        this.shoeText.position.x = -1.88;
+        this.shoeText.position.y = 2.2;
+        this.shoeText.position.z = -0.45;
 
-    gltfLoader.load("/models/new-shoe.glb", (gltf) => {
-      shoe = gltf.scene;
-      shoe.scale.set(2.5, 2.5, 2.5);
+        scene.add(this.shoeText);
 
-      shoe.rotation.order = "YXZ";
+        gltfLoader.load("/models/new-shoe.glb", (gltf) => {
+          shoe = gltf.scene;
+          shoe.scale.set(2.5, 2.5, 2.5);
 
-      shoe.rotation.x = 0.5;
-      shoe.rotation.y = 1.5;
+          shoe.rotation.order = "YXZ";
 
-      shoe.position.z = 0;
-      shoe.position.y = -0.5;
-      shoe.position.x = -0.5;
+          shoe.rotation.x = 0.5;
+          shoe.rotation.y = 1.5;
 
-      scene.add(shoe);
+          shoe.position.z = 0;
+          shoe.position.y = -0.5;
+          shoe.position.x = -0.5;
 
-      // Move the updateShoeColors call here, after the shoe model is loaded
-      updateShoeColors();
-    });
+          scene.add(shoe);
 
-    const animate = () => {
-      requestAnimationFrame(animate);
-      renderer.render(scene, camera);
-    };
+          // Move the updateShoeColors call here, after the shoe model is loaded
+          updateShoeColors();
+        });
 
-    animate();
+        const animate = () => {
+          requestAnimationFrame(animate);
+          renderer.render(scene, camera);
+        };
+
+        animate();
+      });
+    }
+
+    if (this.shoe.shoeType === "AIR REV. XTRA BLACK") {
+      console.log("code AIR REV. XTRA BLACK here");
+
+      const updateShoeColors = () => {
+        const shoeColorLaces = this.shoe.shoeColorLaces;
+        const laces = shoe.getObjectByName("laces");
+        laces.material = laces.material.clone();
+        laces.material.color.set(shoeColorLaces);
+
+        const shoeColorSole = this.shoe.shoeColorSole;
+        const sole = shoe.getObjectByName("sole");
+        sole.material = sole.material.clone();
+        sole.material.color.set(shoeColorSole);
+
+        const shoeColorMain = this.shoe.shoeColorPanelUp;
+        const main = shoe.getObjectByName("main");
+        main.material = main.material.clone();
+        main.material.color.set(shoeColorMain);
+
+        const textureLoader = new THREE.TextureLoader();
+        const textureUrl = this.shoe.shoeMaterialPanelUp;
+        console.log(textureUrl);
+        const texture = textureLoader.load(textureUrl);
+
+        const sides = shoe.getObjectByName("sides");
+        sides.material = sides.material.clone();
+        sides.material = new THREE.MeshBasicMaterial({
+          map: texture,
+        });
+
+        const textureLoader2 = new THREE.TextureLoader();
+        const textureUrl2 = this.shoe.shoeMaterialPanelDown;
+        const texture2 = textureLoader2.load(textureUrl2);
+
+        const tip = shoe.getObjectByName("tip-heel");
+        tip.material = tip.material.clone();
+        tip.material = new THREE.MeshBasicMaterial({
+          map: texture2,
+        });
+      };
+
+      gltfLoader.load("/models/vans-shoe.glb", (gltf) => {
+        shoe = gltf.scene;
+        shoe.scale.set(1.8, 1.8, 1.8);
+
+        shoe.rotation.order = "YXZ";
+
+        shoe.rotation.x = 0.5;
+        shoe.rotation.y = 1.5;
+
+        shoe.position.z = 0;
+        shoe.position.y = -0.5;
+        shoe.position.x = -0.5;
+
+        scene.add(shoe);
+
+        updateShoeColors();
+      });
+
+      const animate = () => {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      };
+
+      animate();
+    }
   },
+
   methods: {
     async fetchShoes() {
       try {
@@ -398,52 +491,52 @@ export default {
 </script>
 
 <style scoped>
-.bgc {
-  background-color: #fff;
+.order-container {
+  background-color: #242424;
   height: 100vh;
 }
 a {
   text-decoration: none;
   color: #d6ff38;
 }
-h1 {
+
+.order-info {
+  display: flex;
+  flex-direction: column;
+}
+.order-info__title {
   font-family: "cooper-black-std", serif;
   font-weight: 400;
-  color: #000000;
+  color: white;
   font-size: 36px;
   letter-spacing: 1.08px;
   line-height: normal;
   margin: 0;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
-
-h2 {
-  font-family: "cooper-black-std", serif;
-  font-weight: 400;
-  color: #000000;
-  font-size: 20px;
-  letter-spacing: 0.72px;
-  line-height: normal;
-  white-space: nowrap;
-  margin: 0;
-}
-
-p {
+.order-info__shoe-type,
+.order-info__user-name,
+.order-info__user-address,
+.order-info__user-email,
+.order-info__shoe-size,
+.order-info__status {
   font-family: "basic-sans", sans-serif;
   font-weight: 400;
-  color: #000000;
+  color: white;
   font-size: 16px;
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
+  margin-top: 0;
 }
-.flex {
+.order-container__flex {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100vw;
   gap: 100px;
 }
-
 img {
   width: 25vw;
 }
@@ -452,18 +545,28 @@ img {
   flex-direction: column;
   gap: 20px;
 }
-
-button {
+.status-update-button,
+.delete-button {
   width: 299px;
   height: 36px;
   top: 0;
   left: 0;
-  background-color: #000000;
   font-family: "basic-sans", sans-serif;
   font-weight: 700;
-  color: #d6ff38;
   font-size: 14px;
   letter-spacing: 1.61px;
   line-height: normal;
+}
+.status-update-button {
+  background-color: #000000;
+  color: #d6ff38;
+}
+
+.status-update-button:first-child {
+  margin-top: 20px;
+}
+.delete-button {
+  background-color: #000000;
+  color: #d6ff38;
 }
 </style>

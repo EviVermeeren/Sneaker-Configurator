@@ -1,16 +1,38 @@
 <template>
-  <div class="bgc">
-    <div class="flex">
+  <div class="models-container">
+    <h1 id="ourmodels" class="models-container__title">Our models</h1>
+    <div class="model flex">
       <div>
-        <div class="canvas-container" ref="canvasContainer"></div>
+        <div class="canvas-container" ref="canvasContainer1"></div>
       </div>
       <div>
-        <h1>AIR REV. NITRO S</h1>
-        <h2>Custom shoes</h2>
-        <p>€200,00</p>
-        <div class="buttons">
-          <button><router-link to="/customize">CUSTOMIZE</router-link></button>
-          <button>BUY</button>
+        <h1 class="model__name">AIR REV. NITRO S</h1>
+        <h2 class="model__type">Custom shoes</h2>
+        <p class="model__price">€200,00</p>
+        <div class="model__buttons buttons">
+          <button>
+            <router-link to="/customize" class="buttons__link"
+              >CUSTOMIZE</router-link
+            >
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="model flex">
+      <div>
+        <div class="canvas-container" ref="canvasContainer2"></div>
+      </div>
+      <div>
+        <h1 class="model__name">AIR REV. XTRA</h1>
+        <h2 class="model__type">Custom shoes</h2>
+        <p class="model__price">€180,00</p>
+        <div class="model__buttons buttons">
+          <button>
+            <router-link to="/config2" class="buttons__link"
+              >CUSTOMIZE</router-link
+            >
+          </button>
         </div>
       </div>
     </div>
@@ -28,89 +50,118 @@ export default {
     const windowWidth = window.innerWidth;
     const squareSize = windowWidth * 0.4;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(100, 1, 0.1, 1000); // Aspect ratio is set to 1 for a square
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(squareSize, squareSize);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    this.$refs.canvasContainer.appendChild(renderer.domElement);
+    const createScene = (container, modelPath) => {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(100, 1, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(squareSize, squareSize);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+      camera.position.z = 5;
 
-    camera.position.z = 7;
+      const loadingManager = new THREE.LoadingManager();
 
-    const loadingManager = new THREE.LoadingManager();
+      const gltfLoader = new GLTFLoader(loadingManager);
 
-    const gltfLoader = new GLTFLoader(loadingManager);
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.maxPolarAngle = Math.PI / 2;
+      controls.enablePan = false;
 
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.maxPolarAngle = Math.PI / 2;
-    controls.enablePan = false;
+      scene.background = new THREE.Color(0x242424);
 
-    scene.background = new THREE.Color(0xffffff);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
+      const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.7);
+      const directionalLight3 = new THREE.DirectionalLight(0xffffff, 1.7);
+      const directionalLight4 = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(0, 0, 1);
+      directionalLight2.position.set(0, 0, -1);
+      directionalLight3.position.set(0, 1, 0);
+      directionalLight4.position.set(-1, 0, 0);
+      scene.add(directionalLight);
+      scene.add(directionalLight2);
+      scene.add(directionalLight3);
+      scene.add(directionalLight4);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
-    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.7);
-    const directionalLight3 = new THREE.DirectionalLight(0xffffff, 1.7);
-    const directionalLight4 = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(0, 0, 1);
-    directionalLight2.position.set(0, 0, -1);
-    directionalLight3.position.set(0, 1, 0);
-    directionalLight4.position.set(-1, 0, 0);
-    scene.add(directionalLight);
-    scene.add(directionalLight2);
-    scene.add(directionalLight3);
-    scene.add(directionalLight4);
+      let shoe;
 
-    let shoe;
+      gltfLoader.load(modelPath, (gltf) => {
+        shoe = gltf.scene;
+        shoe.scale.set(2, 2, 2);
+        shoe.rotation.order = "YXZ";
+        shoe.rotation.x = 0.5;
+        shoe.rotation.y = 1.5;
+        shoe.position.z = 0;
+        shoe.position.y = -0.5;
+        shoe.position.x = -0.5;
+        scene.add(shoe);
+      });
 
-    gltfLoader.load("/models/new-shoe.glb", (gltf) => {
-      shoe = gltf.scene;
-      shoe.scale.set(2.5, 2.5, 2.5);
+      const animate = () => {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      };
 
-      shoe.rotation.order = "YXZ";
-
-      shoe.rotation.x = 0.5;
-      shoe.rotation.y = 1.5;
-
-      shoe.position.z = 0;
-      shoe.position.y = -0.5;
-      shoe.position.x = -0.5;
-
-      scene.add(shoe);
-    });
-
-    const animate = () => {
-      requestAnimationFrame(animate);
-      renderer.render(scene, camera);
+      animate();
     };
 
-    animate();
+    // Load the first model in the first container
+    createScene(this.$refs.canvasContainer1, "/models/new-shoe.glb");
+
+    // Load a different model in the second container
+    createScene(this.$refs.canvasContainer2, "/models/vans-shoe.glb");
   },
 };
 </script>
 
 <style scoped>
-.bgc {
-  background-color: #fff;
-  height: 100vh;
+.models-container {
+  background-color: #242424;
 }
+
 a {
   text-decoration: none;
   color: #d6ff38;
 }
-h1 {
+
+.models-container__title {
   font-family: "cooper-black-std", serif;
   font-weight: 400;
-  color: #000000;
+  color: white;
+  font-size: 36px;
+  letter-spacing: 1.08px;
+  line-height: normal;
+  margin: 0;
+  padding-top: 50px;
+  margin-left: 100px;
+}
+
+.model {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 100vw;
+}
+
+img {
+  width: 25vw;
+}
+
+.model__name,
+.model__type,
+.model__price {
+  font-family: "cooper-black-std", serif;
+  font-weight: 400;
+  color: white;
+}
+
+.model__name {
   font-size: 36px;
   letter-spacing: 1.08px;
   line-height: normal;
   margin: 0;
 }
 
-h2 {
-  font-family: "cooper-black-std", serif;
-  font-weight: 400;
-  color: #000000;
+.model__type {
   font-size: 20px;
   letter-spacing: 0.72px;
   line-height: normal;
@@ -118,25 +169,17 @@ h2 {
   margin: 0;
 }
 
+.model__price,
 p {
   font-family: "basic-sans", sans-serif;
   font-weight: 400;
-  color: #000000;
+  color: white;
   font-size: 16px;
   letter-spacing: 0;
   line-height: normal;
   white-space: nowrap;
 }
-.flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-}
 
-img {
-  width: 25vw;
-}
 .buttons {
   display: flex;
   flex-direction: column;
@@ -155,5 +198,10 @@ button {
   font-size: 14px;
   letter-spacing: 1.61px;
   line-height: normal;
+}
+
+.buttons__link {
+  text-decoration: none;
+  color: #d6ff38;
 }
 </style>

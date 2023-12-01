@@ -1,26 +1,29 @@
 <template>
   <div class="login-container">
-    <h1>Change password</h1>
+    <h1 class="login-container__title">Change password</h1>
 
-    <!-- login form -->
     <div class="login-form">
-      <label for="oldpassword">Old password</label>
+      <label for="oldpassword" class="login-form__label">Old password</label>
       <input
         type="password"
         id="oldpassword"
         name="oldpassword"
         v-model="oldpassword"
+        class="login-form__input"
       />
 
-      <label for="newpassword">New password</label>
+      <label for="newpassword" class="login-form__label">New password</label>
       <input
         type="password"
         id="newpassword"
         name="newpassword"
         v-model="newpassword"
+        class="login-form__input"
       />
 
-      <button type="submit" @click="updatePassword">Change</button>
+      <button type="submit" @click="updatePassword" class="login-form__button">
+        Change
+      </button>
     </div>
   </div>
 </template>
@@ -53,16 +56,12 @@ const updatePassword = async () => {
 
     if (response.ok) {
       console.log("Password changed successfully");
-      // You can handle success here, e.g., show a success message to the user
-      // Optionally, you can redirect to another page
       router.push("/orders");
     } else {
       console.error("Error changing password", response.statusText);
-      // You can handle errors here, e.g., show an error message to the user
     }
   } catch (error) {
     console.error("Error changing password", error);
-    // Handle other types of errors, e.g., network errors
   }
 };
 </script>
@@ -82,17 +81,17 @@ a {
   flex-direction: column;
   gap: 1em;
 }
-h1 {
+.login-container__title {
   color: #fff;
   text-align: center;
   margin-top: 0;
-  padding-top: 4em;
+  padding-top: 2em;
   font-family: "cooper-black-std", serif;
   font-weight: 400;
   font-size: 36px;
   margin-bottom: 50px;
 }
-label {
+.login-form__label {
   font-family: "basic-sans", sans-serif;
   font-weight: 400;
   font-size: 18px;
@@ -101,7 +100,7 @@ label {
   margin: auto;
 }
 
-button {
+.login-form__button {
   color: #d6ff38;
   background-color: #000;
   width: 60%;
@@ -118,7 +117,7 @@ button {
   margin-bottom: 80px;
 }
 
-input {
+.login-form__input {
   border: 2px solid white;
   background-color: #242424;
   color: white;
@@ -137,7 +136,7 @@ input {
   padding-left: 20px;
 }
 
-input:focus {
+.login-form__input:focus {
   outline: none;
   border: 2px solid #d6ff38;
 }

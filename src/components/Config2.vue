@@ -2,18 +2,6 @@
   <div>
     <div class="canvas-container" ref="canvasContainer"></div>
 
-    <h1>AIR REV. XTRA BLACK</h1>
-    <p class="price">€ 180</p>
-
-    <router-link to="/"
-      ><button class="router">Go to other model</button></router-link
-    >
-    <p id="disclaimer">
-      This shoe is the ultimate custom shoe, since all the artwork that is used,
-      is created for our brand by Stable Diffusion and Lexica and is not
-      available anywhere else.
-    </p>
-
     <div id="configurator">
       <div
         v-for="colorType in ['laces', 'sole', 'main']"
@@ -54,28 +42,45 @@
       </div>
     </div>
 
+    <h2>Your information:</h2>
     <div class="user-details">
       <div class="user-details-div">
         <label for="shoeSize">Shoe Size:</label>
-        <input type="number" v-model="shoeSize" />
+        <select id="shoeSize" name="shoeSize" v-model="shoeSize">
+          <option value="36">36</option>
+          <option value="37">37</option>
+          <option value="38">38</option>
+          <option value="39">39</option>
+          <option value="40">40</option>
+          <option value="41">41</option>
+          <option value="42">42</option>
+          <option value="43">43</option>
+          <option value="44">44</option>
+          <option value="45">45</option>
+          <option value="46">46</option>
+          <option value="47">47</option>
+          <option value="48">48</option>
+          <option value="49">49</option>
+          <option value="50">50</option>
+        </select>
       </div>
       <div class="user-details-div">
-        <label for="userName">User Name:</label>
+        <label for="userName">Your name:</label>
         <input type="text" v-model="userName" />
       </div>
       <div class="user-details-div">
-        <label for="userAddress">User Address:</label>
+        <label for="userAddress">Your address:</label>
         <input type="text" v-model="userAddress" />
       </div>
       <div class="user-details-div">
-        <label for="userEmail">User Email:</label>
+        <label for="userEmail">Your email:</label>
         <input type="email" v-model="userEmail" />
       </div>
     </div>
 
     <div v-if="formError" class="error-message">{{ formError }}</div>
 
-    <button @click="handleDoneButtonClick">Done</button>
+    <button @click="handleDoneButtonClick">Send order!</button>
   </div>
 </template>
 
@@ -84,11 +89,18 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader.js";
-import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
-import { FontLoader } from "three/addons/loaders/FontLoader.js";
+
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+let socket = null;
 
 export default {
-  setup() {},
+  setup() {
+    const router = useRouter();
+    return { router };
+  },
   data() {
     return {
       selectedColors: {
@@ -154,15 +166,6 @@ export default {
 
     const gltfLoader = new GLTFLoader(loadingManager);
 
-    const fontLoader = new FontLoader();
-    const textMaterial = new THREE.MeshStandardMaterial({
-      color: 0x000000,
-      metalness: 0.4,
-      roughness: 1,
-      wireframe: true,
-      wireframeLinewidth: 0.5,
-    });
-
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.maxPolarAngle = Math.PI / 2;
     controls.enablePan = false;
@@ -184,7 +187,9 @@ export default {
 
     let shoe;
 
-    let shoeText;
+    const textureLoader = new TextureLoader();
+    const bgi = textureLoader.load("/media/bgi.jpg");
+    scene.background = bgi;
 
     gltfLoader.load("/models/vans-shoe.glb", (gltf) => {
       shoe = gltf.scene;
@@ -207,49 +212,6 @@ export default {
 
       scene.add(shoe);
     });
-    const jewelModels = {
-      Giraffe: { model: null, position: new THREE.Vector3(-1.6, 0.8, 1.35) },
-      Elephant: { model: null, position: new THREE.Vector3(-1, 1, 1.25) },
-      Hedgehog: { model: null, position: new THREE.Vector3(-1, 1.2, 1.15) },
-      Whale: { model: null, position: new THREE.Vector3(-1, 1.4, 0.95) },
-    };
-
-    Object.keys(jewelModels).forEach((jewelType) => {
-      const modelPath = `/models/pendant${jewelType}.glb`;
-      gltfLoader.load(modelPath, (gltf) => {
-        const jewelModel = gltf.scene;
-        jewelModel.scale.set(0.05, 0.05, 0.05);
-        jewelModel.rotation.x = -2;
-        jewelModel.rotation.y = 0.6;
-        jewelModel.position.copy(jewelModels[jewelType].position);
-
-        const material = new THREE.MeshStandardMaterial({
-          color: 0xffd700,
-          metalness: 1,
-          roughness: 0.3,
-        });
-
-        jewelModel.traverse((child) => {
-          if (child instanceof THREE.Mesh) {
-            child.material = material;
-          }
-        });
-
-        jewelModel.visible = false;
-        jewelModels[jewelType].model = jewelModel;
-        scene.add(jewelModel);
-      });
-    });
-
-    const updateJewel = (jewelType) => {
-      Object.keys(jewelModels).forEach((type) => {
-        const model = jewelModels[type].model;
-        model.visible = type === jewelType;
-        if (type === jewelType) this.jewel = jewelType;
-      });
-    };
-
-    this.updateJewel = updateJewel;
 
     const updateColor = (colorType, hexColor) => {
       if (shoe) {
@@ -333,48 +295,10 @@ export default {
 
     animate();
 
-    const handleInitialsInput = () => {
-      this.initials = this.initials.toUpperCase();
+    this.socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
+    this.socket.onopen = function (event) {
+      console.log("socket open");
     };
-
-    this.handleInitialsInput = handleInitialsInput;
-
-    const toggleInitials = () => {
-      this.initialsState = !this.initialsState;
-
-      if (this.initialsState === true) {
-        fontLoader.load("fonts/helvetiker_regular.typeface.json", (font) => {
-          const textGeometry = new TextGeometry(this.initials, {
-            font: font,
-            size: 0.25,
-            height: 0.01,
-            curveSegments: 12,
-            bevelEnabled: true,
-            bevelThickness: 0.03,
-            bevelSize: 0.02,
-            bevelOffset: 0,
-            bevelSegments: 5,
-          });
-
-          this.shoeText = new THREE.Mesh(textGeometry, textMaterial);
-
-          this.shoeText.rotation.order = "YXZ";
-
-          this.shoeText.rotation.x = -0.5;
-          this.shoeText.rotation.y = -1.75;
-
-          this.shoeText.position.x = -1.88;
-          this.shoeText.position.y = 2.2;
-          this.shoeText.position.z = -0.45;
-
-          scene.add(this.shoeText);
-        });
-      } else if (this.initialsState === false) {
-        scene.remove(this.shoeText);
-      }
-    };
-
-    this.toggleInitials = toggleInitials;
   },
 
   methods: {
@@ -399,7 +323,6 @@ export default {
         this.selectedMaterials.shoeMaterialPanelUp
       ) {
         this.formError = null;
-
         this.fetchData();
       } else {
         this.formError =
@@ -407,10 +330,15 @@ export default {
       }
     },
 
+    sendToSocket(socketData) {
+      this.socket.send(JSON.stringify(socketData));
+      console.log("socket called");
+    },
+
     fetchData() {
       const data = {
         shoe: {
-          shoeType: "AIR REV. NITRO S",
+          shoeType: "AIR REV. XTRA BLACK",
           shoeSize: this.shoeSize,
           shoeColorSole: this.selectedColors.shoeColorSole,
           shoeColorLaces: this.selectedColors.shoeColorLaces,
@@ -436,8 +364,24 @@ export default {
         body: JSON.stringify(data),
       })
         .then((response) => response.json())
-        .then((data) => {
-          console.log("Data successfully sent:", data);
+        .then((responseData) => {
+          console.log("Data successfully sent:", responseData);
+
+          if (
+            responseData &&
+            responseData.data &&
+            responseData.data.shoe &&
+            responseData.data.shoe._id
+          ) {
+            const newId = responseData.data.shoe._id;
+
+            console.log(newId);
+            this.sendToSocket(responseData);
+            this.$router.push({ path: "/thankyou", query: { id: newId } });
+          } else {
+            console.error("Invalid server response format");
+            // Handle the error or show a message to the user
+          }
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -450,9 +394,11 @@ export default {
 <style scoped>
 .initials-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: start;
   padding: 43px;
+  gap: 20px;
+  margin-left: 40px;
 }
 
 p {
@@ -472,19 +418,6 @@ label {
   color: white;
 }
 
-#disclaimer {
-  font-family: "basic-sans", sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  color: white;
-  margin-left: 40px;
-  margin-right: 80px;
-  margin-bottom: 40px;
-}
-
 button {
   color: #d6ff38;
   background-color: #000;
@@ -498,7 +431,7 @@ button {
   line-height: normal;
   display: block;
   margin: auto;
-  margin-top: 80px;
+  margin-top: 40px;
   margin-bottom: 80px;
 }
 
@@ -511,10 +444,9 @@ button {
   margin-right: 50px;
   padding-left: 50px;
   padding-right: 50px;
-  padding-bottom: 50px;
-  margin-bottom: 50px;
+  padding-bottom: 10px;
   overflow-x: auto;
-  flex-wrap: nowrap; /* Prevent items from wrapping */
+  flex-wrap: nowrap;
 }
 
 .subtitle {
@@ -524,15 +456,18 @@ button {
 .error-message {
   color: red;
   margin-top: 10px;
+  margin-left: 100px;
+  margin-bottom: 10px;
+  font-family: "basic-sans", sans-serif;
+  font-size: 18px;
 }
 
 .user-details {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: left;
   justify-content: space-around;
-  margin-left: 80px;
-  margin-right: 80px;
+  margin-left: 100px;
   margin-bottom: 20px;
   gap: 40px;
   flex-wrap: wrap;
@@ -543,16 +478,27 @@ button {
   gap: 10px;
 }
 
-input {
+input,
+select {
   border: 2px solid #d6ff38;
   background-color: #242424;
   color: white;
+  height: 20px;
+  width: 200px;
+  font-family: "basic-sans", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+select {
+  height: 30px;
 }
 .options .circle {
   cursor: pointer;
   transition: transform 0.2s;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   margin: 10px 0;
   border: 2px solid #fff;
@@ -561,23 +507,22 @@ input {
 .options .circle:hover {
   transform: scale(1.2);
 }
-
 .router {
   text-decoration: none;
   color: #d6ff38;
   background-color: #000;
   width: 20%;
-  max-width: 150px;
-  height: 24px;
-  font-family: "cooper-black-std", serif;
-  font-size: 12px;
+  max-width: 250px;
+  height: 34px;
+  font-family: "basic-sans", sans-serif;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   line-height: normal;
   display: block;
-  margin-left: 40px;
+  margin-left: 100px;
   margin-top: 20px;
-  margin-bottom: 0px;
+  margin-bottom: 30px;
 }
 
 h1 {
@@ -590,21 +535,61 @@ h1 {
   font-weight: 400;
   line-height: normal;
   letter-spacing: 0.6px;
-  margin-left: 40px;
+  margin-left: 100px;
+  margin-top: 200px;
+}
+
+h2 {
+  color: white;
+  font-size: 1.5rem;
+  margin: 0;
+  font-family: "cooper-black-std", serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.6px;
+  margin-left: 100px;
   margin-top: 20px;
+  margin-bottom: 30px;
+  margin-top: 80px;
 }
 
 .price {
   color: white;
   font-size: 1.5rem;
   margin: 0;
-  font-family: "cooper-black-std", serif;
-  font-size: 20px;
+  font-family: "basic-sans", sans-serif;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: 0.6px;
-  margin-left: 40px;
-  margin-top: 20px;
+  margin-left: 100px;
+  margin-top: 5px;
+}
+
+#checkbox {
+  border: 2px solid #d6ff38;
+  background-color: #242424;
+  color: white;
+  width: 20px;
+  margin-left: 15px;
+}
+
+#shoetype {
+  margin-top: 50px;
+}
+#disclaimer {
+  font-family: "basic-sans", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  color: white;
+  margin-left: 100px;
+  margin-right: 80px;
+  margin-bottom: 40px;
 }
 </style>

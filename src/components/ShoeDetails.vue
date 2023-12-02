@@ -503,7 +503,10 @@ export default {
         if (data.status === "success") {
           // Assuming you want to navigate back to a previous page after deletion
           this.$router.push("/orders"); // Replace with the desired route
-
+          // Send a WebSocket message indicating the order has been deleted
+          this.socket.send(
+            JSON.stringify({ action: "deleteOrder", shoeId: this.shoeId })
+          );
           console.log("Shoe deleted successfully");
         } else {
           console.error("Error deleting shoe:", data.message);

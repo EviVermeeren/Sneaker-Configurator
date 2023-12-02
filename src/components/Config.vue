@@ -278,6 +278,16 @@ export default {
     scene.add(directionalLight3);
     scene.add(directionalLight4);
 
+    let shoeGroup = new THREE.Group();
+    shoeGroup.rotation.order = "YXZ";
+
+    shoeGroup.rotation.x = 0.7;
+    shoeGroup.rotation.y = 0.1;
+
+    shoeGroup.position.z = -1;
+    shoeGroup.position.y = 0;
+    shoeGroup.position.x = -0.5;
+
     let shoe;
 
     const textureLoader = new TextureLoader();
@@ -288,14 +298,7 @@ export default {
 
       shoe.rotation.order = "YXZ";
 
-      shoe.rotation.x = 0.7;
-      shoe.rotation.y = 0.1;
-
-      shoe.position.z = -1;
-      shoe.position.y = 0;
-      shoe.position.x = -0.5;
-
-      scene.add(shoe);
+      shoeGroup.add(shoe);
     });
 
     const resetCamera = () => {
@@ -318,12 +321,12 @@ export default {
 
       const targetValues = getTargetValues(this.currentPartIndex);
 
-      new TWEEN.Tween(shoe.rotation)
+      new TWEEN.Tween(shoeGroup.rotation)
         .to({ x: targetValues.rotationX, y: targetValues.rotationY }, 500)
         .easing(TWEEN.Easing.Quadratic.Out)
         .start();
 
-      new TWEEN.Tween(shoe.position)
+      new TWEEN.Tween(shoeGroup.position)
         .to({ y: targetValues.positionY, z: targetValues.positionZ }, 500)
         .easing(TWEEN.Easing.Quadratic.Out)
         .start();
@@ -562,7 +565,7 @@ export default {
           this.shoeText.position.y = 2.2;
           this.shoeText.position.z = -0.45;
 
-          scene.add(this.shoeText);
+          shoeGroup.add(this.shoeText);
         });
       } else if (this.initialsState === false) {
         scene.remove(this.shoeText);
@@ -633,6 +636,8 @@ export default {
     this.socket.onopen = function (event) {
       console.log("socket open");
     };
+
+    scene.add(shoeGroup);
   },
 
   methods: {

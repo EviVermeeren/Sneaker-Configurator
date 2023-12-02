@@ -38,6 +38,12 @@
           >
             Update status to “complete”
           </button>
+          <button
+            @click="updateStatus('cancelled')"
+            class="status-update-button"
+          >
+            Update status to "cancelled"
+          </button>
           <button @click="deleteOrder" class="delete-button">
             Delete order
           </button>

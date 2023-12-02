@@ -215,6 +215,7 @@ export default {
         "/textures/fabric.jpg",
       ],
       jewelOptions: ["Giraffe", "Elephant", "Hedgehog", "Whale"],
+      progressState: false,
     };
   },
   mounted() {
@@ -222,6 +223,8 @@ export default {
 
     const windowWidth = window.innerWidth * 2;
     const ratio = windowWidth / window.innerHeight;
+
+    const clock = new THREE.Clock();
 
     const scene = new THREE.Scene();
     scene.background = new THREE.CubeTextureLoader()
@@ -508,6 +511,20 @@ export default {
       requestAnimationFrame(animate);
       TWEEN.update();
       renderer.render(scene, camera);
+
+      if(this.selectedColors.shoeColorLaces &&
+        this.selectedColors.shoeColorSole &&
+        this.selectedColors.shoeColorPanelDown &&
+        this.selectedColors.shoeColorPanelUp &&
+        this.selectedMaterials.shoeMaterialPanelDown &&
+        this.selectedMaterials.shoeMaterialPanelUp &&
+        this.jewel &&
+        this.progressState === false
+        ){
+          console.log("all selected");
+          this.progressState = true;
+          this.onProgress();
+        }
     };
 
     animate();
@@ -554,6 +571,65 @@ export default {
     };
 
     this.toggleInitials = toggleInitials;
+
+    const onProgress = () => {
+      const particleGeometry = new THREE.BufferGeometry();
+      const count = 400;
+      const spreadDistance = 10;
+
+      let vertices = new Float32Array(count * 3);
+      for (let i = 0; i < count * 3; i++) {
+        vertices[i] = THREE.MathUtils.randFloatSpread(1);
+      }
+      particleGeometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(vertices, 3)
+      );
+
+      const particleMaterial = new THREE.PointsMaterial({
+        size: 0.5,
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.7,
+      });
+
+      const particles = new THREE.Points(particleGeometry, particleMaterial);
+      scene.add(particles);
+
+      // Start to animate the particles like confetti spreading out
+      const animateConfetti = () => {
+        const elapsedTime = clock.getElapsedTime();
+
+        for (let i = 0; i < count; i++) {
+          const i3 = i * 3;
+
+          const x = particleGeometry.attributes.position.array[i3];
+          const y = particleGeometry.attributes.position.array[i3 + 1];
+          const z = particleGeometry.attributes.position.array[i3 + 2];
+
+          particleGeometry.attributes.position.array[i3] = x + x * 0.05;
+          particleGeometry.attributes.position.array[i3 + 1] =
+            y + y * 0.05 + Math.sin(elapsedTime * 2 + i) * 0.01;
+          particleGeometry.attributes.position.array[i3 + 2] =
+            z + z * 0.05 + Math.cos(elapsedTime * 2 + i) * 0.01;
+
+          if (particleGeometry.attributes.position.array[i3 + 1] > 3) {
+            particleGeometry.attributes.position.array[i3 + 1] =
+              -spreadDistance;
+          }
+        }
+
+        particleGeometry.attributes.position.needsUpdate = true;
+
+        renderer.render(scene, camera);
+
+        requestAnimationFrame(animateConfetti);
+      };
+
+      animateConfetti();
+    };
+
+    this.onProgress = onProgress;
 
     this.socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
     this.socket.onopen = function (event) {

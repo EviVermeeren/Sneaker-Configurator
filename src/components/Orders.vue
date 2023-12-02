@@ -75,6 +75,7 @@ export default {
 
       socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
+        console.log(data);
         console.log("Received WebSocket data:", data);
 
         if (data.data) {

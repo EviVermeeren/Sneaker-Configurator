@@ -94,6 +94,12 @@ export default {
             console.log("Status updated through WebSocket:", data.shoe);
           }
         }
+
+        if (data.action === "deleteOrder") {
+          // Remove the order from the list based on the received shoeId
+          this.shoes = this.shoes.filter((shoe) => shoe._id !== data.shoeId);
+          console.log("Order deleted through WebSocket:", data.shoeId);
+        }
       };
     },
   },

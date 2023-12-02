@@ -59,6 +59,8 @@ import { TextureLoader } from "three/src/loaders/TextureLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
 
+let socket = null;
+
 export default {
   data() {
     return {
@@ -418,9 +420,18 @@ export default {
 
       animate();
     }
+
+    this.socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
+    this.socket.onopen = function (event) {
+      console.log("socket open");
+    };
   },
 
   methods: {
+    sendToSocket(socketData) {
+      this.socket.send(JSON.stringify(socketData));
+      console.log("socket called");
+    },
     async fetchShoes() {
       try {
         const response = await fetch(
@@ -438,6 +449,8 @@ export default {
         console.error("Error fetching shoes:", error);
       }
     },
+    // SHOEDETAILS.VUE
+    // SHOEDETAILS.VUE
     async updateStatus(newStatus) {
       try {
         const response = await fetch(
@@ -455,6 +468,12 @@ export default {
 
         if (data.status === "success") {
           this.shoe.status = newStatus; // Update the status in the local data
+
+          // Emit the status change through WebSocket
+          this.socket.send(
+            JSON.stringify({ action: "updateStatus", shoe: this.shoe })
+          );
+
           console.log("Status updated successfully");
         } else {
           console.error("Error updating status:", data.message);
@@ -463,6 +482,7 @@ export default {
         console.error("Error updating status:", error);
       }
     },
+
     async deleteOrder() {
       try {
         const response = await fetch(

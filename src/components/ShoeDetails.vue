@@ -90,12 +90,12 @@ export default {
     };
   },
   async mounted() {
-    await this.fetchShoes(); // Wait for the fetch to complete
+    await this.fetchShoes();
     const windowWidth = window.innerWidth;
     const squareSize = windowWidth * 0.3;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000); // Aspect ratio is set to 1 for a square
+    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(squareSize, squareSize);
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -347,7 +347,6 @@ export default {
 
           scene.add(shoe);
 
-          // Move the updateShoeColors call here, after the shoe model is loaded
           updateShoeColors();
         });
 
@@ -446,7 +445,7 @@ export default {
         const data = await response.json();
 
         if (data.status === "success") {
-          this.shoe = data.data.shoe || {}; // Use empty object if undefined
+          this.shoe = data.data.shoe || {};
           console.log(this.shoe);
         } else {
           console.error("Error fetching shoes:", data.message);
@@ -455,8 +454,7 @@ export default {
         console.error("Error fetching shoes:", error);
       }
     },
-    // SHOEDETAILS.VUE
-    // SHOEDETAILS.VUE
+
     async updateStatus(newStatus) {
       try {
         const response = await fetch(
@@ -473,9 +471,7 @@ export default {
         const data = await response.json();
 
         if (data.status === "success") {
-          this.shoe.status = newStatus; // Update the status in the local data
-
-          // Emit the status change through WebSocket
+          this.shoe.status = newStatus;
           this.socket.send(
             JSON.stringify({ action: "updateStatus", shoe: this.shoe })
           );
@@ -501,9 +497,7 @@ export default {
         const data = await response.json();
 
         if (data.status === "success") {
-          // Assuming you want to navigate back to a previous page after deletion
-          this.$router.push("/orders"); // Replace with the desired route
-          // Send a WebSocket message indicating the order has been deleted
+          this.$router.push("/orders");
           this.socket.send(
             JSON.stringify({ action: "deleteOrder", shoeId: this.shoeId })
           );

@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { useRouter } from "vue-router"; // Import useRouter
+import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 
 let socket = null;
@@ -63,7 +63,6 @@ export default {
       }
     },
     viewShoe(shoeId) {
-      // Navigate to the detail page using router-link
       this.$router.push(`/shoe/${shoeId}`);
     },
     socketConnect() {
@@ -89,14 +88,12 @@ export default {
           );
 
           if (index !== -1) {
-            // Directly update the array
             this.shoes[index] = data.shoe;
             console.log("Status updated through WebSocket:", data.shoe);
           }
         }
 
         if (data.action === "deleteOrder") {
-          // Remove the order from the list based on the received shoeId
           this.shoes = this.shoes.filter((shoe) => shoe._id !== data.shoeId);
           console.log("Order deleted through WebSocket:", data.shoeId);
         }

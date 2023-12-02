@@ -512,7 +512,8 @@ export default {
       TWEEN.update();
       renderer.render(scene, camera);
 
-      if(this.selectedColors.shoeColorLaces &&
+      if (
+        this.selectedColors.shoeColorLaces &&
         this.selectedColors.shoeColorSole &&
         this.selectedColors.shoeColorPanelDown &&
         this.selectedColors.shoeColorPanelUp &&
@@ -520,11 +521,11 @@ export default {
         this.selectedMaterials.shoeMaterialPanelUp &&
         this.jewel &&
         this.progressState === false
-        ){
-          console.log("all selected");
-          this.progressState = true;
-          this.onProgress();
-        }
+      ) {
+        console.log("all selected");
+        this.progressState = true;
+        this.onProgress();
+      }
     };
 
     animate();
@@ -596,7 +597,6 @@ export default {
       const particles = new THREE.Points(particleGeometry, particleMaterial);
       scene.add(particles);
 
-      // Start to animate the particles like confetti spreading out
       const animateConfetti = () => {
         const elapsedTime = clock.getElapsedTime();
 
@@ -661,7 +661,7 @@ export default {
         this.selectedMaterials.shoeMaterialPanelUp &&
         this.initials
       ) {
-        this.formError = null; // Clear any previous errors
+        this.formError = null;
 
         this.fetchData();
       } else {
@@ -722,7 +722,6 @@ export default {
             this.$router.push({ path: "/thankyou", query: { id: newId } });
           } else {
             console.error("Invalid server response format");
-            // Handle the error or show a message to the user
           }
         })
         .catch((error) => {

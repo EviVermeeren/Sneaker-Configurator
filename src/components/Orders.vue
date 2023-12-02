@@ -75,9 +75,23 @@ export default {
 
       socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
+        console.log("Received WebSocket data:", data);
+
         if (data.data) {
           this.shoes.push(data.data.shoe);
           console.log("shoes:", data.data);
+        }
+
+        if (data.action === "updateStatus") {
+          const index = this.shoes.findIndex(
+            (shoe) => shoe._id === data.shoe._id
+          );
+
+          if (index !== -1) {
+            // Directly update the array
+            this.shoes[index] = data.shoe;
+            console.log("Status updated through WebSocket:", data.shoe);
+          }
         }
       };
     },

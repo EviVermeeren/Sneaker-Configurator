@@ -280,8 +280,6 @@ export default {
 
     let shoe;
 
-    let shoeText;
-
     const textureLoader = new TextureLoader();
 
     gltfLoader.load("/models/new-shoe.glb", (gltf) => {

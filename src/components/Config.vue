@@ -1,7 +1,11 @@
 <template>
   <div class="shoe-configurator">
     <div class="canvas-container" ref="canvasContainer"></div>
-
+    <progress
+      class="progbar"
+      :value="progbarValue"
+      :max="progbarMax"
+    ></progress>
     <div class="configurator">
       <a
         class="configurator__arrow"
@@ -29,31 +33,33 @@
             {{ shoePart }} ({{ currentPartIndex + 1 }}/6)
           </p>
         </div>
-        <div class="configurator__flex2">
-          <div
-            v-for="color in colorOptions"
-            :key="color"
-            class="configurator__options"
-            @click="updateColor(shoePart, color)"
-          >
-            <div
-              class="configurator__circle"
-              :style="{ backgroundColor: color }"
-            ></div>
-          </div>
-        </div>
-        <div v-if="shoePart === 'inside' || shoePart === 'outside'">
+        <div class="configurator__flex1">
           <div class="configurator__flex2">
             <div
-              v-for="material in materialOptions"
-              :key="material"
+              v-for="color in colorOptions"
+              :key="color"
               class="configurator__options"
-              @click="updateMaterial(materialPart, material)"
+              @click="updateColor(shoePart, color)"
             >
               <div
                 class="configurator__circle"
-                :style="{ backgroundImage: `url(${material})` }"
+                :style="{ backgroundColor: color }"
               ></div>
+            </div>
+          </div>
+          <div v-if="shoePart === 'inside' || shoePart === 'outside'">
+            <div class="configurator__flex2">
+              <div
+                v-for="material in materialOptions"
+                :key="material"
+                class="configurator__options"
+                @click="updateMaterial(materialPart, material)"
+              >
+                <div
+                  class="configurator__circle"
+                  :style="{ backgroundImage: `url(${material})` }"
+                ></div>
+              </div>
             </div>
           </div>
         </div>
@@ -121,7 +127,11 @@
       </a>
     </div>
 
-    <h2>Your information:</h2>
+    <button v-if="progressState" class="configurator__button" @click="goToInfo">
+      I'm finished!
+    </button>
+
+    <h2 ref="infoSection">Your information:</h2>
     <div class="user-details">
       <div class="user-details-div">
         <label for="shoeSize">Shoe Size:</label>
@@ -171,10 +181,9 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
+import { useRouter } from "vue-router";
 import TWEEN from "tween.js";
 
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
 const router = useRouter();
 
 let socket = null;
@@ -191,6 +200,7 @@ export default {
       currentPartIndex: 0,
       initials: "",
       initialsState: false,
+      initialsClickedOnce: false,
       selectedColors: {
         shoeColorLaces: null,
         shoeColorSole: null,
@@ -215,21 +225,23 @@ export default {
         "/textures/fabric.jpg",
       ],
       jewelOptions: ["Giraffe", "Elephant", "Hedgehog", "Whale"],
+      progbarValue: 0,
+      progbarMax: 8,
       progressState: false,
     };
   },
   mounted() {
     const canvasContainer = this.$refs.canvasContainer;
-
-    const windowWidth = window.innerWidth * 2;
-    const ratio = windowWidth / window.innerHeight;
+    let windowWidth = window.innerWidth * 2;
+    let windowHeight = window.innerHeight;
+    const ratio = windowWidth / windowHeight;
 
     const clock = new THREE.Clock();
 
     const scene = new THREE.Scene();
     scene.background = new THREE.CubeTextureLoader()
-      .setPath("/cubemap/jpg/")
-      .load(["px.jpg", "nx.jpg", "py.jpg", "ny.jpg", "pz.jpg", "nz.jpg"]);
+      .setPath("/cubemap/golf/")
+      .load(["px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"]);
 
     const camera = new THREE.PerspectiveCamera(75, ratio, 0.1, 1000);
 
@@ -240,13 +252,13 @@ export default {
     resize();
     window.addEventListener("resize", resize);
     function resize() {
-      renderer.setSize(window.innerWidth, window.innerHeight * 0.5);
+      renderer.setSize(window.innerWidth, window.innerHeight * 0.78);
       camera.aspect =
         canvasContainer.clientWidth / canvasContainer.clientHeight;
       camera.updateProjectionMatrix();
     }
 
-    camera.position.z = 7;
+    camera.position.z = 9;
 
     const loadingManager = new THREE.LoadingManager();
 
@@ -264,6 +276,8 @@ export default {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.maxPolarAngle = Math.PI / 2;
     controls.enablePan = false;
+    controls.minDistance = 4;
+    controls.maxDistance = 10;
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
     const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.7);
@@ -290,19 +304,17 @@ export default {
 
     let shoe;
 
-    const textureLoader = new TextureLoader();
+    this.textureLoader = new TextureLoader();
 
     gltfLoader.load("/models/new-shoe.glb", (gltf) => {
       shoe = gltf.scene;
       shoe.scale.set(2.5, 2.5, 2.5);
 
-      shoe.rotation.order = "YXZ";
-
       shoeGroup.add(shoe);
     });
 
     const resetCamera = () => {
-      const initialPosition = { x: 0, y: 0, z: 7 };
+      const initialPosition = { x: 0, y: 0, z: 9 };
       const initialRotation = { x: 0, y: 0, z: 0 };
 
       new TWEEN.Tween(camera.position)
@@ -391,7 +403,7 @@ export default {
     const jewelModels = {
       Giraffe: { model: null, position: new THREE.Vector3(-1.35, 0.8, -1.25) },
       Elephant: { model: null, position: new THREE.Vector3(-1.2, 1.2, -1.25) },
-      Hedgehog: { model: null, position: new THREE.Vector3(-1.15, 1.4, -1.3 ) },
+      Hedgehog: { model: null, position: new THREE.Vector3(-1.15, 1.4, -1.3) },
       Whale: { model: null, position: new THREE.Vector3(-1, 1.5, -1.25) },
     };
 
@@ -424,6 +436,7 @@ export default {
     });
 
     const updateJewel = (jewelType) => {
+      handleProgress("jewel");
       Object.keys(jewelModels).forEach((type) => {
         const model = jewelModels[type].model;
         model.visible = type === jewelType;
@@ -438,10 +451,12 @@ export default {
         let material;
         switch (colorType) {
           case "laces":
+            handleProgress("laces");
             material = shoe.getObjectByName("laces").material;
             this.selectedColors.shoeColorLaces = hexColor;
             break;
           case "sole":
+            handleProgress("sole");
             const soleMaterialTop = shoe.getObjectByName("sole_1").material;
             const soleMaterialBottom = shoe.getObjectByName("sole_2").material;
             soleMaterialTop.color.setStyle(hexColor);
@@ -451,10 +466,12 @@ export default {
             this.selectedColors.shoeColorSole = hexColor;
             break;
           case "inside":
+            handleProgress("inside");
             material = shoe.getObjectByName("inside").material;
             this.selectedColors.shoeColorPanelDown = hexColor;
             break;
           case "outside":
+            handleProgress("outside");
             const topMaterialTop = shoe.getObjectByName("outside_1").material;
             const topMaterialBottom =
               shoe.getObjectByName("outside_2").material;
@@ -479,8 +496,7 @@ export default {
 
     const updateMaterial = (materialType, textureUrl) => {
       if (shoe) {
-        const textureLoader = new THREE.TextureLoader();
-        const texture = textureLoader.load(textureUrl);
+        const texture = this.textureLoader.load(textureUrl);
 
         texture.repeat.set(2, 2);
         texture.wrapS = THREE.RepeatWrapping;
@@ -489,10 +505,12 @@ export default {
         let material;
         switch (materialType) {
           case "top":
+            handleProgress("top");
             material = shoe.getObjectByName("outside_1").material;
             this.selectedMaterials.shoeMaterialPanelUp = textureUrl;
             break;
           case "bottom":
+            handleProgress("bottom");
             material = shoe.getObjectByName("inside").material;
             this.selectedMaterials.shoeMaterialPanelDown = textureUrl;
             break;
@@ -514,20 +532,8 @@ export default {
       TWEEN.update();
       renderer.render(scene, camera);
 
-      if (
-        this.selectedColors.shoeColorLaces &&
-        this.selectedColors.shoeColorSole &&
-        this.selectedColors.shoeColorPanelDown &&
-        this.selectedColors.shoeColorPanelUp &&
-        this.selectedMaterials.shoeMaterialPanelDown &&
-        this.selectedMaterials.shoeMaterialPanelUp &&
-        this.jewel &&
-        this.progressState === false
-      ) {
-        console.log("all selected");
-        this.progressState = true;
-        this.onProgress();
-      }
+      //make shoeGroup go up and down with sinus
+      shoeGroup.position.y = Math.sin(clock.getElapsedTime()) * 0.2 - 0.8;
     };
 
     animate();
@@ -555,6 +561,8 @@ export default {
             bevelSegments: 5,
           });
 
+          handleProgress("initials");
+
           this.shoeText = new THREE.Mesh(textGeometry, textMaterial);
 
           this.shoeText.rotation.order = "YXZ";
@@ -575,7 +583,63 @@ export default {
 
     this.toggleInitials = toggleInitials;
 
-    const onProgress = () => {
+    const handleProgress = (selectedItem) => {
+      switch (selectedItem) {
+        case "laces":
+          if (this.selectedColors.shoeColorLaces === null) {
+            this.progbarValue += 1;
+          }
+          break;
+        case "sole":
+          if (this.selectedColors.shoeColorSole === null) {
+            this.progbarValue += 1;
+          }
+          break;
+        case "inside":
+          if (this.selectedColors.shoeColorPanelDown === null) {
+            this.progbarValue += 1;
+          }
+          break;
+        case "outside":
+          if (this.selectedColors.shoeColorPanelUp === null) {
+            this.progbarValue += 1;
+          }
+          break;
+        case "top":
+          if (this.selectedMaterials.shoeMaterialPanelUp === null) {
+            this.progbarValue += 1;
+          }
+          break;
+        case "bottom":
+          if (this.selectedMaterials.shoeMaterialPanelDown === null) {
+            this.progbarValue += 1;
+          }
+          break;
+        case "jewel":
+          if (this.jewel === null) {
+            this.progbarValue += 1;
+          }
+          break;
+        case "initials":
+          if (this.initialsClickedOnce === false && this.initials !== "") {
+            this.progbarValue += 1;
+            this.initialsClickedOnce = true;
+          }
+          break;
+        default:
+          break;
+      }
+
+      if (this.progbarValue === this.progbarMax && !this.progressState) {
+        onProgressComplete();
+        console.log("progress complete");
+        this.progressState = true;
+      }
+    };
+
+    this.handleProgress = handleProgress;
+
+    const onProgressComplete = () => {
       const particleGeometry = new THREE.BufferGeometry();
       const count = 400;
       const spreadDistance = 10;
@@ -591,16 +655,21 @@ export default {
 
       const particleMaterial = new THREE.PointsMaterial({
         size: 0.5,
-        color: 0xffffff,
         transparent: true,
-        opacity: 0.7,
+        opacity: 1,
+        map: this.textureLoader.load("/particle/flower.png"),
+        alphaTest: 0.001,
+        transparent: true,
+        depthWrite: false,
       });
 
       const particles = new THREE.Points(particleGeometry, particleMaterial);
       scene.add(particles);
 
+      // Start to animate the particles like confetti spreading out
       const animateConfetti = () => {
         const elapsedTime = clock.getElapsedTime();
+        const speedFactor = 0.01;
 
         for (let i = 0; i < count; i++) {
           const i3 = i * 3;
@@ -609,11 +678,11 @@ export default {
           const y = particleGeometry.attributes.position.array[i3 + 1];
           const z = particleGeometry.attributes.position.array[i3 + 2];
 
-          particleGeometry.attributes.position.array[i3] = x + x * 0.05;
+          particleGeometry.attributes.position.array[i3] = x + x * speedFactor;
           particleGeometry.attributes.position.array[i3 + 1] =
-            y + y * 0.05 + Math.sin(elapsedTime * 2 + i) * 0.01;
+            y + y * speedFactor + Math.sin(elapsedTime * 2 + i) * 0.01;
           particleGeometry.attributes.position.array[i3 + 2] =
-            z + z * 0.05 + Math.cos(elapsedTime * 2 + i) * 0.01;
+            z + z * speedFactor + Math.cos(elapsedTime * 2 + i) * 0.01;
 
           if (particleGeometry.attributes.position.array[i3 + 1] > 3) {
             particleGeometry.attributes.position.array[i3 + 1] =
@@ -629,9 +698,13 @@ export default {
       };
 
       animateConfetti();
+
+      setTimeout(() => {
+        scene.remove(particles);
+      }, 7000);
     };
 
-    this.onProgress = onProgress;
+    this.onProgressComplete = onProgressComplete;
 
     this.socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
     this.socket.onopen = function (event) {
@@ -642,6 +715,9 @@ export default {
   },
 
   methods: {
+    goToInfo() {
+      this.$refs.infoSection.scrollIntoView({ behavior: "smooth" });
+    },
     updateColor(type, hexColor) {
       if (shoe) {
         const material = shoe.getObjectByName(type).material;
@@ -650,7 +726,6 @@ export default {
         this.selectedColors[type] = hexColor;
       }
     },
-
     handleDoneButtonClick() {
       if (
         this.shoeSize &&
@@ -743,172 +818,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.initials-container {
-  display: flex;
-  flex-direction: row;
-  align-items: start;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-label {
-  font-family: "basic-sans", sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  color: white;
-}
-
-button {
-  color: #d6ff38;
-  background-color: #000;
-  width: 60%;
-  max-width: 300px;
-  height: 68px;
-  font-family: "cooper-black-std", serif;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  display: block;
-  margin: auto;
-  margin-top: 40px;
-  margin-bottom: 80px;
-}
-
-input,
-select {
-  border: 2px solid #d6ff38;
-  background-color: #242424;
-  color: white;
-  height: 20px;
-  width: 200px;
-  font-family: "basic-sans", sans-serif;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  padding: 5px;
-  border-radius: 5px;
-  width: 150px;
-}
-
-select {
-  height: 30px;
-}
-
-h2 {
-  color: white;
-  font-size: 1.5rem;
-  margin: 0;
-  font-family: "cooper-black-std", serif;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.6px;
-  margin-left: 100px;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  margin-top: 80px;
-}
-.configurator {
-  display: flex;
-  gap: 120px;
-  padding-bottom: 10px;
-  justify-content: center;
-}
-
-.configurator__arrow {
-  color: #d6ff38;
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-family: "cooper-black-std", serif;
-  font-size: 32px;
-  font-weight: 700;
-  margin-top: 15px;
-}
-
-.configurator__subtitle {
-  color: white;
-  font-family: "basic-sans", sans-serif;
-  font-size: 24px;
-  font-style: normal;
-}
-
-.configurator__error-message {
-  color: red;
-  margin-top: 10px;
-  margin-left: 100px;
-  margin-bottom: 10px;
-  font-family: "basic-sans", sans-serif;
-  font-size: 18px;
-}
-
-.configurator__flex {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.configurator__flex2 {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.configurator__options .configurator__circle {
-  cursor: pointer;
-  transition: transform 0.2s;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin: 10px 0;
-  border: 2px solid #fff;
-}
-
-.configurator__options .configurator__circle:hover {
-  transform: scale(1.2);
-}
-
-.configurator__initials-container {
-  display: flex;
-  flex-direction: row;
-  align-items: start;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.configurator__checkbox {
-  border: 2px solid #d6ff38;
-  background-color: #242424;
-  color: white;
-  width: 20px;
-  margin-left: 15px;
-  margin-top: 5px;
-}
-
-.user-details {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: space-around;
-  margin-left: 100px;
-  margin-bottom: 20px;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.user-details-div {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-}
-</style>
-```

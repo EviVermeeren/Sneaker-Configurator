@@ -346,6 +346,55 @@ export default {
 
     this.updateCameraPosition = updateCameraPosition;
 
+    const updateColor = (colorType, hexColor) => {
+      if (shoe) {
+        let material;
+        switch (colorType) {
+          case "laces":
+            handleProgress("laces");
+            material = shoe.getObjectByName("laces").material;
+            this.selectedColors.shoeColorLaces = hexColor;
+            break;
+          case "sole":
+            handleProgress("sole");
+            const soleObject = shoe.getObjectByName("sole");
+            const heelTipObject = shoe.getObjectByName("heel-tip");
+            const soleMaterial = soleObject.material.clone();
+            const tipHeelMaterial = heelTipObject.material.clone();
+            soleMaterial.color.setStyle(hexColor);
+            tipHeelMaterial.color.setStyle(hexColor);
+            soleObject.material = soleMaterial;
+            heelTipObject.material = tipHeelMaterial;
+            this.selectedColors.shoeColorSole = hexColor;
+            break;
+          case "inside":
+            handleProgress("inside");
+            const insideObject = shoe.getObjectByName("main");
+            const insideMaterial = insideObject.material.clone();
+            insideMaterial.color.setStyle(hexColor);
+            insideObject.material = insideMaterial;
+            this.selectedColors.shoeColorPanelDown = hexColor;
+            break;
+          case "outside":
+            handleProgress("outside");
+            const outsideObject = shoe.getObjectByName("sides");
+            const outsideMaterial = outsideObject.material.clone();
+            outsideMaterial.color.setStyle(hexColor);
+            outsideObject.material = outsideMaterial;
+            this.selectedColors.shoeColorPanelUp = hexColor;
+            break;
+          default:
+            break;
+        }
+        if (material) {
+          material.color.setStyle(hexColor);
+          material.needsUpdate = true;
+        }
+      }
+    };
+
+    this.updateColor = updateColor;
+
     const animate = () => {
       requestAnimationFrame(animate);
       renderer.render(scene, camera);

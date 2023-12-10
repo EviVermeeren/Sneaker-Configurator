@@ -1,8 +1,10 @@
 <template>
     <header>
-      <div class="shoe-desc">
-        <img src="/media/logo.webp" alt="SWEAR-LOGO" />
-      </div>
+      <RouterLink to="/">
+        <div class="shoe-desc">
+          <img src="/media/logo-white.webp" alt="SWEAR-LOGO" />
+        </div>
+      </RouterLink>
       <button @click="toggleSound">
         <img class="shoe-desc__img" src="/media/sound.svg" alt="" />
       </button>

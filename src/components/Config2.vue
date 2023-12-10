@@ -193,9 +193,9 @@ export default {
   },
   mounted() {
     const canvasContainer = this.$refs.canvasContainer;
-
-    const windowWidth = window.innerWidth * 2;
-    const ratio = windowWidth / window.innerHeight;
+    let windowWidth = window.innerWidth * 2;
+    let windowHeight = window.innerHeight;
+    const ratio = windowWidth / windowHeight;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, ratio, 0.1, 1000);

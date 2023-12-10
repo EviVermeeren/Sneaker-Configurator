@@ -200,7 +200,11 @@ export default {
     const clock = new THREE.Clock();
 
     const scene = new THREE.Scene();
+    scene.background = new THREE.CubeTextureLoader()
+      .setPath("/cubemap/golf/")
+      .load([ "px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"]);
     const camera = new THREE.PerspectiveCamera(75, ratio, 0.1, 1000);
+
     const renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
     canvasContainer.appendChild(renderer.domElement);
@@ -208,7 +212,7 @@ export default {
     resize();
     window.addEventListener("resize", resize);
     function resize() {
-      renderer.setSize(window.innerWidth, window.innerHeight * 0.5);
+      renderer.setSize(window.innerWidth, window.innerHeight * 0.78);
       camera.aspect =
         canvasContainer.clientWidth / canvasContainer.clientHeight;
       camera.updateProjectionMatrix();

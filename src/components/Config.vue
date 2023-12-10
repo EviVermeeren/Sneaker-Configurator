@@ -182,6 +182,9 @@
       {{ formError }}
     </div>
     <button @click="handleDoneButtonClick">Send order!</button>
+    <router-link to="/config2">
+      <button class="router">Go to AIR REV. NITRO S</button>
+    </router-link>
   </div>
 </template>
 

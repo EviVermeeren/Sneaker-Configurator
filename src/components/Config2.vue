@@ -438,7 +438,9 @@ export default {
 
     const animate = () => {
       requestAnimationFrame(animate);
+      TWEEN.update();
       renderer.render(scene, camera);
+      shoeGroup.position.y = Math.sin(clock.getElapsedTime()) * 0.2 - 0.8;
     };
 
     animate();

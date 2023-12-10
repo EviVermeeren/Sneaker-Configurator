@@ -278,6 +278,22 @@ export default {
         .start();
     }
 
+    const updateCameraPosition = (currentPartIndex) => {
+      resetCamera();
+
+      const targetValues = getTargetValues(this.currentPartIndex);
+
+      new TWEEN.Tween(shoeGroup.rotation)
+        .to({ x: targetValues.rotationX, y: targetValues.rotationY }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+
+      new TWEEN.Tween(shoeGroup.position)
+        .to({ y: targetValues.positionY, z: targetValues.positionZ }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    };
+
     const animate = () => {
       requestAnimationFrame(animate);
       renderer.render(scene, camera);

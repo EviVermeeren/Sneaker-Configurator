@@ -479,6 +479,65 @@ export default {
 
     this.handleProgress = handleProgress;
 
+    const onProgressComplete = () => {
+      const particleGeometry = new THREE.BufferGeometry();
+      const count = 400;
+      const spreadDistance = 10;
+
+      let vertices = new Float32Array(count * 3);
+      for (let i = 0; i < count * 3; i++) {
+        vertices[i] = THREE.MathUtils.randFloatSpread(1);
+      }
+      particleGeometry.setAttribute(
+        "position",
+        new THREE.BufferAttribute(vertices, 3)
+      );
+
+      const particleMaterial = new THREE.PointsMaterial({
+        size: 0.5,
+        transparent: true,
+        opacity: 1,
+        map: this.textureLoader.load("/particle/flower.png"),
+      });
+
+      const particles = new THREE.Points(particleGeometry, particleMaterial);
+      scene.add(particles);
+
+      const animateConfetti = () => {
+        const elapsedTime = clock.getElapsedTime();
+        const speedFactor = 0.01;
+
+        for (let i = 0; i < count; i++) {
+          const i3 = i * 3;
+
+          const x = particleGeometry.attributes.position.array[i3];
+          const y = particleGeometry.attributes.position.array[i3 + 1];
+          const z = particleGeometry.attributes.position.array[i3 + 2];
+
+          particleGeometry.attributes.position.array[i3] = x + x * speedFactor;
+          particleGeometry.attributes.position.array[i3 + 1] =
+            y + y * speedFactor + Math.sin(elapsedTime * 2 + i) * 0.01;
+          particleGeometry.attributes.position.array[i3 + 2] =
+            z + z * speedFactor + Math.cos(elapsedTime * 2 + i) * 0.01;
+
+          if (particleGeometry.attributes.position.array[i3 + 1] > 3) {
+            particleGeometry.attributes.position.array[i3 + 1] =
+              -spreadDistance;
+          }
+        }
+
+        particleGeometry.attributes.position.needsUpdate = true;
+
+        renderer.render(scene, camera);
+
+        requestAnimationFrame(animateConfetti);
+      };
+
+      animateConfetti();
+    };
+
+    this.onProgressComplete = onProgressComplete;
+
     this.socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
     this.socket.onopen = function (event) {
       console.log("socket open");

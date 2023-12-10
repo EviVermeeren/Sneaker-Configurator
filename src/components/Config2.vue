@@ -6,7 +6,7 @@
       :value="progbarValue"
       :max="progbarMax"
     ></progress>
-    <div id="configurator">
+    <div class="configurator">
       <a
         class="configurator__arrow"
         @click="

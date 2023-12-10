@@ -182,7 +182,7 @@
       {{ formError }}
     </div>
     <button v-if="progressState" @click="handleDoneButtonClick">Send order!</button>
-    <router-link v-if="progressState" to="/config2">
+    <router-link to="/config2">
       <button class="router">Go to AIR REV. NITRO S</button>
     </router-link>
   </div>

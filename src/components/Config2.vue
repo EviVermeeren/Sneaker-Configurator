@@ -227,6 +227,8 @@ export default {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.maxPolarAngle = Math.PI / 2;
     controls.enablePan = false;
+    controls.minDistance = 4;
+    controls.maxDistance = 10;
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
     const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.7);

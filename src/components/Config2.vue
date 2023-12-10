@@ -137,11 +137,10 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { TextureLoader } from "three/src/loaders/TextureLoader.js";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import TWEEN from "tween.js";
 
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
 const router = useRouter();
 
 let socket = null;

@@ -252,7 +252,7 @@ export default {
 
     shoeGroup.position.z = -1.5;
     shoeGroup.position.y = -1.5;
-    shoeGroup.position.x = -1;
+    shoeGroup.position.x = 0;
 
     let shoe;
 

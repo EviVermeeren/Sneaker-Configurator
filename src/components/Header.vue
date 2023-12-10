@@ -1,16 +1,16 @@
 <template>
-  <header class="header">
+  <header class="headerMain">
     <router-link to="/">
-      <div class="header__logo">
+      <div class="headerMain__logo">
         <img
-          class="header__img"
+          class="headerMain__img"
           src="../assets/SWEAR_Logo.webp"
           alt="SWEAR-LOGO"
         />
       </div>
     </router-link>
     <router-link to="/login">
-      <button class="header__admin-button" href="">Admin</button>
+      <button class="headerMain__admin-button" href="">Admin</button>
     </router-link>
   </header>
 </template>
@@ -22,20 +22,20 @@ export default {
 </script>
 
 <style scoped>
-.header {
+.headerMain {
   background-color: #242424;
   color: #000;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100vw;
   margin: 0;
   border-bottom: #d6ff38;
   border-width: 0 0 2px 0;
   border-style: solid;
+  height: 122px;
 }
 
-.header__logo {
+.headerMain__logo {
   flex-direction: column;
   align-items: start;
   padding: 43px;
@@ -47,7 +47,7 @@ a {
   color: white;
 }
 
-.header__admin-button {
+.headerMain__admin-button {
   color: #d6ff38;
   background-color: #000;
   width: 80%;
@@ -60,25 +60,31 @@ a {
   line-height: normal;
   display: block;
   margin-right: 100px;
+  margin-top: 30px;
 }
 
 @media (max-width: 600px) {
-  .header__logo {
+  .headerMain {
+    height: 63px;
+  }
+  .headerMain__logo {
     flex-direction: column;
     align-items: start;
     padding: 20px;
     background-color: #d6ff38;
   }
 
-  .header__admin-button {
+  .headerMain__admin-button {
     width: 60%;
     max-width: 200px;
     height: 30px;
     font-size: 12px;
     margin-right: 40px;
+    margin-top: 20px;
+    margin-bottom: 0px;
   }
 
-  .header__img {
+  .headerMain__img {
     width: 100px;
   }
 }

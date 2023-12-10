@@ -45,7 +45,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 export default {
-  name: "Header",
+  name: "Menu",
   mounted() {
     const windowWidth = window.innerWidth;
     const squareSize = windowWidth * 0.4;

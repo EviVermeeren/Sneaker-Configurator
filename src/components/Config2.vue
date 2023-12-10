@@ -259,6 +259,8 @@ export default {
     gltfLoader.load("/models/vans-shoe.glb", (gltf) => {
       shoe = gltf.scene;
       shoe.scale.set(1, 1, 1);
+      shoe.position.y = -1;
+      shoeGroup.add(shoe);
     });
 
     const updateColor = (colorType, hexColor) => {

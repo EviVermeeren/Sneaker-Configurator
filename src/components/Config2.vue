@@ -1,7 +1,11 @@
 <template>
   <div class="shoe-configurator">
     <div class="canvas-container" ref="canvasContainer"></div>
-
+    <progress
+      class="progbar"
+      :value="progbarValue"
+      :max="progbarMax"
+    ></progress>
     <div id="configurator">
       <div
         v-for="colorType in ['laces', 'sole', 'main']"

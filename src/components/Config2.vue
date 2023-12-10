@@ -7,6 +7,43 @@
       :max="progbarMax"
     ></progress>
     <div id="configurator">
+      <a
+        class="configurator__arrow"
+        @click="
+          if (currentPartIndex > 0) {
+            currentPartIndex--;
+            updateCameraPosition();
+          } else {
+            currentPartIndex = 3;
+            updateCameraPosition();
+          }
+        "
+      >
+        ←
+      </a>
+      <div
+        class="configurator__flex"
+        v-if="
+        (currentPartIndex && currentPartIndex < 4) || currentPartIndex === 0
+        "
+      >
+
+
+      </div>
+      <a
+        class="configurator__arrow"
+        @click="
+          if (currentPartIndex < 3) {
+            currentPartIndex++;
+            updateCameraPosition();
+          } else {
+            currentPartIndex = 0;
+            updateCameraPosition();
+          }
+        "
+      >
+        →
+      </a>
 
     </div>
 

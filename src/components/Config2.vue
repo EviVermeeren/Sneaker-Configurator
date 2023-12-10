@@ -294,6 +294,58 @@ export default {
         .start();
     };
 
+    const getTargetValues = (currentPartIndex) => {
+      switch (this.currentPartIndex) {
+        case 0:
+          return {
+            rotationX: 0,
+            rotationY: 4.8,
+            rotationZ: -0.5,
+            positionX: -1,
+            positionY: -1.5,
+            positionZ: -1.5,
+          };
+        case 1:
+          return {
+            rotationX: 0.6,
+            rotationY: 2.8,
+            rotationZ: -0.5,
+            positionX: -1,
+            positionY: -0.5,
+            positionZ: 1,
+          };
+        case 2:
+          return {
+            rotationX: 0,
+            rotationY: 4,
+            rotationZ: -0.5,
+            positionX: -1,
+            positionY: -1.5,
+            positionZ: -1.5,
+          };
+        case 3:
+          return {
+            rotationX: 0,
+            rotationY: -0.5,
+            rotationZ: -0.5,
+            positionX: -1,
+            positionY: -1.5,
+            positionZ: -1.5,
+          };
+        default:
+          return {
+            rotationX: 0,
+            rotationY: 4.8,
+            rotationZ: -0.5,
+            positionX: -1,
+            positionY: -1.5,
+            positionZ: -1.5,
+          };
+      }
+    };
+
+    this.updateCameraPosition = updateCameraPosition;
+
     const animate = () => {
       requestAnimationFrame(animate);
       renderer.render(scene, camera);

@@ -538,15 +538,19 @@ export default {
 
     this.onProgressComplete = onProgressComplete;
 
+    scene.add(shoeGroup);
+
     this.socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
     this.socket.onopen = function (event) {
       console.log("socket open");
     };
 
-    scene.add(shoeGroup);
   },
 
   methods: {
+    goToInfo() {
+      this.$refs.infoSection.scrollIntoView({ behavior: "smooth" });
+    },
     updateColor(type, hexColor) {
       if (shoe) {
         const material = shoe.getObjectByName(type).material;

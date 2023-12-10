@@ -263,7 +263,20 @@ export default {
       shoeGroup.add(shoe);
     });
 
-    
+    const resetCamera = () => {
+      const initialPosition = { x: 0, y: 0, z: 9 };
+      const initialRotation = { x: 0, y: 0, z: 0 };
+
+      new TWEEN.Tween(camera.position)
+        .to(initialPosition, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+
+      new TWEEN.Tween(camera.rotation)
+        .to(initialRotation, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .start();
+    }
 
     const animate = () => {
       requestAnimationFrame(animate);

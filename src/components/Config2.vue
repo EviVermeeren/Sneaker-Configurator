@@ -637,6 +637,15 @@ export default {
         });
     },
   },
+
+  computed: {
+    shoePart() {
+      return this.shoeParts[this.currentPartIndex];
+    },
+    materialPart() {
+      return this.materialParts[this.currentPartIndex];
+    },
+  },
 };
 </script>
 

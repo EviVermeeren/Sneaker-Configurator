@@ -142,8 +142,8 @@
       I'm finished!
     </button>
 
-    <h2 ref="infoSection">Your information:</h2>
-    <div class="user-details">
+    <h2 v-if="progressState" ref="infoSection">Your information:</h2>
+    <div v-if="progressState" class="user-details">
       <div class="user-details-div">
         <label for="shoeSize">Shoe Size:</label>
         <select id="shoeSize" name="shoeSize" v-model="shoeSize">
@@ -181,8 +181,8 @@
     <div v-if="formError" class="configurator__error-message">
       {{ formError }}
     </div>
-    <button @click="handleDoneButtonClick">Send order!</button>
-    <router-link to="/config2">
+    <button v-if="progressState" @click="handleDoneButtonClick">Send order!</button>
+    <router-link v-if="progressState" to="/config2">
       <button class="router">Go to AIR REV. NITRO S</button>
     </router-link>
   </div>

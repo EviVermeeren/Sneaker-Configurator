@@ -241,30 +241,24 @@ export default {
     scene.add(directionalLight3);
     scene.add(directionalLight4);
 
+    let shoeGroup = new THREE.Group();
+    shoeGroup.rotation.order = "YXZ";
+
+    shoeGroup.rotation.x = 0;
+    shoeGroup.rotation.y = 4.8;
+    shoeGroup.rotation.z = -0.5;
+
+    shoeGroup.position.z = -1.5;
+    shoeGroup.position.y = -1.5;
+    shoeGroup.position.x = -1;
+
     let shoe;
 
-    const textureLoader = new TextureLoader();
+    this.textureLoader = new TextureLoader();
 
     gltfLoader.load("/models/vans-shoe.glb", (gltf) => {
       shoe = gltf.scene;
-
-      gltf.scene.traverse((child) => {
-        if (child.isMesh) {
-          console.log("Part Name:", child.name);
-        }
-      });
-      shoe.scale.set(2.2, 2.2, 2.2);
-
-      shoe.rotation.order = "YXZ";
-
-      shoe.rotation.x = 0.5;
-      shoe.rotation.y = 1.5;
-
-      shoe.position.z = 0;
-      shoe.position.y = -0.5;
-      shoe.position.x = -0.5;
-
-      scene.add(shoe);
+      shoe.scale.set(1, 1, 1);
     });
 
     const updateColor = (colorType, hexColor) => {

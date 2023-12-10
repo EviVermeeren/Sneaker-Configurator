@@ -643,7 +643,7 @@ export default {
       return this.shoeParts[this.currentPartIndex];
     },
     materialPart() {
-      return this.materialParts[this.currentPartIndex];
+      return this.materialParts[this.currentPartIndex - 2];
     },
   },
 };

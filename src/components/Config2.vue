@@ -152,10 +152,14 @@ export default {
   },
   data() {
     return {
+      shoeParts: ["laces", "sole", "inside", "outside"],
+      materialParts: ["bottom", "top"],
+      currentPartIndex: 0,
       selectedColors: {
         shoeColorLaces: null,
         shoeColorSole: null,
         shoeColorPanelUp: null,
+        shoeColorPanelDown: null,
       },
       selectedMaterials: {
         shoeMaterialPanelUp: null,
@@ -177,15 +181,14 @@ export default {
         "#F9EEB0",
       ],
       materialOptions: [
-        "/textures/sd-1.webp",
-        "/textures/sd-2.webp",
-        "/textures/sd-3.webp",
-        "/textures/sd-4.webp",
         "/textures/lexica-1.webp",
         "/textures/lexica-2.webp",
         "/textures/lexica-3.webp",
         "/textures/lexica-4.webp",
       ],
+      progbarValue: 0,
+      progbarMax: 4,
+      progressState: false,
     };
   },
   mounted() {

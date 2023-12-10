@@ -27,7 +27,43 @@
         (currentPartIndex && currentPartIndex < 4) || currentPartIndex === 0
         "
       >
+        <div>
+          <p class="configurator__subtitle" style="text-transform: capitalize">
+            {{ shoePart }} ({{ currentPartIndex + 1 }}/4)
+          </p>
+        </div>
 
+        <div v-if="shoePart === 'laces' || shoePart === 'sole'">
+          <div class="configurator__flex2">
+            <div
+              v-for="color in colorOptions"
+              :key="color"
+              class="configurator__options"
+              @click="updateColor(shoePart, color)"
+            >
+              <div
+                class="configurator__circle"
+                :style="{ backgroundColor: color }"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <div v-else>
+          <div class="configurator__flex2">
+            <div
+              v-for="material in materialOptions"
+              :key="material"
+              class="configurator__options"
+              @click="updateMaterial(materialPart, material)"
+            >
+              <div
+                class="configurator__circle"
+                :style="{ backgroundImage: `url(${material})` }"
+              ></div>
+            </div>
+          </div>
+        </div>
 
       </div>
       <a

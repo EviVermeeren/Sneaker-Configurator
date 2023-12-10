@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="shoe-configurator">
     <div class="canvas-container" ref="canvasContainer"></div>
 
     <div id="configurator">

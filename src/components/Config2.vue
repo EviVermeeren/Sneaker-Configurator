@@ -228,8 +228,6 @@ export default {
     controls.maxPolarAngle = Math.PI / 2;
     controls.enablePan = false;
 
-    scene.background = new THREE.Color(0xffffff);
-
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
     const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1.7);
     const directionalLight3 = new THREE.DirectionalLight(0xffffff, 1.7);
@@ -246,8 +244,6 @@ export default {
     let shoe;
 
     const textureLoader = new TextureLoader();
-    const bgi = textureLoader.load("/media/bgi.jpg");
-    scene.background = bgi;
 
     gltfLoader.load("/models/vans-shoe.glb", (gltf) => {
       shoe = gltf.scene;

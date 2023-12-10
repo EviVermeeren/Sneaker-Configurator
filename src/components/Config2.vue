@@ -445,6 +445,40 @@ export default {
 
     animate();
 
+    const handleProgress = (selectedItem) => {
+      switch (selectedItem) {
+        case "laces":
+          if (this.selectedColors.shoeColorLaces === null) {
+            this.progbarValue += 1;
+          }
+          break;
+        case "sole":
+          if (this.selectedColors.shoeColorSole === null) {
+            this.progbarValue += 1;
+          }
+          break;
+        case "top":
+          if (this.selectedMaterials.shoeMaterialPanelUp === null) {
+            this.progbarValue += 1;
+          }
+          break;
+        case "bottom":
+          if (this.selectedMaterials.shoeMaterialPanelDown === null) {
+            this.progbarValue += 1;
+          }
+          break;
+        default:
+          break;
+      }
+
+      if (this.progbarValue === this.progbarMax && !this.progressState) {
+        onProgressComplete();
+        this.progressState = true;
+      }
+    };
+
+    this.handleProgress = handleProgress;
+
     this.socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
     this.socket.onopen = function (event) {
       console.log("socket open");

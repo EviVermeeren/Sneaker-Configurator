@@ -13,6 +13,7 @@
 import { Howl } from "howler";
 
 export default {
+name: "HeaderMinimal",
 data() {
     return {
     sound: null,

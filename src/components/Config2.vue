@@ -7,43 +7,7 @@
       :max="progbarMax"
     ></progress>
     <div id="configurator">
-      <div
-        v-for="colorType in ['laces', 'sole', 'main']"
-        :key="colorType"
-        :id="`${colorType}color`"
-      >
-        <p class="subtitle">{{ colorType }} color</p>
-        <div
-          v-for="color in colorOptions"
-          :key="color"
-          :class="{ options: true }"
-          @click="updateColor(colorType, color)"
-        >
-          <div class="circle" :style="{ backgroundColor: color }"></div>
-        </div>
-      </div>
 
-      <div
-        v-for="materialType in ['sides', 'tip']"
-        :key="materialType"
-        :id="`${materialType}material`"
-      >
-        <p class="subtitle">{{ materialType }} material</p>
-        <div
-          v-for="material in materialOptions"
-          :key="material"
-          :class="{ options: true }"
-          @click="updateMaterial(materialType, material)"
-        >
-          <div
-            class="circle"
-            :style="{
-              backgroundImage: `url(${material})`,
-              backgroundSize: 'cover',
-            }"
-          ></div>
-        </div>
-      </div>
     </div>
 
     <h2>Your information:</h2>

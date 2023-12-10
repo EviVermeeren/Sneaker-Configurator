@@ -85,17 +85,30 @@ export default {
       let shoe;
 
       gltfLoader.load(modelPath, (gltf) => {
-        shoe = gltf.scene;
-        shoe.scale.set(2, 2, 2);
-        shoe.rotation.order = "YXZ";
-        shoe.rotation.x = 0.5;
-        shoe.rotation.y = 1.5;
-        shoe.position.z = 0;
-        shoe.position.y = -0.5;
-        shoe.position.x = -0.5;
-        scene.add(shoe);
-      });
 
+        shoe = gltf.scene;
+        shoe.rotation.order = "YXZ";
+
+        if(modelPath === "/models/new-shoe.glb") {
+          shoe.scale.set(2, 2, 2);
+          shoe.rotation.x = 0.5;
+          shoe.rotation.y = 1.5;
+          shoe.position.z = 0;
+          shoe.position.y = -0.5;
+          shoe.position.x = -0.5;
+          scene.add(shoe);
+        } else {
+          shoe.scale.set(0.75, 0.75, 0.75);
+          shoe.rotation.x = 0;
+          shoe.rotation.y = -0.15;
+          shoe.rotation.z = -0.4;
+          shoe.position.z = 0;
+          shoe.position.y = -0.5;
+          shoe.position.x = -0.5;
+          scene.add(shoe);
+        }
+      });
+      
       const animate = () => {
         requestAnimationFrame(animate);
         renderer.render(scene, camera);

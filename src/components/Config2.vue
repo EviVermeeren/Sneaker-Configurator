@@ -80,10 +80,13 @@
       >
         →
       </a>
-
     </div>
 
-    <h2>Your information:</h2>
+    <button v-if="progressState" class="configurator__button" @click="goToInfo">
+      I'm finished!
+    </button>
+
+    <h2 ref="infoSection">Your information:</h2>
     <div class="user-details">
       <div class="user-details-div">
         <label for="shoeSize">Shoe Size:</label>
@@ -119,9 +122,13 @@
       </div>
     </div>
 
-    <div v-if="formError" class="error-message">{{ formError }}</div>
-
+    <div v-if="formError" class="configurator__error-message">
+      {{ formError }}
+    </div>
     <button @click="handleDoneButtonClick">Send order!</button>
+    <router-link to="/customize">
+      <button class="router">Go to AIR REV. NITRO S</button>
+    </router-link>
   </div>
 </template>
 

@@ -395,6 +395,47 @@ export default {
 
     this.updateColor = updateColor;
 
+    const updateMaterial = (materialType, textureUrl) => {
+      if (shoe) {
+        const texture = this.textureLoader.load(textureUrl);
+
+        texture.repeat.set(2, 2);
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+
+        let material;
+        switch (materialType) {
+          case "top":
+            handleProgress("top");
+            const topObject = shoe.getObjectByName("sides");
+            const topMaterial = topObject.material.clone();
+            topMaterial.map = new THREE.TextureLoader().load(textureUrl);
+            topMaterial.needsUpdate = true;
+            topObject.material = topMaterial;
+            this.selectedMaterials.shoeMaterialPanelUp = textureUrl;
+            break;
+          case "bottom":
+            handleProgress("bottom");
+            const bottomObject = shoe.getObjectByName("main");
+            const bottomMaterial = bottomObject.material.clone();
+            bottomMaterial.map = new THREE.TextureLoader().load(textureUrl);
+            bottomMaterial.needsUpdate = true;
+            bottomObject.material = bottomMaterial;
+            this.selectedMaterials.shoeMaterialPanelDown = textureUrl;
+            break;
+          default:
+            break;
+        }
+
+        if (material) {
+          material.map = texture;
+          material.needsUpdate = true;
+        }
+      }
+    };
+
+    this.updateMaterial = updateMaterial;
+
     const animate = () => {
       requestAnimationFrame(animate);
       renderer.render(scene, camera);

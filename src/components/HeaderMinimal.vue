@@ -42,5 +42,50 @@ methods: {
 },
 };
 </script>
-  
-  
+
+<style scoped>
+header {
+  position: absolute;
+  z-index: 5;
+  background-color: transparent;
+  color: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  margin: 0;
+}
+
+.shoe-desc {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 20px;
+}
+
+img {
+  width: 200px;
+}
+
+.shoe-desc__img {
+  height: 50px;
+  width: 50px;
+  margin-top: 10px;
+}
+
+button {
+  color: var(--color-accent);
+  background-color: transparent;
+  border: none;
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+  display: block;
+  margin: auto;
+  margin-right: 50px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+</style>

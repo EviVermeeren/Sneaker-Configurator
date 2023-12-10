@@ -24,12 +24,12 @@
       <div
         class="configurator__flex"
         v-if="
-        (currentPartIndex && currentPartIndex < 4) || currentPartIndex === 0
+          (currentPartIndex && currentPartIndex < 3) || currentPartIndex === 0
         "
       >
         <div>
           <p class="configurator__subtitle" style="text-transform: capitalize">
-            {{ shoePart }} ({{ currentPartIndex + 1 }}/4)
+            {{ shoePart }} ({{ currentPartIndex + 1 }}/3)
           </p>
         </div>
 
@@ -49,22 +49,24 @@
           </div>
         </div>
 
-        <div v-else>
-          <div class="configurator__flex2">
-            <div
-              v-for="material in materialOptions"
-              :key="material"
-              class="configurator__options"
-              @click="updateMaterial(materialPart, material)"
-            >
-              <div
-                class="configurator__circle"
-                :style="{ backgroundImage: `url(${material})` }"
-              ></div>
-            </div>
-          </div>
+        <div class="configurator__AIGenerator" v-else>
+          <input v-model="textInput" placeholder="Enter text..." />
+          <button class="configurator__generateButton" @click="generateImage">
+            Generate
+          </button>
+          <button
+            class="configurator__updateShoeWithAI"
+            @click="updateMaterialAI"
+          >
+            Use
+          </button>
+          <div v-if="loading">Loading...</div>
         </div>
-
+        <img
+          :src="generatedImage"
+          alt="Generated Image"
+          v-if="generatedImage"
+        />
       </div>
       <a
         class="configurator__arrow"
@@ -125,7 +127,9 @@
     <div v-if="formError" class="configurator__error-message">
       {{ formError }}
     </div>
-    <button v-if="progressState" @click="handleDoneButtonClick">Send order!</button>
+    <button v-if="progressState" @click="handleDoneButtonClick">
+      Send order!
+    </button>
     <router-link to="/customize">
       <button class="router">Go to AIR REV. NITRO S</button>
     </router-link>
@@ -145,6 +149,21 @@ const router = useRouter();
 
 let socket = null;
 
+async function query(data) {
+  const response = await fetch(
+    "https://api-inference.huggingface.co/models/CompVis/stable-diffusion-v1-4",
+    {
+      headers: {
+        Authorization: "Bearer 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",
+      },
+      method: "POST",
+      body: JSON.stringify(data),
+    }
+  );
+  const result = await response.blob();
+  return result;
+}
+
 export default {
   setup() {
     const router = useRouter();
@@ -152,6 +171,11 @@ export default {
   },
   data() {
     return {
+      textInput: "",
+      generatedImage: null,
+      textureUrl: "",
+      loading: false,
+
       shoeParts: ["laces", "sole", "inside", "outside"],
       materialParts: ["bottom", "top"],
       currentPartIndex: 0,
@@ -180,14 +204,14 @@ export default {
         "#9DB7D8",
         "#F9EEB0",
       ],
-      materialOptions: [
-        "/textures/lexica-1.webp",
-        "/textures/lexica-2.webp",
-        "/textures/lexica-3.webp",
-        "/textures/lexica-4.webp",
-      ],
+      // materialOptions: [
+      //   "/textures/lexica-1.webp",
+      //   "/textures/lexica-2.webp",
+      //   "/textures/lexica-3.webp",
+      //   "/textures/lexica-4.webp",
+      // ],
       progbarValue: 0,
-      progbarMax: 4,
+      progbarMax: 3,
       progressState: false,
     };
   },
@@ -202,7 +226,7 @@ export default {
     const scene = new THREE.Scene();
     scene.background = new THREE.CubeTextureLoader()
       .setPath("/cubemap/golf/")
-      .load([ "px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"]);
+      .load(["px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"]);
     const camera = new THREE.PerspectiveCamera(75, ratio, 0.1, 1000);
 
     const renderer = new THREE.WebGLRenderer();
@@ -261,7 +285,7 @@ export default {
         }
       });
       scene.add(shoePlatform);
-    });    
+    });
 
     let shoeGroup = new THREE.Group();
     shoeGroup.rotation.order = "YXZ";
@@ -298,7 +322,7 @@ export default {
         .to(initialRotation, 500)
         .easing(TWEEN.Easing.Quadratic.Out)
         .start();
-    }
+    };
 
     const updateCameraPosition = (currentPartIndex) => {
       resetCamera();
@@ -417,46 +441,75 @@ export default {
 
     this.updateColor = updateColor;
 
-    const updateMaterial = (materialType, textureUrl) => {
-      if (shoe) {
-        const texture = this.textureLoader.load(textureUrl);
+    // const updateMaterial = (materialType, textureUrl) => {
+    //   if (shoe) {
+    //     const texture = this.textureLoader.load(textureUrl);
+
+    //     texture.repeat.set(2, 2);
+    //     texture.wrapS = THREE.RepeatWrapping;
+    //     texture.wrapT = THREE.RepeatWrapping;
+
+    //     let material;
+    //     switch (materialType) {
+    //       case "top":
+    //         handleProgress("top");
+    //         const topObject = shoe.getObjectByName("sides");
+    //         const topMaterial = topObject.material.clone();
+    //         topMaterial.map = new THREE.TextureLoader().load(textureUrl);
+    //         topMaterial.needsUpdate = true;
+    //         topObject.material = topMaterial;
+    //         this.selectedMaterials.shoeMaterialPanelUp = textureUrl;
+    //         break;
+    //       case "bottom":
+    //         handleProgress("bottom");
+    //         const bottomObject = shoe.getObjectByName("main");
+    //         const bottomMaterial = bottomObject.material.clone();
+    //         bottomMaterial.map = new THREE.TextureLoader().load(textureUrl);
+    //         bottomMaterial.needsUpdate = true;
+    //         bottomObject.material = bottomMaterial;
+    //         this.selectedMaterials.shoeMaterialPanelDown = textureUrl;
+    //         break;
+    //       default:
+    //         break;
+    //     }
+
+    //     if (material) {
+    //       material.map = texture;
+    //       material.needsUpdate = true;
+    //     }
+    //   }
+    // };
+
+    // this.updateMaterial = updateMaterial;
+
+    const updateMaterialAI = () => {
+      if (shoe && this.textureUrl) {
+        console.log("updateMaterialAI");
+        const texture = this.textureLoader.load(this.textureUrl);
 
         texture.repeat.set(2, 2);
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
 
-        let material;
-        switch (materialType) {
-          case "top":
-            handleProgress("top");
-            const topObject = shoe.getObjectByName("sides");
-            const topMaterial = topObject.material.clone();
-            topMaterial.map = new THREE.TextureLoader().load(textureUrl);
-            topMaterial.needsUpdate = true;
-            topObject.material = topMaterial;
-            this.selectedMaterials.shoeMaterialPanelUp = textureUrl;
-            break;
-          case "bottom":
-            handleProgress("bottom");
-            const bottomObject = shoe.getObjectByName("main");
-            const bottomMaterial = bottomObject.material.clone();
-            bottomMaterial.map = new THREE.TextureLoader().load(textureUrl);
-            bottomMaterial.needsUpdate = true;
-            bottomObject.material = bottomMaterial;
-            this.selectedMaterials.shoeMaterialPanelDown = textureUrl;
-            break;
-          default:
-            break;
-        }
+        handleProgress("top");
+        const topObject = shoe.getObjectByName("sides");
+        const topMaterial = topObject.material.clone();
+        topMaterial.map = texture;
+        topMaterial.needsUpdate = true;
+        topObject.material = topMaterial;
+        this.selectedMaterials.shoeMaterialPanelUp = this.textureUrl;
 
-        if (material) {
-          material.map = texture;
-          material.needsUpdate = true;
-        }
+        handleProgress("bottom");
+        const bottomObject = shoe.getObjectByName("main");
+        const bottomMaterial = bottomObject.material.clone();
+        bottomMaterial.map = texture;
+        bottomMaterial.needsUpdate = true;
+        bottomObject.material = bottomMaterial;
+        this.selectedMaterials.shoeMaterialPanelDown = this.textureUrl;
       }
     };
 
-    this.updateMaterial = updateMaterial;
+    this.updateMaterialAI = updateMaterialAI;
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -566,7 +619,6 @@ export default {
     this.socket.onopen = function (event) {
       console.log("socket open");
     };
-
   },
 
   methods: {
@@ -657,6 +709,22 @@ export default {
         .catch((error) => {
           console.error("Error:", error);
         });
+    },
+
+    async generateImage() {
+      try {
+        this.loading = true;
+        const imageData = await query({ inputs: this.textInput });
+        const imageUrl = URL.createObjectURL(imageData);
+        this.generatedImage = imageUrl;
+        this.textureUrl = imageUrl; // Store the generated image URL
+
+        if (this.generatedImage) {
+          this.loading = false;
+        }
+      } catch (error) {
+        console.error("Error generating image:", error);
+      }
     },
   },
 

@@ -263,80 +263,7 @@ export default {
       shoeGroup.add(shoe);
     });
 
-    const updateColor = (colorType, hexColor) => {
-      if (shoe) {
-        let material;
-        switch (colorType) {
-          case "laces":
-            const laces = shoe.getObjectByName("laces");
-            if (laces && laces.material) {
-              laces.material = laces.material.clone();
-              laces.material.color.setStyle(hexColor);
-              laces.material.needsUpdate = true;
-              this.selectedColors.shoeColorLaces = hexColor;
-            }
-            break;
-          case "sole":
-            const sole = shoe.getObjectByName("sole");
-            if (sole && sole.material) {
-              sole.material = sole.material.clone();
-              sole.material.color.setStyle(hexColor);
-              sole.material.needsUpdate = true;
-              this.selectedColors.shoeColorSole = hexColor;
-            }
-            break;
-          case "main":
-            const main = shoe.getObjectByName("main");
-            if (main && main.material) {
-              main.material = main.material.clone();
-              main.material.color.setStyle(hexColor);
-              main.material.needsUpdate = true;
-              this.selectedColors.shoeColorPanelUp = hexColor;
-            }
-            break;
-        }
-      }
-    };
-
-    this.updateColor = updateColor;
-
-    const updateMaterial = (materialType, textureUrl) => {
-      if (shoe) {
-        const textureLoader = new THREE.TextureLoader();
-        const texture = textureLoader.load(textureUrl);
-
-        let material;
-        switch (materialType) {
-          case "sides":
-            const sides = shoe.getObjectByName("sides");
-            if (sides && sides.material) {
-              sides.material = sides.material.clone();
-              sides.material.map = texture;
-              sides.material.needsUpdate = true;
-              this.selectedMaterials.shoeMaterialPanelUp = textureUrl;
-            }
-            break;
-          case "tip":
-            const tip = shoe.getObjectByName("tip-heel");
-            if (tip && tip.material) {
-              tip.material = tip.material.clone();
-              tip.material.map = texture;
-              tip.material.needsUpdate = true;
-              this.selectedMaterials.shoeMaterialPanelDown = textureUrl;
-            }
-            break;
-          default:
-            break;
-        }
-
-        if (material) {
-          material.map = texture;
-          material.needsUpdate = true;
-        }
-      }
-    };
-
-    this.updateMaterial = updateMaterial;
+    
 
     const animate = () => {
       requestAnimationFrame(animate);
@@ -349,6 +276,8 @@ export default {
     this.socket.onopen = function (event) {
       console.log("socket open");
     };
+
+    scene.add(shoeGroup);
   },
 
   methods: {

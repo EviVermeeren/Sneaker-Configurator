@@ -218,7 +218,7 @@ export default {
       camera.updateProjectionMatrix();
     }
 
-    camera.position.z = 7;
+    camera.position.z = 9;
 
     const loadingManager = new THREE.LoadingManager();
 

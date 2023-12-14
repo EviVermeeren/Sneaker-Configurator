@@ -103,7 +103,7 @@
             type="radio"
             id="inital-yes"
             :value="false"
-            @change="toggleInitials()"
+            @change="initialOn"
           />
           <label for="inital-yes">yes</label>
           <input
@@ -111,7 +111,7 @@
             type="radio"
             id="inital-no"
             :value="true"
-            @change="toggleInitials()"
+            @change="initialOff"
           />
           <label for="inital-no">no</label>
           <input
@@ -586,9 +586,23 @@ export default {
 
     this.handleInitialsInput = handleInitialsInput;
 
-    const toggleInitials = () => {
-      this.initialsState = !this.initialsState;
+    const initialOn = () => {
+      this.initialsState = true;
+      toggleInitials();
+      document.getElementById("inital-no").checked = false;
+    };
 
+    this.initialOn = initialOn;
+
+    const initialOff = () => {
+      this.initialsState = false;
+      toggleInitials();
+      document.getElementById("inital-yes").checked = false;
+    };
+
+    this.initialOff = initialOff;
+
+    const toggleInitials = () => {
       if (this.initialsState === true) {
         fontLoader.load("fonts/helvetiker_regular.typeface.json", (font) => {
           const textGeometry = new TextGeometry(this.initials, {

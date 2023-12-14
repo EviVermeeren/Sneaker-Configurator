@@ -469,6 +469,7 @@ export default {
 
   .canvas-container {
     margin-top: 0px;
+    margin-left: -50px;
   }
 
   .order-info {
@@ -483,7 +484,6 @@ export default {
     letter-spacing: 1.08px;
     line-height: normal;
     margin: 0;
-    margin-top: 50px;
     margin-bottom: 20px;
   }
 

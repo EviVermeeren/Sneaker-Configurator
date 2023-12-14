@@ -1,38 +1,40 @@
 <template>
   <div class="models-container">
     <h1 id="ourmodels" class="models-container__title">Our models</h1>
-    <div class="model flex">
-      <div>
-        <div class="canvas-container" ref="canvasContainer1"></div>
-      </div>
-      <div>
-        <h1 class="model__name">AIR REV. NITRO S</h1>
-        <h2 class="model__type">Custom shoes</h2>
-        <p class="model__price">€200,00</p>
-        <div class="model__buttons buttons">
-          <button>
-            <router-link to="/customize" class="buttons__link"
-              >CUSTOMIZE</router-link
-            >
-          </button>
+    <div class="models-container__flexbox">
+      <div class="model flex">
+        <div>
+          <div class="canvas-container" ref="canvasContainer1"></div>
+        </div>
+        <div>
+          <h1 class="model__name">AIR REV. NITRO S</h1>
+          <h2 class="model__type">Custom shoes</h2>
+          <p class="model__price">€200,00</p>
+          <div class="model__buttons buttons">
+            <button>
+              <router-link to="/customize" class="buttons__link"
+                >CUSTOMIZE</router-link
+              >
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="model flex">
-      <div>
-        <div class="canvas-container" ref="canvasContainer2"></div>
-      </div>
-      <div>
-        <h1 class="model__name">AIR REV. XTRA</h1>
-        <h2 class="model__type">Custom shoes</h2>
-        <p class="model__price">€180,00</p>
-        <div class="model__buttons buttons">
-          <button>
-            <router-link to="/config2" class="buttons__link"
-              >CUSTOMIZE</router-link
-            >
-          </button>
+      <div class="model flex">
+        <div>
+          <div class="canvas-container" ref="canvasContainer2"></div>
+        </div>
+        <div>
+          <h1 class="model__name">AIR REV. XTRA</h1>
+          <h2 class="model__type">Custom shoes</h2>
+          <p class="model__price">€180,00</p>
+          <div class="model__buttons buttons">
+            <button class="model__buttons_margin">
+              <router-link to="/config2" class="buttons__link"
+                >CUSTOMIZE</router-link
+              >
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -48,7 +50,8 @@ export default {
   name: "Menu",
   mounted() {
     const windowWidth = window.innerWidth;
-    const squareSize = windowWidth * 0.4;
+
+    const squareSize = 300;
 
     const createScene = (container, modelPath) => {
       const scene = new THREE.Scene();
@@ -57,6 +60,7 @@ export default {
       renderer.setSize(squareSize, squareSize);
       renderer.setPixelRatio(window.devicePixelRatio);
       container.appendChild(renderer.domElement);
+
       camera.position.z = 5;
 
       const loadingManager = new THREE.LoadingManager();
@@ -66,6 +70,9 @@ export default {
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.maxPolarAngle = Math.PI / 2;
       controls.enablePan = false;
+
+      controls.minDistance = 5;
+      controls.maxDistance = 5;
 
       scene.background = new THREE.Color(0x242424);
 
@@ -85,16 +92,15 @@ export default {
       let shoe;
 
       gltfLoader.load(modelPath, (gltf) => {
-
         shoe = gltf.scene;
         shoe.rotation.order = "YXZ";
 
-        if(modelPath === "/models/new-shoe.glb") {
+        if (modelPath === "/models/new-shoe.glb") {
           shoe.scale.set(2, 2, 2);
           shoe.rotation.x = 0.5;
           shoe.rotation.y = 1.5;
           shoe.position.z = 0;
-          shoe.position.y = -0.5;
+          shoe.position.y = 0.5;
           shoe.position.x = -0.5;
           scene.add(shoe);
         } else {
@@ -108,7 +114,7 @@ export default {
           scene.add(shoe);
         }
       });
-      
+
       const animate = () => {
         requestAnimationFrame(animate);
         renderer.render(scene, camera);
@@ -117,10 +123,7 @@ export default {
       animate();
     };
 
-    // Load the first model in the first container
     createScene(this.$refs.canvasContainer1, "/models/new-shoe.glb");
-
-    // Load a different model in the second container
     createScene(this.$refs.canvasContainer2, "/models/vans-shoe.glb");
   },
 };
@@ -133,7 +136,7 @@ export default {
 
 a {
   text-decoration: none;
-  color: #d6ff38;
+  color: var(--color-accent);
 }
 
 .models-container__title {
@@ -148,11 +151,22 @@ a {
   margin-left: 50px;
 }
 
+.models-container__flexbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  margin-left: 75px;
+  align-items: center;
+  margin-bottom: 50px;
+  gap: 100px;
+  flex-wrap: wrap;
+}
+
 .model {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: left;
-  width: 100vw;
 }
 
 img {
@@ -168,14 +182,14 @@ img {
 }
 
 .model__name {
-  font-size: 36px;
+  font-size: 24px;
   letter-spacing: 1.08px;
   line-height: normal;
   margin: 0;
 }
 
 .model__type {
-  font-size: 20px;
+  font-size: 16px;
   letter-spacing: 0.72px;
   line-height: normal;
   white-space: nowrap;
@@ -207,66 +221,49 @@ button {
   background-color: #000000;
   font-family: "basic-sans", sans-serif;
   font-weight: 700;
-  color: #d6ff38;
+  color: var(--color-accent);
   font-size: 14px;
   letter-spacing: 1.61px;
   line-height: normal;
+  margin: 0px;
 }
 
 .buttons__link {
   text-decoration: none;
-  color: #d6ff38;
+  color: var(--color-accent);
 }
 
-@media (max-width: 800px) {
-  .models-container__title {
-    font-size: 30px;
-    margin: 0;
-    padding-top: 25px;
-    margin-left: 25px;
-    margin-bottom: 50px;
-  }
-
-  .model {
-    flex-wrap: wrap;
-    width: 90vw;
-    justify-content: left;
-    margin-left: 25px;
-  }
-
-  .model__name {
-    font-size: 24px;
-  }
-  button {
-    margin-bottom: 50px;
-  }
-}
-
-@media (max-width: 400px) {
+@media (max-width: 450px) {
   .models-container__title {
     font-size: 24px;
-    padding-top: 20px;
     margin-left: 20px;
-    margin-bottom: 20px;
+  }
+
+  .models-container__flexbox {
+    margin-left: 20px;
+    margin-bottom: 0px;
   }
 
   .model__name {
     font-size: 20px;
   }
 
-  .model__type {
-    font-size: 16px;
-  }
-
-  .model__price,
-  p {
-    font-size: 16px;
-  }
-
   button {
-    width: 150px;
+    width: 200px;
     font-size: 12px;
-    margin-bottom: 50px;
+  }
+
+  .model {
+    display: flex;
+    align-items: normal;
+  }
+
+  .canvas-container {
+    margin-left: -50px;
+  }
+
+  .model__buttons_margin {
+    margin-bottom: 70px;
   }
 }
 </style>

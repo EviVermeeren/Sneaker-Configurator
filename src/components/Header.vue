@@ -29,17 +29,17 @@ export default {
   justify-content: space-between;
   width: 100vw;
   margin: 0;
-  border-bottom: #d6ff38;
+  border-bottom: var(--color-accent);
   border-width: 0 0 2px 0;
   border-style: solid;
-  height: 122px;
+  height: 100px;
 }
 
 .headerMain__logo {
   flex-direction: column;
   align-items: start;
-  padding: 43px;
-  background-color: #d6ff38;
+  padding: 32px;
+  background-color: var(--color-accent);
 }
 
 a {
@@ -48,11 +48,11 @@ a {
 }
 
 .headerMain__admin-button {
-  color: #d6ff38;
+  color: var(--color-accent);
   background-color: #000;
   width: 80%;
   max-width: 300px;
-  height: 68px;
+  height: 50px;
   font-family: "cooper-black-std", serif;
   font-size: 20px;
   font-style: normal;
@@ -71,7 +71,7 @@ a {
     flex-direction: column;
     align-items: start;
     padding: 20px;
-    background-color: #d6ff38;
+    background-color: var(--color-accent);
   }
 
   .headerMain__admin-button {

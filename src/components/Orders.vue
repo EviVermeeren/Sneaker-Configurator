@@ -106,7 +106,7 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
-  color: #d6ff38;
+  color: var(--color-accent);
 }
 .admin-title {
   font-family: "cooper-black-std", serif;
@@ -159,7 +159,7 @@ a {
 }
 
 .shoe-item {
-  border: 1px solid #d6ff38;
+  border: 1px solid var(--color-accent);
   padding: 10px;
   margin-bottom: 10px;
 }
@@ -182,7 +182,7 @@ a {
 }
 
 .view-button {
-  color: #d6ff38;
+  color: var(--color-accent);
   background-color: #000;
   width: 90%;
   height: 50px;
@@ -199,11 +199,11 @@ a {
 
 .view-button__link {
   text-decoration: none;
-  color: #d6ff38;
+  color: var(--color-accent);
 }
 
 #passwordchange {
-  color: #d6ff38;
+  color: var(--color-accent);
   background-color: #000;
   width: 100%;
   max-width: 300px;

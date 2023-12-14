@@ -75,7 +75,7 @@ const login = async () => {
 <style scoped>
 a {
   text-decoration: none;
-  color: #d6ff38;
+  color: var(--color-accent);
 }
 .login-container {
   background-color: #242424;
@@ -107,7 +107,7 @@ a {
 }
 
 .login-form__button {
-  color: #d6ff38;
+  color: var(--color-accent);
   background-color: #000;
   width: 60%;
   max-width: 300px;
@@ -144,6 +144,6 @@ a {
 
 .login-form__input:focus {
   outline: none;
-  border: 2px solid #d6ff38;
+  border: 2px solid var(--color-accent);
 }
 </style>

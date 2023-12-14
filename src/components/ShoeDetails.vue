@@ -520,7 +520,7 @@ export default {
 }
 a {
   text-decoration: none;
-  color: #d6ff38;
+  color: var(--color-accent);
 }
 
 .order-info {
@@ -582,7 +582,7 @@ img {
 }
 .status-update-button {
   background-color: #000000;
-  color: #d6ff38;
+  color: var(--color-accent);
 }
 
 .status-update-button:first-child {
@@ -590,7 +590,7 @@ img {
 }
 .delete-button {
   background-color: #000000;
-  color: #d6ff38;
+  color: var(--color-accent);
 }
 
 @media (max-width: 800px) {

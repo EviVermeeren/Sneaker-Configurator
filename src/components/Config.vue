@@ -603,6 +603,7 @@ export default {
     this.initialOff = initialOff;
 
     const toggleInitials = () => {
+      handleProgress("initials");
       if (this.initialsState === true) {
         fontLoader.load("fonts/helvetiker_regular.typeface.json", (font) => {
           const textGeometry = new TextGeometry(this.initials, {
@@ -616,8 +617,6 @@ export default {
             bevelOffset: 0,
             bevelSegments: 5,
           });
-
-          handleProgress("initials");
 
           this.shoeText = new THREE.Mesh(textGeometry, textMaterial);
 
@@ -677,7 +676,7 @@ export default {
           }
           break;
         case "initials":
-          if (this.initialsClickedOnce === false && this.initials !== "") {
+          if (this.initialsClickedOnce === false) {
             this.progbarValue += 1;
             this.initialsClickedOnce = true;
           }

@@ -130,9 +130,6 @@
     <button v-if="progressState" @click="handleDoneButtonClick">
       Send order!
     </button>
-    <router-link to="/customize">
-      <button class="router">Go to AIR REV. NITRO S</button>
-    </router-link>
   </div>
 </template>
 

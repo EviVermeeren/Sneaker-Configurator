@@ -181,10 +181,9 @@
     <div v-if="formError" class="configurator__error-message">
       {{ formError }}
     </div>
-    <button v-if="progressState" @click="handleDoneButtonClick">Send order!</button>
-    <router-link to="/config2">
-      <button class="router">Go to AIR REV. XTRA</button>
-    </router-link>
+    <button v-if="progressState" @click="handleDoneButtonClick">
+      Send order!
+    </button>
   </div>
 </template>
 

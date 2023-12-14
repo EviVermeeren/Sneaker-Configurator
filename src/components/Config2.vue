@@ -632,7 +632,6 @@ export default {
         this.userEmail &&
         this.selectedColors.shoeColorLaces &&
         this.selectedColors.shoeColorSole &&
-        this.selectedColors.shoeColorPanelUp &&
         this.selectedMaterials.shoeMaterialPanelDown &&
         this.selectedMaterials.shoeMaterialPanelUp
       ) {
@@ -655,7 +654,6 @@ export default {
           shoeSize: this.shoeSize,
           shoeColorSole: this.selectedColors.shoeColorSole,
           shoeColorLaces: this.selectedColors.shoeColorLaces,
-          shoeColorPanelUp: this.selectedColors.shoeColorPanelUp,
           shoeMaterialPanelDown: this.selectedMaterials.shoeMaterialPanelDown,
           shoeMaterialPanelUp: this.selectedMaterials.shoeMaterialPanelUp,
           status: "Order placed",

@@ -481,7 +481,6 @@ export default {
 
     const updateMaterialAI = () => {
       if (shoe && this.textureUrl) {
-        console.log("updateMaterialAI");
         const texture = this.textureLoader.load(this.textureUrl);
 
         texture.repeat.set(2, 2);
@@ -613,9 +612,7 @@ export default {
     scene.add(shoeGroup);
 
     this.socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
-    this.socket.onopen = function (event) {
-      console.log("socket open");
-    };
+    this.socket.onopen = function (event) {};
   },
 
   methods: {
@@ -652,7 +649,6 @@ export default {
 
     sendToSocket(socketData) {
       this.socket.send(JSON.stringify(socketData));
-      console.log("socket called");
     },
 
     fetchData() {
@@ -685,8 +681,6 @@ export default {
       })
         .then((response) => response.json())
         .then((responseData) => {
-          console.log("Data successfully sent:", responseData);
-
           if (
             responseData &&
             responseData.data &&
@@ -694,13 +688,10 @@ export default {
             responseData.data.shoe._id
           ) {
             const newId = responseData.data.shoe._id;
-
-            console.log(newId);
             this.sendToSocket(responseData);
             this.$router.push({ path: "/thankyou", query: { id: newId } });
           } else {
             console.error("Invalid server response format");
-            // Handle the error or show a message to the user
           }
         })
         .catch((error) => {

@@ -665,7 +665,6 @@ export default {
 
       if (this.progbarValue === this.progbarMax && !this.progressState) {
         onProgressComplete();
-        console.log("progress complete");
         this.progressState = true;
       }
     };
@@ -740,9 +739,7 @@ export default {
     this.onProgressComplete = onProgressComplete;
 
     this.socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
-    this.socket.onopen = function (event) {
-      console.log("socket open");
-    };
+    this.socket.onopen = function (event) {};
 
     scene.add(shoeGroup);
   },
@@ -784,7 +781,6 @@ export default {
 
     sendToSocket(socketData) {
       this.socket.send(JSON.stringify(socketData));
-      console.log("socket called");
     },
 
     fetchData() {
@@ -820,8 +816,6 @@ export default {
       })
         .then((response) => response.json())
         .then((responseData) => {
-          console.log("Data successfully sent:", responseData);
-
           if (
             responseData &&
             responseData.data &&

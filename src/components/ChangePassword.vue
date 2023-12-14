@@ -55,7 +55,6 @@ const updatePassword = async () => {
     });
 
     if (response.ok) {
-      console.log("Password changed successfully");
       router.push("/orders");
     } else {
       console.error("Error changing password", response.statusText);

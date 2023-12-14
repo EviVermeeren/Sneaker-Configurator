@@ -38,8 +38,6 @@ const username = ref("");
 const password = ref("");
 
 const login = async () => {
-  console.log("login", username.value, password.value);
-
   try {
     const response = await fetch(
       "https://dev5-api-sneakers.onrender.com/api/v1/users/login",
@@ -60,8 +58,6 @@ const login = async () => {
     }
 
     const responseData = await response.json();
-    console.log("Login successful", responseData);
-
     localStorage.setItem("token", responseData.data.token);
     localStorage.setItem("username", responseData.data.user.userName);
 

@@ -129,8 +129,6 @@ export default {
     let shoe;
 
     if (this.shoe.shoeType === "AIR REV. NITRO S") {
-      console.log("code AIR REV. NITRO S here");
-
       const updateShoeColors = () => {
         const shoeColorLaces = this.shoe.shoeColorLaces;
         const shoeLaces = shoe.getObjectByName("laces");
@@ -230,7 +228,6 @@ export default {
         });
 
         if (this.shoe.jewel === "Elephant") {
-          console.log("elephant");
           scene.add(jewelElephant);
         }
       });
@@ -261,7 +258,6 @@ export default {
         });
 
         if (this.shoe.jewel === "Hedgehog") {
-          console.log("Hedgehog");
           scene.add(jewelHedgehog);
         }
       });
@@ -292,7 +288,6 @@ export default {
         });
 
         if (this.shoe.jewel === "Whale") {
-          console.log("Whale");
           scene.add(jewelWhale);
         }
       });
@@ -360,8 +355,6 @@ export default {
     }
 
     if (this.shoe.shoeType === "AIR REV. XTRA BLACK") {
-      console.log("code AIR REV. XTRA BLACK here");
-
       const updateShoeColors = () => {
         const shoeColorLaces = this.shoe.shoeColorLaces;
         const laces = shoe.getObjectByName("laces");
@@ -380,7 +373,6 @@ export default {
 
         const textureLoader = new THREE.TextureLoader();
         const textureUrl = this.shoe.shoeMaterialPanelUp;
-        console.log(textureUrl);
         const texture = textureLoader.load(textureUrl);
 
         const sides = shoe.getObjectByName("sides");
@@ -427,15 +419,12 @@ export default {
     }
 
     this.socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
-    this.socket.onopen = function (event) {
-      console.log("socket open");
-    };
+    this.socket.onopen = function (event) {};
   },
 
   methods: {
     sendToSocket(socketData) {
       this.socket.send(JSON.stringify(socketData));
-      console.log("socket called");
     },
     async fetchShoes() {
       try {
@@ -446,7 +435,6 @@ export default {
 
         if (data.status === "success") {
           this.shoe = data.data.shoe || {};
-          console.log(this.shoe);
         } else {
           console.error("Error fetching shoes:", data.message);
         }
@@ -475,8 +463,6 @@ export default {
           this.socket.send(
             JSON.stringify({ action: "updateStatus", shoe: this.shoe })
           );
-
-          console.log("Status updated successfully");
         } else {
           console.error("Error updating status:", data.message);
         }
@@ -501,7 +487,6 @@ export default {
           this.socket.send(
             JSON.stringify({ action: "deleteOrder", shoeId: this.shoeId })
           );
-          console.log("Shoe deleted successfully");
         } else {
           console.error("Error deleting shoe:", data.message);
         }

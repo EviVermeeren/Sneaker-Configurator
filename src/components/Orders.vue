@@ -54,7 +54,6 @@ export default {
 
         if (data.status === "success") {
           this.shoes = data.data.shoes;
-          console.log("fetched shoes:", this.shoes);
         } else {
           console.error("Error fetching shoes:", data.message);
         }
@@ -68,18 +67,13 @@ export default {
     socketConnect() {
       socket = new WebSocket("wss://shoe-config-ws.onrender.com/primus");
 
-      socket.onopen = () => {
-        console.log("connected with WebSocket");
-      };
+      socket.onopen = () => {};
 
       socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
-        console.log(data);
-        console.log("Received WebSocket data:", data);
 
         if (data.data) {
           this.shoes.push(data.data.shoe);
-          console.log("shoes:", data.data);
         }
 
         if (data.action === "updateStatus") {
@@ -89,13 +83,11 @@ export default {
 
           if (index !== -1) {
             this.shoes[index] = data.shoe;
-            console.log("Status updated through WebSocket:", data.shoe);
           }
         }
 
         if (data.action === "deleteOrder") {
           this.shoes = this.shoes.filter((shoe) => shoe._id !== data.shoeId);
-          console.log("Order deleted through WebSocket:", data.shoeId);
         }
       };
     },

@@ -789,11 +789,9 @@ export default {
         this.selectedColors.shoeColorPanelDown &&
         this.selectedColors.shoeColorPanelUp &&
         this.selectedMaterials.shoeMaterialPanelDown &&
-        this.selectedMaterials.shoeMaterialPanelUp &&
-        this.initials
+        this.selectedMaterials.shoeMaterialPanelUp
       ) {
         this.formError = null;
-
         this.fetchData();
       } else {
         this.formError =
@@ -806,6 +804,10 @@ export default {
     },
 
     fetchData() {
+      if (this.initialsState === false) {
+        this.initials = "";
+      }
+
       const data = {
         shoe: {
           shoeType: "AIR REV. NITRO S",

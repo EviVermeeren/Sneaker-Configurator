@@ -92,7 +92,7 @@ export default {
   async mounted() {
     await this.fetchShoes();
     const windowWidth = window.innerWidth;
-    const squareSize = windowWidth * 0.3;
+    const squareSize = 280;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
@@ -579,7 +579,10 @@ img {
   font-size: 14px;
   letter-spacing: 1.61px;
   line-height: normal;
+  margin-bottom: -50px;
+  margin-left: 0;
 }
+
 .status-update-button {
   background-color: #000000;
   color: var(--color-accent);

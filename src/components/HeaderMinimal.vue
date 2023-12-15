@@ -1,48 +1,52 @@
 <template>
-    <header>
-      <RouterLink to="/">
-        <div class="shoe-desc">
-          <img src="/media/logo-white.webp" alt="SWEAR-LOGO" />
-        </div>
-      </RouterLink>
-      <button @click="toggleSound">
-        <img class="shoe-desc__img" src="/media/sound.svg" alt="" />
-      </button>
-    </header>
-  </template>
-  
+  <header>
+    <RouterLink to="/">
+      <div class="shoe-desc">
+        <img src="/media/logo-white.webp" alt="SWEAR-LOGO" />
+      </div>
+    </RouterLink>
+    <button @click="toggleSound">
+      <img
+        class="shoe-desc__img"
+        :src="isPlaying ? '/media/sound-off.svg' : '/media/sound.svg'"
+        alt=""
+      />
+    </button>
+  </header>
+</template>
+
 <script>
 import { Howl } from "howler";
 
 export default {
-name: "HeaderMinimal",
-data() {
+  name: "HeaderMinimal",
+  data() {
     return {
-    sound: null,
-    isPlaying: false,
+      sound: null,
+      isPlaying: false,
     };
-},
-methods: {
+  },
+  methods: {
     initSound() {
-    this.sound = new Howl({
+      this.sound = new Howl({
         src: ["/media/sonicbranding.mp3"], // Replace with the path to your sound file
         loop: true, // Set to true if you want the sound to loop
-    });
+      });
     },
     toggleSound() {
-    if (!this.sound) {
+      if (!this.sound) {
         this.initSound();
-    }
+      }
 
-    if (this.isPlaying) {
+      if (this.isPlaying) {
         this.sound.pause();
-    } else {
+      } else {
         this.sound.play();
-    }
+      }
 
-    this.isPlaying = !this.isPlaying;
+      this.isPlaying = !this.isPlaying;
     },
-},
+  },
 };
 </script>
 

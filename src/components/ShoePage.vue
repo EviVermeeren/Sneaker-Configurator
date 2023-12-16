@@ -45,6 +45,7 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 export default {
   name: "Menu",
@@ -65,7 +66,10 @@ export default {
 
       const loadingManager = new THREE.LoadingManager();
 
+      const dracoLoader = new DRACOLoader();
+      dracoLoader.setDecoderPath("/draco/");
       const gltfLoader = new GLTFLoader(loadingManager);
+      gltfLoader.setDRACOLoader(dracoLoader);
 
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.maxPolarAngle = Math.PI / 2;

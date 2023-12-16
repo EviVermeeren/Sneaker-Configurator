@@ -424,7 +424,7 @@ export default {
 <style scoped>
 .bgc {
   background-color: #242424;
-  height: 100vh;
+  height: 50vh;
 }
 .flex {
   display: flex;

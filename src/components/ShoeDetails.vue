@@ -138,6 +138,7 @@ export default {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.maxPolarAngle = Math.PI / 2;
     controls.enablePan = false;
+    controls.enableZoom = false;
 
     scene.background = new THREE.Color(0x242424);
 

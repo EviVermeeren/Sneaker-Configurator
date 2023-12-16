@@ -2,6 +2,11 @@
   <div class="order-container">
     <div class="order-container__flex">
       <div>
+        <div class="loading-placeholder" ref="loadingPlaceholder1">
+          <p class="loading-placeholder__message">
+            Loading...
+          </p>
+        </div>
         <div class="canvas-container" ref="canvasContainer"></div>
       </div>
       <div>
@@ -102,6 +107,7 @@ export default {
   // },
 
   async mounted() {
+    const canvasContainer = this.$refs.canvasContainer;
     await this.fetchShoes();
     const windowWidth = window.innerWidth;
     const squareSize = 280;
@@ -121,6 +127,16 @@ export default {
     dracoLoader.setDecoderPath("/draco/");
     const gltfLoader = new GLTFLoader(loadingManager);
     gltfLoader.setDRACOLoader(dracoLoader);
+
+    loadingManager.onStart = () => {
+      canvasContainer.style.display = "none";
+      this.$refs.loadingPlaceholder1.style.display = "flex";
+    };
+    loadingManager.onLoad = () => {
+      canvasContainer.style.display = "block";
+      this.$refs.loadingPlaceholder1.style.display = "none";
+    };
+
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.maxPolarAngle = Math.PI / 2;
     controls.enablePan = false;

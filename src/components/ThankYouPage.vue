@@ -2,6 +2,11 @@
   <div class="bgc">
     <div class="flex">
       <div>
+        <div class="loading-placeholder" ref="loadingPlaceholder1">
+          <p class="loading-placeholder__message">
+            Loading...
+          </p>
+        </div>
         <div class="canvas-container" ref="canvasContainer"></div>
       </div>
       <div class="order-info">
@@ -77,6 +82,15 @@ export default {
     dracoLoader.setDecoderPath("/draco/");
     const gltfLoader = new GLTFLoader(loadingManager);
     gltfLoader.setDRACOLoader(dracoLoader);
+
+    loadingManager.onStart = () => {
+      canvasContainer.style.display = "none";
+      this.$refs.loadingPlaceholder1.style.display = "flex";
+    };
+    loadingManager.onLoad = () => {
+      canvasContainer.style.display = "block";
+      this.$refs.loadingPlaceholder1.style.display = "none";
+    };
     
     scene.background = new THREE.Color(0x242424);
 

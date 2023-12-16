@@ -1,35 +1,36 @@
 <template>
-  <h1 class="admin-title">Hello admin!</h1>
-  <button id="passwordchange" class="admin-password-change">
-    <router-link to="/changepassword" class="admin-password-change__link"
-      >Change password</router-link
-    >
-  </button>
-  <h1 class="orders-title">All orders ({{ shoes.length }})</h1>
+  <div>
+    <h1 class="admin-title">Hello admin!</h1>
+    <button id="passwordchange" class="admin-password-change">
+      <router-link to="/changepassword" class="admin-password-change__link"
+        >Change password</router-link
+      >
+    </button>
+    <h1 class="orders-title">All orders ({{ shoes.length }})</h1>
 
-  <div class="container">
-    <div v-for="shoe in shoes" :key="shoe.id" class="shoe-item">
-      <div class="shoe-info">
-        <p id="type" class="shoe-info__type">{{ shoe.shoeType }}</p>
-        <p class="shoe-info__status">Status: {{ shoe.status }}</p>
-        <p class="shoe-info__size">Size: {{ shoe.shoeSize }}</p>
-        <p class="shoe-info__user">User: {{ shoe.userName }}</p>
+    <div class="container">
+      <div v-for="shoe in shoes" :key="shoe.id" class="shoe-item">
+        <div class="shoe-info">
+          <p id="type" class="shoe-info__type">{{ shoe.shoeType }}</p>
+          <p class="shoe-info__status">Status: {{ shoe.status }}</p>
+          <p class="shoe-info__size">Size: {{ shoe.shoeSize }}</p>
+          <p class="shoe-info__user">User: {{ shoe.userName }}</p>
+        </div>
+        <button class="view-button">
+          <router-link
+            :to="'/shoe/' + shoe._id"
+            @click="viewShoe(shoe._id)"
+            class="view-button__link"
+            >View</router-link
+          >
+        </button>
       </div>
-      <button class="view-button">
-        <router-link
-          :to="'/shoe/' + shoe._id"
-          @click="viewShoe(shoe._id)"
-          class="view-button__link"
-          >View</router-link
-        >
-      </button>
     </div>
   </div>
 </template>
 
 <script>
 import { useRouter } from "vue-router";
-import { ref, onMounted } from "vue";
 
 let socket = null;
 
@@ -37,23 +38,36 @@ export default {
   data() {
     return {
       shoes: [],
-      shoeCount: null,
     };
   },
   mounted() {
-    this.fetchShoes();
+    // Fetch shoes only if the token is available
+    const token = localStorage.getItem("token");
+    if (token) {
+      this.fetchShoes(token);
+    }
+
     this.socketConnect();
   },
   methods: {
-    async fetchShoes() {
+    async fetchShoes(token) {
       try {
+        console.log("deel 1 werkt");
         const response = await fetch(
-          "https://dev5-api-sneakers.onrender.com/api/v1/shoes"
+          "https://dev5-api-sneakers.onrender.com/api/v1/shoes",
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
         );
         const data = await response.json();
+        console.log("deel 2 werkt");
 
         if (data.status === "success") {
           this.shoes = data.data.shoes;
+          console.log("deel 3 werkt");
+          console.log(token);
         } else {
           console.error("Error fetching shoes:", data.message);
         }

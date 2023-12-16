@@ -398,10 +398,11 @@ export default {
 
   methods: {
     shoeDataFromRoute() {
-      console.log(this.$route.query);
       const shoeData = this.$route.query;
       if (shoeData) {
         this.shoe = {
+          jewel: shoeData.jewel,
+          initials: shoeData.initials,
           shoeType: shoeData.shoeType,
           shoeSize: shoeData.shoeSize,
           shoeColorSole: shoeData.shoeColorSole,
@@ -413,7 +414,6 @@ export default {
           userAddress: shoeData.userAddress,
           userEmail: shoeData.userEmail,
         };
-        console.log(this.shoe);
       }
     },
     async fetchShoes() {

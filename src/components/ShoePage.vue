@@ -230,8 +230,7 @@ img {
   margin: 0;
 }
 
-.model__price,
-p {
+.model__price{
   font-family: "basic-sans", sans-serif;
   font-weight: 400;
   color: white;

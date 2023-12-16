@@ -344,7 +344,6 @@ export default {
 
         const textureLoader = new THREE.TextureLoader();
         const textureUrl = this.shoe.shoeMaterialPanelUp;
-        console.log(textureUrl);
         const texture = textureLoader.load(textureUrl);
 
         const sides = shoe.getObjectByName("sides");

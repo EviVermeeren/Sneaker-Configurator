@@ -90,6 +90,16 @@ export default {
       },
     };
   },
+
+  created() {
+    const token = localStorage.getItem("token");
+    if (token) {
+      this.fetchShoes(token);
+    } else {
+      this.$router.push("/login");
+    }
+  },
+
   async mounted() {
     await this.fetchShoes();
     const windowWidth = window.innerWidth;
@@ -429,10 +439,15 @@ export default {
     sendToSocket(socketData) {
       this.socket.send(JSON.stringify(socketData));
     },
-    async fetchShoes() {
+    async fetchShoes(token) {
       try {
         const response = await fetch(
-          `https://dev5-api-sneakers.onrender.com/api/v1/shoes?id=${this.shoeId}`
+          `https://dev5-api-sneakers.onrender.com/api/v1/shoes?id=${this.shoeId}`,
+          {
+            headers: {
+              Authorization: `${token}`,
+            },
+          }
         );
         const data = await response.json();
 

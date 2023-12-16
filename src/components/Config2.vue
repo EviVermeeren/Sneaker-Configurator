@@ -699,7 +699,6 @@ export default {
           ) {
             const newId = responseData.data.shoe._id;
             this.sendToSocket(responseData);
-            console.log(responseData);
             const shoeData = responseData.data;
             this.$router.push({ path: "/thankyou", query: {
               id: newId,

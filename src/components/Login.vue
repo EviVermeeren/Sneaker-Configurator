@@ -31,6 +31,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import Swal from "sweetalert2";
 
 const router = useRouter();
 
@@ -72,7 +73,15 @@ const login = async () => {
     );
 
     if (!response.ok) {
-      throw new Error("Login failed");
+      let errorText = await response.text();
+
+      // Try to parse the error text as JSON
+      try {
+        const errorData = JSON.parse(errorText);
+        throw new Error(errorData.error || "Login failed");
+      } catch (jsonError) {
+        throw new Error(errorText || "Login failed");
+      }
     }
 
     const responseData = await response.json();
@@ -82,6 +91,21 @@ const login = async () => {
     router.push("/orders");
   } catch (error) {
     console.error("Login error:", error.message);
+    if (error.message.includes("Too many login attempts")) {
+      Swal.fire({
+        icon: "error",
+        title: "Rate Limit Exceeded",
+        text: error.message,
+        confirmButtonColor: "#242424",
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Login failed",
+        text: "Please check your username and password and try again.",
+        confirmButtonColor: "#242424",
+      });
+    }
   }
 };
 

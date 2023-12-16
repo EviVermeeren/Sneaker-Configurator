@@ -102,7 +102,6 @@ a {
 .login-container {
   background-color: #242424;
   width: 100vw;
-  height: 100vh;
 }
 .login-form {
   display: flex;
@@ -142,7 +141,6 @@ a {
   display: block;
   margin: auto;
   margin-top: 40px;
-  margin-bottom: 80px;
 }
 
 .login-form__input {

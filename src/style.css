@@ -369,6 +369,48 @@ progress[value]::-moz-progress-bar {
   margin-top: 30px;
 }
 
+/* minimal header */
+.headerMinimal{
+  position: absolute;
+  z-index: 5;
+  background-color: transparent;
+  color: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100vw;
+  margin: 0;
+}
+.headerMinimal__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 20px;
+}
+.headerMinimal__logo__img {
+  width: 200px;
+}
+.headerMinimal__sound-icon{
+  height: 50px;
+  width: 50px;
+  margin-top: 10px;
+}
+.headerMinimal__sound-button{
+  color: var(--color-accent);
+  background-color: transparent;
+  border: none;
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+  display: block;
+  margin: auto;
+  margin-right: 50px;
+}
+.headerMinimal__sound-button:hover{
+  cursor: pointer;
+}
+
+
 @media (max-width: 950px) {
   .configurator {
     gap: 0px;

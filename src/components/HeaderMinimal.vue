@@ -1,13 +1,13 @@
 <template>
-  <header>
+  <header class="headerMinimal">
     <RouterLink to="/">
-      <div class="shoe-desc">
-        <img src="/media/logo-white.webp" alt="SWEAR-LOGO" />
+      <div class="headerMinimal__logo">
+        <img class="headerMinimal__logo__image" src="/media/logo-white.webp" alt="SWEAR-LOGO" />
       </div>
     </RouterLink>
-    <button @click="toggleSound">
+    <button @click="toggleSound" class="headerMinimal__sound-button">
       <img
-        class="shoe-desc__img"
+        class="headerMinimal__sound-icon"
         :src="isPlaying ? '/media/sound-off.svg' : '/media/sound.svg'"
         alt=""
       />
@@ -49,50 +49,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-header {
-  position: absolute;
-  z-index: 5;
-  background-color: transparent;
-  color: #000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100vw;
-  margin: 0;
-}
-
-.shoe-desc {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  padding: 20px;
-}
-
-img {
-  width: 200px;
-}
-
-.shoe-desc__img {
-  height: 50px;
-  width: 50px;
-  margin-top: 10px;
-}
-
-button {
-  color: var(--color-accent);
-  background-color: transparent;
-  border: none;
-  width: 50px;
-  height: 50px;
-  font-size: 40px;
-  display: block;
-  margin: auto;
-  margin-right: 50px;
-}
-
-button:hover {
-  cursor: pointer;
-}
-</style>

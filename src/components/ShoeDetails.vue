@@ -584,9 +584,6 @@ img {
   flex-direction: column;
   gap: 20px;
 }
-.buttons:hover {
-  cursor: pointer;  
-}
 
 .status-update-button,
 .delete-button {
@@ -602,21 +599,20 @@ img {
   margin-bottom: -50px;
   margin-left: 0;
 }
+.status-update-button:hover,
 .delete-button:hover {
   cursor: pointer;
+  color: var(--color-accent);
 }
 
-.status-update-button {
+.status-update-button,
+.delete-button {
   background-color: #000000;
-  color: var(--color-accent);
+  color: white;
 }
 
 .status-update-button:first-child {
   margin-top: 20px;
-}
-.delete-button {
-  background-color: #000000;
-  color: var(--color-accent);
 }
 
 @media (max-width: 800px) {

@@ -1,6 +1,6 @@
 <template>
   <div class="shoe-configurator">
-    <div class="loading-placeholder" ref="loadingPlaceholder1">
+    <div class="loading-placeholder loading-placeholder--big" ref="loadingPlaceholder1">
       <p class="loading-placeholder__message">
         Loading...
       </p>

@@ -37,12 +37,22 @@ const router = useRouter();
 const username = ref("");
 const password = ref("");
 
+const isTokenValid = (token) => {
+  if (!token) {
+    return false;
+  }
+
+  const payload = JSON.parse(atob(token.split(".")[1]));
+  const expirationTime = payload.exp * 1000;
+
+  return Date.now() < expirationTime;
+};
+
 const login = async () => {
   try {
     const token = localStorage.getItem("token");
 
-    if (token) {
-      // Token exists, redirect to orders page
+    if (isTokenValid(token)) {
       router.push("/orders");
       return;
     }
@@ -75,12 +85,10 @@ const login = async () => {
   }
 };
 
-// Check for existing token on component mount
 onMounted(() => {
   const token = localStorage.getItem("token");
 
-  if (token) {
-    // Token exists, redirect to orders page
+  if (isTokenValid(token)) {
     router.push("/orders");
   }
 });

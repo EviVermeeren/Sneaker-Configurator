@@ -250,6 +250,7 @@ export default {
       progbarValue: 0,
       progbarMax: 8,
       progressState: false,
+      orderClicked: false,
     };
   },
   mounted() {
@@ -808,7 +809,10 @@ export default {
         this.selectedMaterials.shoeMaterialPanelUp
       ) {
         this.formError = null;
-        this.fetchData();
+        if(this.orderClicked === false) {
+          this.orderClicked = true;
+          this.fetchData();
+        }
       } else {
         this.formError =
           "Please fill in all the required fields and selections.";

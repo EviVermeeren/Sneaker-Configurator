@@ -78,6 +78,7 @@ export default {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.maxPolarAngle = Math.PI / 2;
     controls.enablePan = false;
+    controls.enableZoom = false;
 
     const loadingManager = new THREE.LoadingManager();
 

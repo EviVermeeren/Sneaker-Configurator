@@ -3,9 +3,7 @@
     <div class="order-container__flex">
       <div>
         <div class="loading-placeholder" ref="loadingPlaceholder1">
-          <p class="loading-placeholder__message">
-            Loading...
-          </p>
+          <p class="loading-placeholder__message">Loading...</p>
         </div>
         <div class="canvas-container" ref="canvasContainer"></div>
       </div>
@@ -424,15 +422,14 @@ export default {
 
       gltfLoader.load("/models/vans-shoe.glb", (gltf) => {
         shoe = gltf.scene;
-        shoe.scale.set(1.8, 1.8, 1.8);
-
+        shoe.scale.set(1, 1, 1);
         shoe.rotation.order = "YXZ";
 
-        shoe.rotation.x = 0.5;
-        shoe.rotation.y = 1.5;
-
+        shoe.rotation.x = 0;
+        shoe.rotation.y = -0.15;
+        shoe.rotation.z = -0.4;
         shoe.position.z = 0;
-        shoe.position.y = -0.5;
+        shoe.position.y = -1.5;
         shoe.position.x = -0.5;
 
         scene.add(shoe);

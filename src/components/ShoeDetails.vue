@@ -91,14 +91,15 @@ export default {
     };
   },
 
-  created() {
-    const token = localStorage.getItem("token");
-    if (token) {
-      this.fetchShoes(token);
-    } else {
-      this.$router.push("/login");
-    }
-  },
+  // async created() {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     // Fetch shoes in the created hook
+  //     await this.fetchShoes(token);
+  //   } else {
+  //     this.$router.push("/login");
+  //   }
+  // },
 
   async mounted() {
     await this.fetchShoes();
@@ -439,7 +440,9 @@ export default {
     sendToSocket(socketData) {
       this.socket.send(JSON.stringify(socketData));
     },
-    async fetchShoes(token) {
+    async fetchShoes() {
+      const token = localStorage.getItem("token");
+
       try {
         const response = await fetch(
           `https://dev5-api-sneakers.onrender.com/api/v1/shoes?id=${this.shoeId}`,
@@ -462,6 +465,7 @@ export default {
     },
 
     async updateStatus(newStatus) {
+      const token = localStorage.getItem("token");
       try {
         const response = await fetch(
           `https://dev5-api-sneakers.onrender.com/api/v1/shoes/${this.shoeId}/status`,
@@ -469,6 +473,7 @@ export default {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
+              Authorization: `${token}`,
             },
             body: JSON.stringify({ status: newStatus }),
           }
@@ -490,11 +495,15 @@ export default {
     },
 
     async deleteOrder() {
+      const token = localStorage.getItem("token");
       try {
         const response = await fetch(
           `https://dev5-api-sneakers.onrender.com/api/v1/shoes/${this.shoeId}`,
           {
             method: "DELETE",
+            headers: {
+              Authorization: `${token}`,
+            },
           }
         );
 

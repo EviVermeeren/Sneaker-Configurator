@@ -89,12 +89,10 @@ h2 {
   margin-bottom: 30px;
   margin-top: 80px;
 }
-a{
+a {
   text-decoration: none;
   color: var(--color-accent);
 }
-
-
 
 /* configurator */
 .configurator {
@@ -271,8 +269,6 @@ progress[value]::-moz-progress-bar {
   margin: 0;
 }
 
-
-
 /* login page */
 .login-container {
   background-color: #242424;
@@ -341,11 +337,12 @@ progress[value]::-moz-progress-bar {
   border: 2px solid var(--color-accent);
 }
 
-
-
 /* main header */
 .headerMain {
   background-color: #242424;
+  background-image: url("../media/header1.png");
+  background-size: 40%;
+  background-position: center;
   color: #000;
   display: flex;
   justify-content: space-between;
@@ -355,6 +352,17 @@ progress[value]::-moz-progress-bar {
   border-width: 0 0 2px 0;
   border-style: solid;
   height: 100px;
+
+  animation: loopBackground 50s infinite alternate ease-in-out;
+}
+
+@keyframes loopBackground {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
 }
 .headerMain__logo {
   flex-direction: column;
@@ -378,10 +386,8 @@ progress[value]::-moz-progress-bar {
   margin-top: 30px;
 }
 
-
-
 /* minimal header */
-.headerMinimal{
+.headerMinimal {
   position: absolute;
   z-index: 5;
   background-color: transparent;
@@ -401,12 +407,12 @@ progress[value]::-moz-progress-bar {
 .headerMinimal__logo__img {
   width: 200px;
 }
-.headerMinimal__sound-icon{
+.headerMinimal__sound-icon {
   height: 50px;
   width: 50px;
   margin-top: 10px;
 }
-.headerMinimal__sound-button{
+.headerMinimal__sound-button {
   color: var(--color-accent);
   background-color: transparent;
   border: none;
@@ -417,11 +423,9 @@ progress[value]::-moz-progress-bar {
   margin: auto;
   margin-right: 50px;
 }
-.headerMinimal__sound-button:hover{
+.headerMinimal__sound-button:hover {
   cursor: pointer;
 }
-
-
 
 /* orders page */
 .admin-title {
@@ -511,8 +515,6 @@ progress[value]::-moz-progress-bar {
   margin-left: 100px;
 }
 
-
-
 /* shoe details page */
 .order-container {
   height: 50vh;
@@ -583,7 +585,6 @@ progress[value]::-moz-progress-bar {
   margin-top: 20px;
 }
 
-
 /* menu page */
 .models-container {
   background-color: #242424;
@@ -636,7 +637,7 @@ progress[value]::-moz-progress-bar {
   white-space: nowrap;
   margin: 0;
 }
-.models-container__model__price{
+.models-container__model__price {
   font-family: "basic-sans", sans-serif;
   font-weight: 400;
   color: white;
@@ -658,7 +659,6 @@ progress[value]::-moz-progress-bar {
   line-height: normal;
   margin: 0px;
 }
-
 
 @media (max-width: 950px) {
   .configurator {
@@ -836,7 +836,6 @@ progress[value]::-moz-progress-bar {
     width: 100px;
   }
 
-
   .models-container__title {
     font-size: 24px;
     margin-left: 20px;
@@ -859,7 +858,7 @@ progress[value]::-moz-progress-bar {
   .models-container__canvas-container {
     margin-left: -50px;
   }
-  .models-container__model__buttons{
+  .models-container__model__buttons {
     margin-bottom: 70px;
   }
 }

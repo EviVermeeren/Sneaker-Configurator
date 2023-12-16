@@ -406,6 +406,8 @@ export default {
           shoeSize: shoeData.shoeSize,
           shoeColorSole: shoeData.shoeColorSole,
           shoeColorLaces: shoeData.shoeColorLaces,
+          shoeColorPanelDown: shoeData.shoeColorPanelDown,
+          shoeColorPanelUp: shoeData.shoeColorPanelUp,
           shoeMaterialPanelDown: shoeData.shoeMaterialPanelDown,
           shoeMaterialPanelUp: shoeData.shoeMaterialPanelUp,
           status: shoeData.status,

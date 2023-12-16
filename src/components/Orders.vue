@@ -52,7 +52,6 @@ export default {
   methods: {
     async fetchShoes(token) {
       try {
-        console.log("deel 1 werkt");
         const response = await fetch(
           "https://dev5-api-sneakers.onrender.com/api/v1/shoes",
           {
@@ -62,12 +61,9 @@ export default {
           }
         );
         const data = await response.json();
-        console.log("deel 2 werkt");
 
         if (data.status === "success") {
           this.shoes = data.data.shoes;
-          console.log("deel 3 werkt");
-          console.log(token);
         } else {
           console.error("Error fetching shoes:", data.message);
         }

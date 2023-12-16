@@ -7,11 +7,7 @@ const route = useRoute();
 </script>
 
 <template>
-  
-  <Header v-if="route.path !== '/customize' && route.path !== '/config2'"/>
-  <HeaderMinimal v-else/>
+  <Header v-if="route.path !== '/customize' && route.path !== '/config2'" />
+  <HeaderMinimal v-else />
   <router-view />
-
 </template>
-
-<style scoped></style>

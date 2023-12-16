@@ -15,6 +15,7 @@
     "font-loader": "^0.1.2",
     "howler": "^2.2.4",
     "primus": "^8.0.9",
+    "sweetalert2": "^11.10.1",
     "three": "^0.158.0",
     "tween.js": "^16.6.0",
     "vue": "^3.3.8",

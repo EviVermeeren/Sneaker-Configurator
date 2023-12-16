@@ -64,7 +64,6 @@ export default {
   },
   async mounted() {
     const canvasContainer = this.$refs.canvasContainer;
-    // await this.fetchShoes();
     this.shoeDataFromRoute();
     const windowWidth = window.innerWidth;
     const squareSize = 280;
@@ -414,22 +413,6 @@ export default {
           userAddress: shoeData.userAddress,
           userEmail: shoeData.userEmail,
         };
-      }
-    },
-    async fetchShoes() {
-      try {
-        const response = await fetch(
-          `https://dev5-api-sneakers.onrender.com/api/v1/shoes?id=${this.$route.query.id}`
-        );
-        const data = await response.json();
-
-        if (data.status === "success") {
-          this.shoe = data.data.shoe || {};
-        } else {
-          console.error("Error fetching shoes:", data.message);
-        }
-      } catch (error) {
-        console.error("Error fetching shoes:", error);
       }
     },
   },

@@ -189,7 +189,7 @@
     <div v-if="formError" class="configurator__error-message">
       {{ formError }}
     </div>
-    <button v-if="progressState" @click="handleDoneButtonClick">
+    <button v-if="progressState" @click="handleDoneButtonClick" ref="doneButton">
       Send order!
     </button>
   </div>
@@ -811,6 +811,7 @@ export default {
         this.formError = null;
         if(this.orderClicked === false) {
           this.orderClicked = true;
+          this.$refs.doneButton.style.backgroundColor = "#d3d3d3";
           this.fetchData();
         }
       } else {

@@ -1,26 +1,26 @@
 <template>
-  <div class="bgc">
-    <div class="flex">
+  <div class="thankyou-container">
+    <div class="thankyou-container__flex">
       <div>
         <div class="loading-placeholder" ref="loadingPlaceholder1">
           <p class="loading-placeholder__message">Loading...</p>
         </div>
-        <div class="canvas-container" ref="canvasContainer"></div>
+        <div class="thankyou-container__canvas-container" ref="canvasContainer"></div>
       </div>
-      <div class="order-info">
-        <h1 class="order-info__title">Overview of your order</h1>
-        <p id="type" class="order-info__shoe-type">
+      <div class="thankyou-container__order-info">
+        <h1 class="thankyou-container__order-info__title">Overview of your order</h1>
+        <p id="type" class="thankyou-container__order-info__shoe-type">
           Shoe type: {{ shoe.shoeType }}
         </p>
 
-        <p class="order-info__user-name">Name: {{ shoe.userName }}</p>
-        <p class="order-info__user-address">
+        <p class="thankyou-container__order-info__user-name">Name: {{ shoe.userName }}</p>
+        <p class="thankyou-container__order-info__user-address">
           Shipping address: {{ shoe.userAddress }}
         </p>
 
-        <p class="order-info__user-email">Email: {{ shoe.userEmail }}</p>
-        <p class="order-info__shoe-size">Size: {{ shoe.shoeSize }}</p>
-        <p class="order-info__status">Status: {{ shoe.status }}</p>
+        <p class="thankyou-container__order-info__user-email">Email: {{ shoe.userEmail }}</p>
+        <p class="thankyou-container__order-info__shoe-size">Size: {{ shoe.shoeSize }}</p>
+        <p class="thankyou-container__order-info__status">Status: {{ shoe.status }}</p>
       </div>
     </div>
   </div>
@@ -422,94 +422,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.bgc {
-  background-color: #242424;
-  height: 50vh;
-}
-.flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  gap: 100px;
-}
-
-.canvas-container {
-  margin-top: 50px;
-}
-
-.order-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0px;
-}
-
-.order-info__title {
-  font-family: "cooper-black-std", serif;
-  font-weight: 400;
-  color: white;
-  font-size: 36px;
-  letter-spacing: 1.08px;
-  line-height: normal;
-  margin: 0;
-  margin-top: 50px;
-  margin-bottom: 20px;
-}
-
-.order-info__shoe-type,
-.order-info__user-name,
-.order-info__user-address,
-.order-info__user-email,
-.order-info__shoe-size,
-.order-info__status {
-  font-family: "basic-sans", sans-serif;
-  font-weight: 400;
-  color: white;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-@media (max-width: 750px) {
-  .flex {
-    flex-direction: column-reverse;
-    flex-wrap: wrap;
-    gap: 0px;
-    justify-content: left;
-    align-items: baseline;
-    margin-left: 20px;
-  }
-
-  .canvas-container {
-    margin-top: 0px;
-    margin-left: -50px;
-  }
-
-  .order-info {
-    margin-top: 50px;
-  }
-
-  .order-info__title {
-    font-family: "cooper-black-std", serif;
-    font-weight: 400;
-    color: white;
-    font-size: 24px;
-    letter-spacing: 1.08px;
-    line-height: normal;
-    margin: 0;
-    margin-bottom: 20px;
-  }
-
-  .order-info__shoe-type,
-  .order-info__user-name,
-  .order-info__user-address,
-  .order-info__user-email,
-  .order-info__shoe-size,
-  .order-info__status {
-    font-size: 14px;
-  }
-}
-</style>

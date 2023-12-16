@@ -660,6 +660,55 @@ progress[value]::-moz-progress-bar {
   margin: 0px;
 }
 
+
+
+/* thankyou page*/
+.thankyou-container {
+  height: 50vh;
+}
+.thankyou-container__flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  gap: 100px;
+}
+.thankyou-container__canvas-container {
+  margin-top: 50px;
+}
+.thankyou-container__order-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+.thankyou-container__order-info__title {
+  font-family: "cooper-black-std", serif;
+  font-weight: 400;
+  color: white;
+  font-size: 36px;
+  letter-spacing: 1.08px;
+  line-height: normal;
+  margin: 0;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+.thankyou-container__order-info__shoe-type,
+.thankyou-container__order-info__user-name,
+.thankyou-container__order-info__user-address,
+.thankyou-container__order-info__user-email,
+.thankyou-container__order-info__shoe-size,
+.thankyou-container__order-info__status {
+  font-family: "basic-sans", sans-serif;
+  font-weight: 400;
+  color: white;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+
+
 @media (max-width: 950px) {
   .configurator {
     gap: 0px;
@@ -720,6 +769,40 @@ progress[value]::-moz-progress-bar {
   }
   .order-container__buttons__status-update-button:first-child {
     margin-top: 10px;
+  }
+
+  /* thankyou page */
+  .thankyou-container__flex {
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    gap: 0px;
+    justify-content: left;
+    align-items: baseline;
+    margin-left: 20px;
+  }
+  .thankyou-container__canvas-container {
+    margin-top: 0px;
+  }
+  .thankyou-container__order-info {
+    margin-top: 50px;
+  }
+  .thankyou-container__order-info__title {
+    font-family: "cooper-black-std", serif;
+    font-weight: 400;
+    color: white;
+    font-size: 24px;
+    letter-spacing: 1.08px;
+    line-height: normal;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+  .thankyou-container__order-info__shoe-type,
+  .thankyou-container__order-info__user-name,
+  .thankyou-container__order-info__user-address,
+  .thankyou-container__order-info__user-email,
+  .thankyou-container__order-info__shoe-size,
+  .thankyou-container__order-info__status {
+    font-size: 14px;
   }
 }
 

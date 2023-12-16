@@ -89,7 +89,10 @@ h2 {
   margin-bottom: 30px;
   margin-top: 80px;
 }
-
+a{
+  text-decoration: none;
+  color: var(--color-accent);
+}
 
 /* configurator */
 .configurator {
@@ -410,6 +413,109 @@ progress[value]::-moz-progress-bar {
   cursor: pointer;
 }
 
+/* orders page */
+.admin-title {
+  font-family: "cooper-black-std", serif;
+  font-weight: 400;
+  color: white;
+  font-size: 36px;
+  letter-spacing: 1.08px;
+  line-height: normal;
+  margin-top: 50px;
+  margin-left: 100px;
+}
+.orders-title {
+  font-family: "cooper-black-std", serif;
+  font-weight: 400;
+  color: white;
+  font-size: 36px;
+  letter-spacing: 1.08px;
+  line-height: normal;
+  margin-left: 100px;
+  margin-top: 50px;
+}
+.order-count {
+  display: flex;
+  flex-direction: row;
+  margin-left: 100px;
+}
+.order-count__label,
+.order-count__value {
+  font-family: "basic-sans", sans-serif;
+  font-weight: 400;
+  color: white;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+.orders-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-items: left;
+  gap: 20px;
+  background-color: #242424;
+  margin-left: 100px;
+}
+.orders-container__shoe-item {
+  border: 1px solid var(--color-accent);
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.orders-container__shoe-info {
+  flex-grow: 1;
+}
+.orders-container__shoe-info__type,
+.orders-container__shoe-info__status,
+.orders-container__shoe-info__size,
+.orders-container__shoe-info__user {
+  font-family: "basic-sans", sans-serif;
+  font-weight: 400;
+  color: white;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+.orders-container__view-button {
+  color: var(--color-accent);
+  background-color: #000;
+  width: 90%;
+  height: 50px;
+  font-family: "cooper-black-std", serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.orders-container__view-button__link {
+  text-decoration: none;
+  color: var(--color-accent);
+}
+.admin-password-change {
+  color: var(--color-accent);
+  background-color: #000;
+  width: 100%;
+  max-width: 300px;
+  height: 50px;
+  font-family: "cooper-black-std", serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 100px;
+}
+
 
 @media (max-width: 950px) {
   .configurator {
@@ -472,7 +578,6 @@ progress[value]::-moz-progress-bar {
     padding: 20px;
     background-color: var(--color-accent);
   }
-
   .headerMain__admin-button {
     width: 60%;
     max-width: 200px;
@@ -482,9 +587,36 @@ progress[value]::-moz-progress-bar {
     margin-top: 20px;
     margin-bottom: 0px;
   }
-
   .headerMain__img {
     width: 100px;
+  }
+
+  .admin-title {
+    font-size: 30px;
+    margin-top: 50px;
+    margin-left: 50px;
+  }
+  .orders-title {
+    font-size: 24px;
+    margin-top: 50px;
+    margin-left: 50px;
+  }
+  .orders-container {
+    margin-left: 50px;
+  }
+  .orders-container__view-button {
+    width: 80%;
+    height: 30px;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  .admin-password-change {
+    width: 80%;
+    max-width: 200px;
+    height: 40px;
+    font-size: 14px;
+    margin-left: 50px;
   }
 }
 
@@ -534,5 +666,25 @@ progress[value]::-moz-progress-bar {
     font-family: "cooper-black-std", serif;
     font-size: 16px;
     margin-top: 50px;
+  }
+}
+
+@media (max-width: 300px) {
+  .admin-title {
+    font-size: 24px;
+    margin-top: 30px;
+    margin-left: 30px;
+  }
+  .orders-title {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-left: 30px;
+  }
+  .orders-container {
+    margin-left: 30px;
+  }
+  .admin-password-change {
+    max-width: 180px;
+    margin-left: 30px;
   }
 }

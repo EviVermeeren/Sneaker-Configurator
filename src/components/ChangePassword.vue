@@ -37,6 +37,8 @@ const newpassword = ref("");
 const router = useRouter();
 
 const updatePassword = async () => {
+  const token = localStorage.getItem("token");
+
   const userId = "65513b6ffcea7b7baba6b737";
   const apiUrl = `https://dev5-api-sneakers.onrender.com/api/v1/users/${userId}`;
 
@@ -50,6 +52,7 @@ const updatePassword = async () => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `${token}`,
       },
       body: JSON.stringify(requestData),
     });

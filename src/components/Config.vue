@@ -189,7 +189,7 @@
     <div v-if="formError" class="configurator__error-message">
       {{ formError }}
     </div>
-    <button v-if="progressState" @click="handleDoneButtonClick">
+    <button v-if="progressState" @click="handleDoneButtonClick" ref="doneButton">
       Send order!
     </button>
   </div>
@@ -250,6 +250,7 @@ export default {
       progbarValue: 0,
       progbarMax: 8,
       progressState: false,
+      orderClicked: false,
     };
   },
   mounted() {
@@ -808,7 +809,14 @@ export default {
         this.selectedMaterials.shoeMaterialPanelUp
       ) {
         this.formError = null;
-        this.fetchData();
+        if(this.orderClicked === false) {
+          this.orderClicked = true;
+          this.$refs.doneButton.style.backgroundColor = "#d3d3d3";
+          this.$refs.doneButton.style.cursor = "not-allowed";
+          this.$refs.doneButton.innerHTML = "Loading...";
+          this.$refs.doneButton.style.color = "#242424";
+          this.fetchData();
+        }
       } else {
         this.formError =
           "Please fill in all the required fields and selections.";

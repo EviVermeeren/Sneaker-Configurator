@@ -434,21 +434,6 @@ progress[value]::-moz-progress-bar {
   margin-left: 100px;
   margin-top: 50px;
 }
-.order-count {
-  display: flex;
-  flex-direction: row;
-  margin-left: 100px;
-}
-.order-count__label,
-.order-count__value {
-  font-family: "basic-sans", sans-serif;
-  font-weight: 400;
-  color: white;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
 .orders-container {
   display: flex;
   flex-direction: row;
@@ -516,6 +501,76 @@ progress[value]::-moz-progress-bar {
   margin-left: 100px;
 }
 
+/* shoe details page */
+.order-container {
+  height: 50vh;
+}
+.order-container__flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  gap: 100px;
+}
+.order-info__title {
+  font-family: "cooper-black-std", serif;
+  font-weight: 400;
+  color: white;
+  font-size: 36px;
+  letter-spacing: 1.08px;
+  line-height: normal;
+  margin: 0;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+.order-info__shoe-type,
+.order-info__user-name,
+.order-info__user-address,
+.order-info__user-email,
+.order-info__shoe-size,
+.order-info__status {
+  font-family: "basic-sans", sans-serif;
+  font-weight: 400;
+  color: white;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  margin-top: 0;
+}
+.order-container__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.order-container__buttons__status-update-button,
+.order-container__buttons__delete-button {
+  width: 299px;
+  height: 36px;
+  top: 0;
+  left: 0;
+  font-family: "basic-sans", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1.61px;
+  line-height: normal;
+  margin-bottom: -50px;
+  margin-left: 0;
+}
+.order-container__buttons__status-update-button:hover,
+.order-container__buttons__delete-button:hover {
+  cursor: pointer;
+  color: var(--color-accent);
+}
+.order-container__buttons__status-update-button,
+.order-container__buttons__delete-button {
+  background-color: #000000;
+  color: white;
+}
+.order-container__buttons__status-update-button:first-child {
+  margin-top: 20px;
+}
+
 
 @media (max-width: 950px) {
   .configurator {
@@ -558,6 +613,28 @@ progress[value]::-moz-progress-bar {
   }
 }
 
+@media (max-width: 800px) {
+  .order-info__title {
+    font-size: 30px;
+  }
+  .order-container__flex {
+    width: 90vw;
+    gap: 80px;
+  }
+  .order-container__buttons {
+    gap: 15px;
+  }
+  .order-container__buttons__status-update-button,
+  .order-container__buttons__delete-button {
+    width: 280px;
+    height: 30px;
+    font-size: 14px;
+  }
+  .order-container__buttons__status-update-button:first-child {
+    margin-top: 10px;
+  }
+}
+
 @media (max-width: 700px) {
   .configurator__button {
     width: 70px;
@@ -569,6 +646,7 @@ progress[value]::-moz-progress-bar {
 }
 
 @media (max-width: 600px) {
+  /* main header */
   .headerMain {
     height: 63px;
   }
@@ -591,6 +669,7 @@ progress[value]::-moz-progress-bar {
     width: 100px;
   }
 
+  /* orders page */
   .admin-title {
     font-size: 30px;
     margin-top: 50px;
@@ -617,6 +696,31 @@ progress[value]::-moz-progress-bar {
     height: 40px;
     font-size: 14px;
     margin-left: 50px;
+  }
+
+  /* shoe details */
+  .order-info__title {
+    font-size: 24px;
+  }
+  .order-info__shoe-type,
+  .order-info__user-name,
+  .order-info__user-address,
+  .order-info__user-email,
+  .order-info__shoe-size,
+  .order-info__status {
+    font-size: 14px;
+    white-space: wrap;
+  }
+  .order-container__flex {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100vw;
+    gap: 50px;
+  }
+  .order-container__buttons__status-update-button,
+  .order-container__buttons__delete-button {
+    width: 260px;
+    font-size: 12px;
   }
 }
 
@@ -653,19 +757,43 @@ progress[value]::-moz-progress-bar {
   .configurator__flex1 {
     gap: 0px;
   }
-
   .configurator__button {
     position: absolute;
     bottom: 28%;
     z-index: 1;
   }
-
   button {
     max-width: 200px;
     height: 50px;
     font-family: "cooper-black-std", serif;
     font-size: 16px;
     margin-top: 50px;
+  }
+
+  /* details page */
+  .order-info__title {
+    font-size: 20px;
+    margin-left: 10px;
+  }
+  .order-info__shoe-type,
+  .order-info__user-name,
+  .order-info__user-address,
+  .order-info__user-email,
+  .order-info__shoe-size,
+  .order-info__status {
+    font-size: 14px;
+    margin-left: 10px;
+  }
+  .order-container__flex {
+    width: 80vw;
+    margin-left: 30px;
+  }
+  .order-container__buttons__status-update-button,
+  .order-container__buttons__delete-button {
+    width: 200px;
+    height: 40px;
+    font-size: 12px;
+    margin-left: 10px;
   }
 }
 

@@ -22,32 +22,32 @@
           <p class="order-info__status">Status: {{ shoe.status }}</p>
         </div>
 
-        <div class="buttons">
+        <div class="order-container__buttons">
           <button
             @click="updateStatus('in production')"
-            class="status-update-button"
+            class="order-container__buttons__status-update-button"
           >
             Update status to “in production”
           </button>
           <button
             @click="updateStatus('in transit')"
-            class="status-update-button"
+            class="order-container__buttons__status-update-button"
           >
             Update status to “in transit”
           </button>
           <button
             @click="updateStatus('complete')"
-            class="status-update-button"
+            class="order-container__buttons__status-update-button"
           >
             Update status to “complete”
           </button>
           <button
             @click="updateStatus('cancelled')"
-            class="status-update-button"
+            class="order-container__buttons__status-update-button"
           >
             Update status to "cancelled"
           </button>
-          <button @click="deleteOrder" class="delete-button">
+          <button @click="deleteOrder" class="order-container__buttons__delete-button">
             Delete order
           </button>
         </div>
@@ -528,166 +528,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.order-container {
-  background-color: #242424;
-  height: 50vh;
-}
-a {
-  text-decoration: none;
-  color: var(--color-accent);
-}
-
-.order-info {
-  display: flex;
-  flex-direction: column;
-}
-.order-info__title {
-  font-family: "cooper-black-std", serif;
-  font-weight: 400;
-  color: white;
-  font-size: 36px;
-  letter-spacing: 1.08px;
-  line-height: normal;
-  margin: 0;
-  margin-top: 50px;
-  margin-bottom: 20px;
-}
-.order-info__shoe-type,
-.order-info__user-name,
-.order-info__user-address,
-.order-info__user-email,
-.order-info__shoe-size,
-.order-info__status {
-  font-family: "basic-sans", sans-serif;
-  font-weight: 400;
-  color: white;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-  margin-top: 0;
-}
-.order-container__flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  gap: 100px;
-}
-img {
-  width: 25vw;
-}
-.buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.status-update-button,
-.delete-button {
-  width: 299px;
-  height: 36px;
-  top: 0;
-  left: 0;
-  font-family: "basic-sans", sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 1.61px;
-  line-height: normal;
-  margin-bottom: -50px;
-  margin-left: 0;
-}
-.status-update-button:hover,
-.delete-button:hover {
-  cursor: pointer;
-  color: var(--color-accent);
-}
-
-.status-update-button,
-.delete-button {
-  background-color: #000000;
-  color: white;
-}
-
-.status-update-button:first-child {
-  margin-top: 20px;
-}
-
-@media (max-width: 800px) {
-  .order-info__title {
-    font-size: 30px;
-  }
-  .order-container__flex {
-    width: 90vw;
-    gap: 80px;
-  }
-  .buttons {
-    gap: 15px;
-  }
-  .status-update-button,
-  .delete-button {
-    width: 280px;
-    height: 30px;
-    font-size: 14px;
-  }
-
-  .status-update-button:first-child {
-    margin-top: 10px;
-  }
-}
-
-@media (max-width: 600px) {
-  .order-info__title {
-    font-size: 24px;
-  }
-  .order-info__shoe-type,
-  .order-info__user-name,
-  .order-info__user-address,
-  .order-info__user-email,
-  .order-info__shoe-size,
-  .order-info__status {
-    font-size: 14px;
-    white-space: wrap;
-  }
-  .order-container__flex {
-    display: flex;
-    flex-direction: column-reverse;
-    width: 100vw;
-    gap: 50px;
-  }
-  .status-update-button,
-  .delete-button {
-    width: 260px;
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 350px) {
-  .order-info__title {
-    font-size: 20px;
-    margin-left: 10px;
-  }
-  .order-info__shoe-type,
-  .order-info__user-name,
-  .order-info__user-address,
-  .order-info__user-email,
-  .order-info__shoe-size,
-  .order-info__status {
-    font-size: 14px;
-    margin-left: 10px;
-  }
-  .order-container__flex {
-    width: 80vw;
-    margin-left: 30px;
-  }
-  .status-update-button,
-  .delete-button {
-    width: 200px;
-    height: 40px;
-    font-size: 12px;
-    margin-left: 10px;
-  }
-}
-</style>

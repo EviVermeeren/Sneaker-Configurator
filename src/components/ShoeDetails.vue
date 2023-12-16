@@ -542,7 +542,7 @@ export default {
 <style scoped>
 .order-container {
   background-color: #242424;
-  height: 100vh;
+  height: 50vh;
 }
 a {
   text-decoration: none;

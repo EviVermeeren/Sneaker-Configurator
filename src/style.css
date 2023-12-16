@@ -267,11 +267,14 @@ progress[value]::-moz-progress-bar {
 .loading-placeholder {
   margin: 0;
   min-height: 300px;
-  max-height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.loading-placeholder--big {
+  height: 78vh;
 }
 
 .loading-placeholder__message {

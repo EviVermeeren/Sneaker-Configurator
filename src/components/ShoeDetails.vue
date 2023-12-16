@@ -584,6 +584,10 @@ img {
   flex-direction: column;
   gap: 20px;
 }
+.buttons:hover {
+  cursor: pointer;  
+}
+
 .status-update-button,
 .delete-button {
   width: 299px;
@@ -597,6 +601,9 @@ img {
   line-height: normal;
   margin-bottom: -50px;
   margin-left: 0;
+}
+.delete-button:hover {
+  cursor: pointer;
 }
 
 .status-update-button {

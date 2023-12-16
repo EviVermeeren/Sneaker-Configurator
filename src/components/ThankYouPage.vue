@@ -63,6 +63,7 @@ export default {
     };
   },
   async mounted() {
+    const canvasContainer = this.$refs.canvasContainer;
     await this.fetchShoes();
     const windowWidth = window.innerWidth;
     const squareSize = 280;

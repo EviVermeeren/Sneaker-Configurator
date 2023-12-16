@@ -64,7 +64,8 @@ export default {
   },
   async mounted() {
     const canvasContainer = this.$refs.canvasContainer;
-    await this.fetchShoes();
+    // await this.fetchShoes();
+    this.shoeDataFromRoute();
     const windowWidth = window.innerWidth;
     const squareSize = 280;
 
@@ -396,6 +397,25 @@ export default {
   },
 
   methods: {
+    shoeDataFromRoute() {
+      console.log(this.$route.query);
+      const shoeData = this.$route.query;
+      if (shoeData) {
+        this.shoe = {
+          shoeType: shoeData.shoeType,
+          shoeSize: shoeData.shoeSize,
+          shoeColorSole: shoeData.shoeColorSole,
+          shoeColorLaces: shoeData.shoeColorLaces,
+          shoeMaterialPanelDown: shoeData.shoeMaterialPanelDown,
+          shoeMaterialPanelUp: shoeData.shoeMaterialPanelUp,
+          status: shoeData.status,
+          userName: shoeData.userName,
+          userAddress: shoeData.userAddress,
+          userEmail: shoeData.userEmail,
+        };
+        console.log(this.shoe);
+      }
+    },
     async fetchShoes() {
       try {
         const response = await fetch(

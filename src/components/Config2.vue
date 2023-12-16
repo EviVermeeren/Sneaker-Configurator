@@ -699,7 +699,21 @@ export default {
           ) {
             const newId = responseData.data.shoe._id;
             this.sendToSocket(responseData);
-            this.$router.push({ path: "/thankyou", query: { id: newId } });
+            console.log(responseData);
+            const shoeData = responseData.data;
+            this.$router.push({ path: "/thankyou", query: {
+              id: newId,
+              shoeType: responseData.data.shoe.shoeType,
+              shoeSize: responseData.data.shoe.shoeSize,
+              shoeColorSole: responseData.data.shoe.shoeColorSole,
+              shoeColorLaces: responseData.data.shoe.shoeColorLaces,
+              shoeMaterialPanelDown: responseData.data.shoe.shoeMaterialPanelDown,
+              shoeMaterialPanelUp: responseData.data.shoe.shoeMaterialPanelUp,
+              status: responseData.data.shoe.status,
+              userName: responseData.data.shoe.userName,
+              userAddress: responseData.data.shoe.userAddress,
+              userEmail: responseData.data.shoe.userEmail,
+            } });
           } else {
             console.error("Invalid server response format");
           }

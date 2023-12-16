@@ -878,8 +878,7 @@ export default {
                 shoeColorLaces: responseData.data.shoe.shoeColorLaces,
                 shoeColorPanelDown: responseData.data.shoe.shoeColorPanelDown,
                 shoeColorPanelUp: responseData.data.shoe.shoeColorPanelUp,
-                shoeMaterialPanelDown:
-                  responseData.data.shoe.shoeMaterialPanelDown,
+                shoeMaterialPanelDown: responseData.data.shoe.shoeMaterialPanelDown,
                 shoeMaterialPanelUp: responseData.data.shoe.shoeMaterialPanelUp,
                 jewel: responseData.data.shoe.jewel,
                 initials: responseData.data.shoe.initials,

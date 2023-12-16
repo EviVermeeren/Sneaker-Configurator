@@ -94,14 +94,12 @@ h2 {
 .configurator {
   display: flex;
   gap: 120px;
-  padding-bottom: 10px;
   justify-content: center;
 }
 
 .configurator__arrow {
   color: var(--color-accent);
   margin-top: 0;
-  margin-bottom: 10px;
   font-family: "cooper-black-std", serif;
   font-size: 32px;
   font-weight: 700;
@@ -154,7 +152,6 @@ h2 {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  margin-bottom: 20px;
   flex-wrap: wrap;
 }
 

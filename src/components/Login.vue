@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -39,6 +39,14 @@ const password = ref("");
 
 const login = async () => {
   try {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      // Token exists, redirect to orders page
+      router.push("/orders");
+      return;
+    }
+
     const response = await fetch(
       "https://dev5-api-sneakers.onrender.com/api/v1/users/login",
       {
@@ -66,6 +74,16 @@ const login = async () => {
     console.error("Login error:", error.message);
   }
 };
+
+// Check for existing token on component mount
+onMounted(() => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    // Token exists, redirect to orders page
+    router.push("/orders");
+  }
+});
 </script>
 
 <style scoped>

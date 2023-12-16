@@ -2,22 +2,22 @@
   <div class="models-container">
     <h1 id="ourmodels" class="models-container__title">Our models</h1>
     <div class="models-container__flexbox">
-      <div class="model flex">
+      <div class="models-container__model">
         <div>
           <div class="loading-placeholder" ref="loadingPlaceholder1">
             <p class="loading-placeholder__message">
               Loading...
             </p>
           </div>
-          <div class="canvas-container" ref="canvasContainer1"></div>
+          <div class="models-container__canvas-container" ref="canvasContainer1"></div>
         </div>
         <div>
-          <h1 class="model__name">AIR REV. NITRO S</h1>
-          <h2 class="model__type">Custom shoes</h2>
-          <p class="model__price">€200,00</p>
-          <div class="model__buttons buttons">
-            <button>
-              <router-link to="/customize" class="buttons__link"
+          <h1 class="models-container__model__name">AIR REV. NITRO S</h1>
+          <h2 class="models-container__model__type">Custom shoes</h2>
+          <p class="models-container__model__price">€200,00</p>
+          <div class="models-container__model__buttons">
+            <button class="models-container__model__buttons">
+              <router-link to="/customize"
                 >CUSTOMIZE</router-link
               >
             </button>
@@ -25,26 +25,24 @@
         </div>
       </div>
 
-      <div class="model flex">
+      <div class="models-container__model flex">
         <div>
           <div class="loading-placeholder" ref="loadingPlaceholder2">
             <p class="loading-placeholder__message">
               Loading...
             </p>
           </div>
-          <div class="canvas-container" ref="canvasContainer2"></div>
+          <div class="models-container__canvas-container" ref="canvasContainer2"></div>
         </div>
         <div>
-          <h1 class="model__name">AIR REV. XTRA</h1>
-          <h2 class="model__type">Custom shoes</h2>
-          <p class="model__price">€180,00</p>
-          <div class="model__buttons buttons">
-            <button class="model__buttons_margin">
-              <router-link to="/config2" class="buttons__link"
+          <h1 class="models-container__model__name">AIR REV. XTRA</h1>
+          <h2 class="models-container__model__type">Custom shoes</h2>
+          <p class="models-container__model__price">€180,00</p>
+          <button class="models-container__model__buttons">
+              <router-link to="/config2"
                 >CUSTOMIZE</router-link
               >
-            </button>
-          </div>
+          </button>
         </div>
       </div>
     </div>
@@ -162,141 +160,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.models-container {
-  background-color: #242424;
-}
-
-a {
-  text-decoration: none;
-  color: var(--color-accent);
-}
-
-.models-container__title {
-  font-family: "cooper-black-std", serif;
-  font-weight: 400;
-  color: white;
-  font-size: 36px;
-  letter-spacing: 1.08px;
-  line-height: normal;
-  margin: 0;
-  padding-top: 50px;
-  margin-left: 50px;
-}
-
-.models-container__flexbox {
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  margin-left: 75px;
-  align-items: center;
-  margin-bottom: 50px;
-  gap: 100px;
-  flex-wrap: wrap;
-}
-
-.model {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: left;
-}
-
-img {
-  width: 25vw;
-}
-
-.model__name,
-.model__type,
-.model__price {
-  font-family: "cooper-black-std", serif;
-  font-weight: 400;
-  color: white;
-}
-
-.model__name {
-  font-size: 24px;
-  letter-spacing: 1.08px;
-  line-height: normal;
-  margin: 0;
-}
-
-.model__type {
-  font-size: 16px;
-  letter-spacing: 0.72px;
-  line-height: normal;
-  white-space: nowrap;
-  margin: 0;
-}
-
-.model__price{
-  font-family: "basic-sans", sans-serif;
-  font-weight: 400;
-  color: white;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-button {
-  width: 299px;
-  height: 36px;
-  top: 0;
-  left: 0;
-  background-color: #000000;
-  font-family: "basic-sans", sans-serif;
-  font-weight: 700;
-  color: var(--color-accent);
-  font-size: 14px;
-  letter-spacing: 1.61px;
-  line-height: normal;
-  margin: 0px;
-}
-
-.buttons__link {
-  text-decoration: none;
-  color: var(--color-accent);
-}
-
-@media (max-width: 450px) {
-  .models-container__title {
-    font-size: 24px;
-    margin-left: 20px;
-  }
-
-  .models-container__flexbox {
-    margin-left: 20px;
-    margin-bottom: 0px;
-  }
-
-  .model__name {
-    font-size: 20px;
-  }
-
-  button {
-    width: 200px;
-    font-size: 12px;
-  }
-
-  .model {
-    display: flex;
-    align-items: normal;
-  }
-
-  .canvas-container {
-    margin-left: -50px;
-  }
-
-  .model__buttons_margin {
-    margin-bottom: 70px;
-  }
-}
-</style>

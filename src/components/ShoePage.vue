@@ -90,8 +90,8 @@ export default {
       loadingManager.onStart = () => {
         this.loadingState = true;
         container.style.display = "none";
-        this.$refs.loadingPlaceholder1.style.display = "block";
-        this.$refs.loadingPlaceholder2.style.display = "block";
+        this.$refs.loadingPlaceholder1.style.display = "flex";
+        this.$refs.loadingPlaceholder2.style.display = "flex";
       };
       loadingManager.onLoad = () => {
         this.loadingState = false;

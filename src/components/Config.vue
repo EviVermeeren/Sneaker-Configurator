@@ -297,7 +297,7 @@ export default {
 
     loadingManager.onStart = () => {
       canvasContainer.style.display = "none";
-      this.$refs.loadingPlaceholder1.style.display = "block";
+      this.$refs.loadingPlaceholder1.style.display = "flex";
     };
     loadingManager.onLoad = () => {
       canvasContainer.style.display = "block";

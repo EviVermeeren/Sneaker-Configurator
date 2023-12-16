@@ -4,6 +4,11 @@
     <div class="models-container__flexbox">
       <div class="model flex">
         <div>
+          <div class="loading-placeholder" ref="loadingPlaceholder1">
+            <p class="loading-placeholder__message">
+              Loading...
+            </p>
+          </div>
           <div class="canvas-container" ref="canvasContainer1"></div>
         </div>
         <div>
@@ -22,6 +27,11 @@
 
       <div class="model flex">
         <div>
+          <div class="loading-placeholder" ref="loadingPlaceholder2">
+            <p class="loading-placeholder__message">
+              Loading...
+            </p>
+          </div>
           <div class="canvas-container" ref="canvasContainer2"></div>
         </div>
         <div>
@@ -49,12 +59,18 @@ import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 export default {
   name: "Menu",
+  data() {
+    return {
+      loadingState: true,
+    };
+  },
   mounted() {
     const windowWidth = window.innerWidth;
 
     const squareSize = 300;
 
     const createScene = (container, modelPath) => {
+
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(100, 1, 0.1, 1000);
       const renderer = new THREE.WebGLRenderer();
@@ -70,6 +86,20 @@ export default {
       dracoLoader.setDecoderPath("/draco/");
       const gltfLoader = new GLTFLoader(loadingManager);
       gltfLoader.setDRACOLoader(dracoLoader);
+
+      loadingManager.onStart = () => {
+        this.loadingState = true;
+        container.style.display = "none";
+        this.$refs.loadingPlaceholder1.style.display = "block";
+        this.$refs.loadingPlaceholder2.style.display = "block";
+      };
+      loadingManager.onLoad = () => {
+        this.loadingState = false;
+        container.style.display = "block";
+        this.$refs.loadingPlaceholder1.style.display = "none";
+        this.$refs.loadingPlaceholder2.style.display = "none";
+
+      };
 
       const controls = new OrbitControls(camera, renderer.domElement);
       controls.maxPolarAngle = Math.PI / 2;
@@ -235,6 +265,27 @@ button {
 .buttons__link {
   text-decoration: none;
   color: var(--color-accent);
+}
+
+.loading-placeholder {
+  margin: 0;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.loading-placeholder__message {
+  font-family: "basic-sans", sans-serif;
+  font-weight: 600;
+  color: var(--color-accent);
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+  margin: 0;
+  padding-top: 50px;
 }
 
 @media (max-width: 450px) {

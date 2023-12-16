@@ -189,7 +189,11 @@
     <div v-if="formError" class="configurator__error-message">
       {{ formError }}
     </div>
-    <button v-if="progressState" @click="handleDoneButtonClick" ref="doneButton">
+    <button
+      v-if="progressState"
+      @click="handleDoneButtonClick"
+      ref="doneButton"
+    >
       Send order!
     </button>
   </div>
@@ -205,6 +209,7 @@ import { FontLoader } from "three/addons/loaders/FontLoader.js";
 import { useRouter } from "vue-router";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import TWEEN from "tween.js";
+import Swal from "sweetalert2";
 
 const router = useRouter();
 
@@ -809,7 +814,7 @@ export default {
         this.selectedMaterials.shoeMaterialPanelUp
       ) {
         this.formError = null;
-        if(this.orderClicked === false) {
+        if (this.orderClicked === false) {
           this.orderClicked = true;
           this.$refs.doneButton.style.backgroundColor = "#d3d3d3";
           this.$refs.doneButton.style.cursor = "not-allowed";
@@ -862,7 +867,20 @@ export default {
         },
         body: JSON.stringify(data),
       })
-        .then((response) => response.json())
+        .then((response) => {
+          if (!response.ok) {
+            return response.text().then((errorText) => {
+              // Try to parse the error text as JSON
+              try {
+                const errorData = JSON.parse(errorText);
+                throw new Error(errorData.error || "Something went wrong");
+              } catch (jsonError) {
+                throw new Error(errorText || "Something went wrong");
+              }
+            });
+          }
+          return response.json();
+        })
         .then((responseData) => {
           if (
             responseData &&
@@ -899,7 +917,24 @@ export default {
           }
         })
         .catch((error) => {
+          // Handle different error scenarios based on the error message
           console.error("Error:", error);
+
+          if (error.message.includes("Too many requests")) {
+            // Handle "Too many requests" error
+            Swal.fire({
+              icon: "error",
+              title: "Too Many Requests",
+              text: "Too many requests, please try again later.",
+            });
+          } else {
+            // Handle other errors with a generic message
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: error.message || "Something went wrong. Please try again.",
+            });
+          }
         });
     },
   },

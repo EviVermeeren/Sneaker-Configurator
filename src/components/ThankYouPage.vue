@@ -3,9 +3,7 @@
     <div class="flex">
       <div>
         <div class="loading-placeholder" ref="loadingPlaceholder1">
-          <p class="loading-placeholder__message">
-            Loading...
-          </p>
+          <p class="loading-placeholder__message">Loading...</p>
         </div>
         <div class="canvas-container" ref="canvasContainer"></div>
       </div>
@@ -77,6 +75,10 @@ export default {
 
     camera.position.z = 7;
 
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.maxPolarAngle = Math.PI / 2;
+    controls.enablePan = false;
+
     const loadingManager = new THREE.LoadingManager();
 
     const dracoLoader = new DRACOLoader();
@@ -92,7 +94,7 @@ export default {
       canvasContainer.style.display = "block";
       this.$refs.loadingPlaceholder1.style.display = "none";
     };
-    
+
     scene.background = new THREE.Color(0x242424);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.7);
@@ -370,15 +372,14 @@ export default {
 
       gltfLoader.load("/models/vans-shoe.glb", (gltf) => {
         shoe = gltf.scene;
-        shoe.scale.set(1.8, 1.8, 1.8);
-
+        shoe.scale.set(1, 1, 1);
         shoe.rotation.order = "YXZ";
 
         shoe.rotation.x = 0;
         shoe.rotation.y = -0.15;
         shoe.rotation.z = -0.4;
-        shoe.position.z = -7;
-        shoe.position.y = -4;
+        shoe.position.z = 0;
+        shoe.position.y = -1.5;
         shoe.position.x = -0.5;
 
         scene.add(shoe);

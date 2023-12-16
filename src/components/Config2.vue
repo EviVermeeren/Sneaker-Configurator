@@ -1,9 +1,10 @@
 <template>
   <div class="shoe-configurator">
-    <div class="loading-placeholder loading-placeholder--big" ref="loadingPlaceholder1">
-      <p class="loading-placeholder__message">
-        Loading...
-      </p>
+    <div
+      class="loading-placeholder loading-placeholder--big"
+      ref="loadingPlaceholder1"
+    >
+      <p class="loading-placeholder__message">Loading...</p>
     </div>
     <div class="canvas-container" ref="canvasContainer"></div>
     <progress
@@ -279,7 +280,6 @@ export default {
     scene.add(directionalLight3);
     scene.add(directionalLight4);
 
-    //load shoePlatform.glb
     gltfLoader.load("/models/shoePlatform.glb", (gltf) => {
       const shoePlatform = gltf.scene;
       shoePlatform.scale.set(2.5, 2.5, 2.5);
@@ -700,19 +700,23 @@ export default {
             const newId = responseData.data.shoe._id;
             this.sendToSocket(responseData);
             const shoeData = responseData.data;
-            this.$router.push({ path: "/thankyou", query: {
-              id: newId,
-              shoeType: responseData.data.shoe.shoeType,
-              shoeSize: responseData.data.shoe.shoeSize,
-              shoeColorSole: responseData.data.shoe.shoeColorSole,
-              shoeColorLaces: responseData.data.shoe.shoeColorLaces,
-              shoeMaterialPanelDown: responseData.data.shoe.shoeMaterialPanelDown,
-              shoeMaterialPanelUp: responseData.data.shoe.shoeMaterialPanelUp,
-              status: responseData.data.shoe.status,
-              userName: responseData.data.shoe.userName,
-              userAddress: responseData.data.shoe.userAddress,
-              userEmail: responseData.data.shoe.userEmail,
-            } });
+            this.$router.push({
+              path: "/thankyou",
+              query: {
+                id: newId,
+                shoeType: responseData.data.shoe.shoeType,
+                shoeSize: responseData.data.shoe.shoeSize,
+                shoeColorSole: responseData.data.shoe.shoeColorSole,
+                shoeColorLaces: responseData.data.shoe.shoeColorLaces,
+                shoeMaterialPanelDown:
+                  responseData.data.shoe.shoeMaterialPanelDown,
+                shoeMaterialPanelUp: responseData.data.shoe.shoeMaterialPanelUp,
+                status: responseData.data.shoe.status,
+                userName: responseData.data.shoe.userName,
+                userAddress: responseData.data.shoe.userAddress,
+                userEmail: responseData.data.shoe.userEmail,
+              },
+            });
           } else {
             console.error("Invalid server response format");
           }
@@ -728,7 +732,7 @@ export default {
         const imageData = await query({ inputs: this.textInput });
         const imageUrl = URL.createObjectURL(imageData);
         this.generatedImage = imageUrl;
-        this.textureUrl = imageUrl; // Store the generated image URL
+        this.textureUrl = imageUrl;
 
         if (this.generatedImage) {
           this.loading = false;

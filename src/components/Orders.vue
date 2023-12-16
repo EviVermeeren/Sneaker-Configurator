@@ -41,7 +41,6 @@ export default {
     };
   },
   mounted() {
-    // Fetch shoes only if the token is available
     const token = localStorage.getItem("token");
     if (token) {
       this.fetchShoes(token);

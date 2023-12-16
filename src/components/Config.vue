@@ -333,7 +333,6 @@ export default {
     scene.add(directionalLight3);
     scene.add(directionalLight4);
 
-    //load shoePlatform.glb
     gltfLoader.load("/models/shoePlatform.glb", (gltf) => {
       const shoePlatform = gltf.scene;
       shoePlatform.scale.set(2.5, 2.5, 2.5);
@@ -593,7 +592,6 @@ export default {
       TWEEN.update();
       renderer.render(scene, camera);
 
-      //make shoeGroup go up and down with sinus
       shoeGroup.position.y = Math.sin(clock.getElapsedTime()) * 0.2 - 0.8;
     };
 
@@ -739,7 +737,6 @@ export default {
       const particles = new THREE.Points(particleGeometry, particleMaterial);
       scene.add(particles);
 
-      // Start to animate the particles like confetti spreading out
       const animateConfetti = () => {
         const elapsedTime = clock.getElapsedTime();
         const speedFactor = 0.01;
@@ -878,7 +875,8 @@ export default {
                 shoeColorLaces: responseData.data.shoe.shoeColorLaces,
                 shoeColorPanelDown: responseData.data.shoe.shoeColorPanelDown,
                 shoeColorPanelUp: responseData.data.shoe.shoeColorPanelUp,
-                shoeMaterialPanelDown: responseData.data.shoe.shoeMaterialPanelDown,
+                shoeMaterialPanelDown:
+                  responseData.data.shoe.shoeMaterialPanelDown,
                 shoeMaterialPanelUp: responseData.data.shoe.shoeMaterialPanelUp,
                 jewel: responseData.data.shoe.jewel,
                 initials: responseData.data.shoe.initials,

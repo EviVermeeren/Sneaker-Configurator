@@ -1,4 +1,3 @@
-// router.js
 import { createRouter, createWebHistory } from "vue-router";
 import Login from "./components/Login.vue";
 import ShoePage from "./components/ShoePage.vue";
@@ -26,7 +25,7 @@ const routes = [
   {
     path: "/config2",
     component: Config2,
-  }
+  },
 ];
 
 const router = createRouter({

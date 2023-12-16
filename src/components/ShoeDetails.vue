@@ -94,16 +94,6 @@ export default {
     };
   },
 
-  // async created() {
-  //   const token = localStorage.getItem("token");
-  //   if (token) {
-  //     // Fetch shoes in the created hook
-  //     await this.fetchShoes(token);
-  //   } else {
-  //     this.$router.push("/login");
-  //   }
-  // },
-
   async mounted() {
     const canvasContainer = this.$refs.canvasContainer;
     await this.fetchShoes();

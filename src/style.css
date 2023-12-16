@@ -285,7 +285,6 @@ progress[value]::-moz-progress-bar {
   letter-spacing: 0;
   line-height: normal;
   margin: 0;
-  padding-top: 50px;
 }
 
 @media (max-width: 950px) {

@@ -283,6 +283,77 @@ progress[value]::-moz-progress-bar {
   margin: 0;
 }
 
+.login-container {
+  background-color: #242424;
+  width: 100vw;
+  height: 100vh;
+}
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.login-container__title {
+  color: #fff;
+  text-align: center;
+  margin-top: 0;
+  padding-top: 2em;
+  font-family: "cooper-black-std", serif;
+  font-weight: 400;
+  font-size: 36px;
+  margin-bottom: 50px;
+}
+.login-form__label {
+  font-family: "basic-sans", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  color: white;
+  display: block;
+  margin: auto;
+}
+
+.login-form__button {
+  color: var(--color-accent);
+  background-color: #000;
+  width: 60%;
+  max-width: 300px;
+  height: 68px;
+  font-family: "cooper-black-std", serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  display: block;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 80px;
+}
+
+.login-form__input {
+  border: 2px solid white;
+  background-color: #242424;
+  color: white;
+  width: 60%;
+  max-width: 300px;
+  height: 30px;
+  font-family: "cooper-black-std", serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  display: block;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+
+.login-form__input:focus {
+  outline: none;
+  border: 2px solid var(--color-accent);
+}
+
+
 @media (max-width: 950px) {
   .configurator {
     gap: 0px;

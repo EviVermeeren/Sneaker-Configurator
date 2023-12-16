@@ -1,9 +1,10 @@
 <template>
   <div class="shoe-configurator">
-    <div class="loading-placeholder loading-placeholder--big" ref="loadingPlaceholder1">
-      <p class="loading-placeholder__message">
-        Loading...
-      </p>
+    <div
+      class="loading-placeholder loading-placeholder--big"
+      ref="loadingPlaceholder1"
+    >
+      <p class="loading-placeholder__message">Loading...</p>
     </div>
     <div class="canvas-container" ref="canvasContainer"></div>
     <progress
@@ -867,7 +868,27 @@ export default {
             const newId = responseData.data.shoe._id;
 
             this.sendToSocket(responseData);
-            this.$router.push({ path: "/thankyou", query: { id: newId } });
+            this.$router.push({
+              path: "/thankyou",
+              query: {
+                id: newId,
+                shoeType: responseData.data.shoe.shoeType,
+                shoeSize: responseData.data.shoe.shoeSize,
+                shoeColorSole: responseData.data.shoe.shoeColorSole,
+                shoeColorLaces: responseData.data.shoe.shoeColorLaces,
+                shoeColorPanelDown: responseData.data.shoe.shoeColorPanelDown,
+                shoeColorPanelUp: responseData.data.shoe.shoeColorPanelUp,
+                shoeMaterialPanelDown:
+                  responseData.data.shoe.shoeMaterialPanelDown,
+                shoeMaterialPanelUp: responseData.data.shoe.shoeMaterialPanelUp,
+                jewel: responseData.data.shoe.jewel,
+                initials: responseData.data.shoe.initials,
+                status: responseData.data.shoe.status,
+                userName: responseData.data.shoe.userName,
+                userAddress: responseData.data.shoe.userAddress,
+                userEmail: responseData.data.shoe.userEmail,
+              },
+            });
           } else {
             console.error("Invalid server response format");
           }

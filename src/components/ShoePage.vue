@@ -267,27 +267,6 @@ button {
   color: var(--color-accent);
 }
 
-.loading-placeholder {
-  margin: 0;
-  width: 300px;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.loading-placeholder__message {
-  font-family: "basic-sans", sans-serif;
-  font-weight: 600;
-  color: var(--color-accent);
-  font-size: 24px;
-  letter-spacing: 0;
-  line-height: normal;
-  margin: 0;
-  padding-top: 50px;
-}
-
 @media (max-width: 450px) {
   .models-container__title {
     font-size: 24px;

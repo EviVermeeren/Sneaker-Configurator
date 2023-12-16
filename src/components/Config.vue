@@ -812,6 +812,9 @@ export default {
         if(this.orderClicked === false) {
           this.orderClicked = true;
           this.$refs.doneButton.style.backgroundColor = "#d3d3d3";
+          this.$refs.doneButton.style.cursor = "not-allowed";
+          this.$refs.doneButton.innerHTML = "Loading...";
+          this.$refs.doneButton.style.color = "#242424";
           this.fetchData();
         }
       } else {

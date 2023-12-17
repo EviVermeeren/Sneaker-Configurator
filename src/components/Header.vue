@@ -4,7 +4,7 @@
       <div class="headerMain__logo">
         <img
           class="headerMain__img"
-          src="media/SWEAR_Logo.webp"
+          src="/media/SWEAR_Logo.webp"
           alt="SWEAR-LOGO"
         />
       </div>

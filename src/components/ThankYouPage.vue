@@ -126,6 +126,7 @@ export default {
         soleColorBottom.material.color.set(shoeColorSole);
 
         const textureLoader = new THREE.TextureLoader();
+
         const textureUrl = this.shoe.shoeMaterialPanelUp;
         const texture = textureLoader.load(textureUrl);
 
@@ -136,25 +137,24 @@ export default {
           map: texture,
         });
 
-        const shoeColorPanelDown = this.shoe.shoeColorPanelDown;
+        const shoeColorPanelUp = this.shoe.shoeColorPanelUp;
         const panelDownColor1 = shoe.getObjectByName("outside_1");
         const panelDownColor2 = shoe.getObjectByName("outside_2");
-        panelDownColor1.material.color.set(shoeColorPanelDown);
-        panelDownColor2.material.color.set(shoeColorPanelDown);
+        panelDownColor1.material.color.set(shoeColorPanelUp);
+        panelDownColor2.material.color.set(shoeColorPanelUp);
 
-        const textureLoader2 = new THREE.TextureLoader();
         const textureUrl2 = this.shoe.shoeMaterialPanelDown;
-        const texture2 = textureLoader.load(textureUrl);
+        const texture2 = textureLoader.load(textureUrl2);
 
         const MaterialTop2 = shoe.getObjectByName("inside");
 
         MaterialTop2.material = new THREE.MeshBasicMaterial({
-          map: texture,
+          map: texture2,
         });
 
-        const shoeColorPanelUp = this.shoe.shoeColorPanelUp;
+        const shoeColorPanelDown = this.shoe.shoeColorPanelDown;
         const panelUpColor = shoe.getObjectByName("inside");
-        panelUpColor.material.color.set(shoeColorPanelUp);
+        panelUpColor.material.color.set(shoeColorPanelDown);
       };
 
       let jewelGiraffe;

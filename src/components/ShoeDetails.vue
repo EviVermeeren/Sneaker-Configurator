@@ -390,25 +390,20 @@ export default {
         main.material = main.material.clone();
         main.material.color.set(shoeColorMain);
 
+        const tipHeel = shoe.getObjectByName("heel-tip");
+        tipHeel.material = tipHeel.material.clone();
+        tipHeel.material.color.set(shoeColorSole);
+
         const textureLoader = new THREE.TextureLoader();
         const textureUrl = this.shoe.shoeMaterialPanelUp;
         const texture = textureLoader.load(textureUrl);
 
         const sides = shoe.getObjectByName("sides");
         sides.material = sides.material.clone();
-        sides.material = new THREE.MeshBasicMaterial({
-          map: texture,
-        });
+        sides.material.map = texture;
 
-        const textureLoader2 = new THREE.TextureLoader();
-        const textureUrl2 = this.shoe.shoeMaterialPanelDown;
-        const texture2 = textureLoader2.load(textureUrl2);
+        main.material.map = texture;
 
-        const tip = shoe.getObjectByName("tip-heel");
-        tip.material = tip.material.clone();
-        tip.material = new THREE.MeshBasicMaterial({
-          map: texture2,
-        });
       };
 
       gltfLoader.load("/models/vans-shoe.glb", (gltf) => {

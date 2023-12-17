@@ -54,6 +54,10 @@ export default {
   },
   mounted() {
     const token = localStorage.getItem("token");
+    if (!token) {
+      this.$router.push("/login");
+      return;
+    }
     if (token) {
       this.fetchShoes(token);
     }

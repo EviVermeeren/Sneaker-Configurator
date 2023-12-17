@@ -497,7 +497,8 @@ progress[value]::-moz-progress-bar {
   text-decoration: none;
   color: var(--color-accent);
 }
-.admin-password-change {
+.admin-password-change,
+.admin-logout-button {
   color: var(--color-accent);
   background-color: #000;
   width: 100%;
@@ -660,8 +661,6 @@ progress[value]::-moz-progress-bar {
   margin: 0px;
 }
 
-
-
 /* thankyou page*/
 .thankyou-container {
   height: 50vh;
@@ -706,8 +705,6 @@ progress[value]::-moz-progress-bar {
   line-height: normal;
   white-space: nowrap;
 }
-
-
 
 @media (max-width: 950px) {
   .configurator {
@@ -861,7 +858,8 @@ progress[value]::-moz-progress-bar {
     margin-top: 20px;
     margin-bottom: 10px;
   }
-  .admin-password-change {
+  .admin-password-change,
+  .admin-logout-button {
     width: 80%;
     max-width: 200px;
     height: 40px;
@@ -1004,7 +1002,8 @@ progress[value]::-moz-progress-bar {
   .orders-container {
     margin-left: 30px;
   }
-  .admin-password-change {
+  .admin-password-change,
+  .admin-logout-button {
     max-width: 180px;
     margin-left: 30px;
   }

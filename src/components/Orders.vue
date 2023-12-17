@@ -6,15 +6,27 @@
         >Change password</router-link
       >
     </button>
+    <button @click="logout" class="admin-logout-button">Logout</button>
+
     <h1 class="orders-title">All orders ({{ shoes.length }})</h1>
 
     <div class="orders-container">
-      <div v-for="shoe in shoes" :key="shoe.id" class="orders-container__shoe-item">
+      <div
+        v-for="shoe in shoes"
+        :key="shoe.id"
+        class="orders-container__shoe-item"
+      >
         <div class="orders-container__shoe-info">
           <p id="type" class="shoe-info__type">{{ shoe.shoeType }}</p>
-          <p class="orders-container__shoe-info__status">Status: {{ shoe.status }}</p>
-          <p class="orders-container__shoe-info__size">Size: {{ shoe.shoeSize }}</p>
-          <p class="orders-container__shoe-info__user">User: {{ shoe.userName }}</p>
+          <p class="orders-container__shoe-info__status">
+            Status: {{ shoe.status }}
+          </p>
+          <p class="orders-container__shoe-info__size">
+            Size: {{ shoe.shoeSize }}
+          </p>
+          <p class="orders-container__shoe-info__user">
+            User: {{ shoe.userName }}
+          </p>
         </div>
         <button class="orders-container__view-button">
           <router-link
@@ -49,6 +61,10 @@ export default {
     this.socketConnect();
   },
   methods: {
+    logout() {
+      localStorage.removeItem("token");
+      this.$router.push("/login");
+    },
     async fetchShoes(token) {
       try {
         const response = await fetch(
